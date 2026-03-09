@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio de Mercado - Herramienta Interactiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #080c16;
+            --s1: #0d1321;
+            --s2: #141c2f;
+            --s3: #1a2540;
+            --b: #253660;
+            --b2: #2f4270;
+            --t: #e4eaf6;
+            --m: #7b8db5;
+            --a: #4f8cff;
+            --a2: #7cb3ff;
+            --g: #00d4aa;
+            --g2: #00f5c4;
+            --gold: #ffc857;
+            --red: #ff6b6b;
+            --purple: #a78bfa;
+            --r: 14px;
+            --sidebar: 280px
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--t);
+            min-height: 100vh;
+            display: flex
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: var(--sidebar);
+            background: var(--s1);
+            border-right: 1px solid var(--b);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 50
+        }
+
+        .sidebar-header {
+            padding: 24px 20px;
+            border-bottom: 1px solid var(--b)
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.1rem;
+            font-weight: 800
+        }
+
+        .sidebar-header h1 .hl {
+            background: linear-gradient(135deg, var(--a2), var(--g2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .sidebar-header p {
+            font-size: .7rem;
+            color: var(--m);
+            margin-top: 4px;
+            font-weight: 500
+        }
+
+        .sidebar-steps {
+            flex: 1;
+            padding: 16px 12px;
+            overflow-y: auto
+        }
+
+        .sidebar-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: .3s;
+            margin-bottom: 4px;
+            position: relative
+        }
+
+        .sidebar-step:hover {
+            background: rgba(79, 140, 255, .06)
+        }
+
+        .sidebar-step.active {
+            background: rgba(79, 140, 255, .1)
+        }
+
+        .sidebar-step.done .step-circle {
+            background: var(--g);
+            border-color: var(--g)
+        }
+
+        .sidebar-step.done .step-circle::after {
+            content: '✓';
+            color: #fff;
+            font-size: .65rem;
+            font-weight: 900
+        }
+
+        .step-circle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid var(--b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .7rem;
+            font-weight: 800;
+            color: var(--m);
+            flex-shrink: 0;
+            transition: .3s
+        }
+
+        .sidebar-step.active .step-circle {
+            border-color: var(--a);
+            background: var(--a);
+            color: #fff
+        }
+
+        .step-info {
+            flex: 1;
+            min-width: 0
+        }
+
+        .step-info h3 {
+            font-size: .78rem;
+            font-weight: 600;
+            color: var(--t);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .step-info p {
+            font-size: .65rem;
+            color: var(--m);
+            margin-top: 1px
+        }
+
+        .sidebar-step.active .step-info h3 {
+            color: var(--a2)
+        }
+
+        .sidebar-footer {
+            padding: 16px 20px;
+            border-top: 1px solid var(--b);
+            text-align: center
+        }
+
+        .sidebar-footer .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: .65rem;
+            font-weight: 700;
+            background: rgba(79, 140, 255, .1);
+            color: var(--a2);
+            letter-spacing: .5px
+        }
+
+        .progress-fill {
+            height: 3px;
+            background: linear-gradient(90deg, var(--a), var(--g));
+            border-radius: 4px;
+            transition: width .5s;
+            margin-top: 8px
+        }
+
+        .progress-bg {
+            height: 3px;
+            background: var(--b);
+            border-radius: 4px
+        }
+
+        /* MAIN */
+        .main {
+            margin-left: var(--sidebar);
+            flex: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column
+        }
+
+        .main-header {
+            padding: 20px 32px;
+            border-bottom: 1px solid var(--b);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--s1)
+        }
+
+        .main-header h2 {
+            font-size: 1.3rem;
+            font-weight: 800
+        }
+
+        .main-header h2 .hl {
+            color: var(--g)
+        }
+
+        .main-header .step-badge {
+            font-size: .7rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(79, 140, 255, .12);
+            color: var(--a2);
+            text-transform: uppercase;
+            letter-spacing: 1px
+        }
+
+        .main-body {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto
+        }
+
+        .main-footer {
+            padding: 16px 32px;
+            border-top: 1px solid var(--b);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--s1)
+        }
+
+        /* FORM ELEMENTS */
+        .form-section {
+            margin-bottom: 28px
+        }
+
+        .form-section h3 {
+            font-size: .95rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .form-section h3 .icon {
+            font-size: 1.1rem
+        }
+
+        .form-section .hint {
+            font-size: .78rem;
+            color: var(--m);
+            margin-bottom: 14px;
+            line-height: 1.5
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 14px
+        }
+
+        .form-grid.cols-2 {
+            grid-template-columns: 1fr 1fr
+        }
+
+        .form-grid.cols-3 {
+            grid-template-columns: 1fr 1fr 1fr
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px
+        }
+
+        .form-group label {
+            font-size: .75rem;
+            font-weight: 600;
+            color: var(--m);
+            text-transform: uppercase;
+            letter-spacing: .5px
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 2px solid var(--b);
+            background: var(--s2);
+            color: var(--t);
+            font-family: 'Inter';
+            font-size: .88rem;
+            transition: .3s;
+            outline: none
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--a);
+            box-shadow: 0 0 0 3px rgba(79, 140, 255, .1)
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical
+        }
+
+        .form-group select {
+            cursor: pointer
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--b2)
+        }
+
+        .form-group .unit {
+            font-size: .7rem;
+            color: var(--m);
+            margin-top: 2px
+        }
+
+        /* INFO BOX */
+        .info-box {
+            background: rgba(79, 140, 255, .06);
+            border: 1px solid rgba(79, 140, 255, .15);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: .82rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            color: var(--m)
+        }
+
+        .info-box.green {
+            background: rgba(0, 212, 170, .06);
+            border-color: rgba(0, 212, 170, .15)
+        }
+
+        .info-box.gold {
+            background: rgba(255, 200, 87, .06);
+            border-color: rgba(255, 200, 87, .15)
+        }
+
+        .info-box strong {
+            color: var(--a2)
+        }
+
+        .info-box.green strong {
+            color: var(--g2)
+        }
+
+        .info-box.gold strong {
+            color: var(--gold)
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--s2);
+            border: 1px solid var(--b);
+            border-radius: var(--r);
+            padding: 20px;
+            margin-bottom: 16px
+        }
+
+        .card h4 {
+            font-size: .9rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        /* TAG SELECTOR */
+        .tag-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px
+        }
+
+        .tag {
+            padding: 8px 16px;
+            border-radius: 10px;
+            border: 2px solid var(--b);
+            background: var(--s2);
+            cursor: pointer;
+            font-size: .8rem;
+            font-weight: 500;
+            transition: .3s;
+            color: var(--m)
+        }
+
+        .tag:hover {
+            border-color: var(--a);
+            color: var(--t)
+        }
+
+        .tag.selected {
+            border-color: var(--a);
+            background: rgba(79, 140, 255, .12);
+            color: var(--a2);
+            font-weight: 600
+        }
+
+        /* COMPETITOR TABLE */
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .8rem;
+            margin-top: 10px
+        }
+
+        .comp-table th {
+            background: var(--a);
+            color: #fff;
+            padding: 8px 10px;
+            text-align: center;
+            font-weight: 700;
+            font-size: .7rem;
+            text-transform: uppercase;
+            letter-spacing: .5px
+        }
+
+        .comp-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid var(--b)
+        }
+
+        .comp-table input {
+            width: 100%;
+            padding: 6px 8px;
+            border-radius: 6px;
+            border: 1px solid var(--b);
+            background: var(--s1);
+            color: var(--t);
+            font-family: Inter;
+            font-size: .8rem;
+            text-align: center
+        }
+
+        .comp-table input:focus {
+            border-color: var(--a);
+            outline: none
+        }
+
+        /* RESULT CARDS */
+        .result-card {
+            background: linear-gradient(135deg, var(--s2), var(--s3));
+            border: 1px solid var(--b);
+            border-radius: var(--r);
+            padding: 20px;
+            text-align: center;
+            transition: .3s
+        }
+
+        .result-card:hover {
+            border-color: var(--a);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .2)
+        }
+
+        .result-card .label {
+            font-size: .7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--m)
+        }
+
+        .result-card .value {
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 6px 0
+        }
+
+        .result-card .value.blue {
+            color: var(--a2)
+        }
+
+        .result-card .value.green {
+            color: var(--g2)
+        }
+
+        .result-card .value.gold {
+            color: var(--gold)
+        }
+
+        .result-card .value.red {
+            color: var(--red)
+        }
+
+        .result-card .sub {
+            font-size: .75rem;
+            color: var(--m)
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 10px 24px;
+            border-radius: 12px;
+            border: none;
+            font-family: 'Inter';
+            font-size: .88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .btn:hover {
+            transform: translateY(-2px)
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--a), #3366dd);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(79, 140, 255, .3)
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--g), #00b894);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 212, 170, .3)
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--b);
+            color: var(--t)
+        }
+
+        .btn-outline:hover {
+            border-color: var(--a);
+            background: rgba(79, 140, 255, .05)
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #e6b347);
+            color: #1a1a2e;
+            box-shadow: 0 4px 15px rgba(255, 200, 87, .3)
+        }
+
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: .78rem;
+            border-radius: 8px
+        }
+
+        /* CHANNEL CARDS */
+        .channel-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px
+        }
+
+        .channel-card {
+            background: var(--s2);
+            border: 2px solid var(--b);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: .3s
+        }
+
+        .channel-card:hover {
+            border-color: var(--a)
+        }
+
+        .channel-card.selected {
+            border-color: var(--g);
+            background: rgba(0, 212, 170, .05)
+        }
+
+        .channel-card .ch-icon {
+            font-size: 1.5rem;
+            margin-bottom: 6px
+        }
+
+        .channel-card h4 {
+            font-size: .85rem;
+            font-weight: 700;
+            margin-bottom: 4px
+        }
+
+        .channel-card p {
+            font-size: .72rem;
+            color: var(--m);
+            line-height: 1.4
+        }
+
+        /* REPORT */
+        .report {
+            max-width: 800px;
+            margin: 0 auto
+        }
+
+        .report-section {
+            margin-bottom: 24px;
+            page-break-inside: avoid
+        }
+
+        .report-section h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--a2);
+            margin-bottom: 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--b)
+        }
+
+        .report-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: .85rem;
+            border-bottom: 1px solid rgba(37, 54, 96, .3)
+        }
+
+        .report-row .rl {
+            color: var(--m)
+        }
+
+        .report-row .rv {
+            font-weight: 600;
+            text-align: right
+        }
+
+        /* PRINT */
+        @media print {
+
+            .sidebar,
+            .main-header,
+            .main-footer {
+                display: none !important
+            }
+
+            .main {
+                margin-left: 0 !important
+            }
+
+            .main-body {
+                padding: 20px !important
+            }
+
+            body {
+                background: #fff;
+                color: #333
+            }
+
+            .card,
+            .result-card,
+            .info-box {
+                border: 1px solid #ddd;
+                background: #f9f9f9
+            }
+
+            .report-section h3 {
+                color: #2563eb
+            }
+        }
+
+        /* STEP CONTENT */
+        .step-content {
+            display: none;
+            animation: fadeIn .4s
+        }
+
+        .step-content.active {
+            display: block
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:900px) {
+            .sidebar {
+                display: none
+            }
+
+            .main {
+                margin-left: 0
+            }
+
+            .form-grid.cols-2,
+            .form-grid.cols-3 {
+                grid-template-columns: 1fr
+            }
+
+            .channel-grid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>📊 Estudio de <span class="hl">Mercado</span></h1>
+            <p>Herramienta Interactiva · UNIPAZ</p>
+        </div>
+        <nav class="sidebar-steps" id="sidebarSteps"></nav>
+        <div class="sidebar-footer">
+            <div class="badge">Formulación y Evaluación de Proyectos</div>
+            <div class="progress-bg">
+                <div class="progress-fill" id="progressFill" style="width:0%"></div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+        <header class="main-header">
+            <div><span class="step-badge" id="stepBadge">Paso 1 de 8</span>
+                <h2 id="mainTitle">Definición del <span class="hl">Producto</span></h2>
+            </div>
+        </header>
+
+        <div class="main-body" id="mainBody">
+
+            <!-- STEP 1: PRODUCTO -->
+            <div class="step-content active" id="step1">
+                <div class="info-box">💡 Comienza definiendo claramente <strong>qué vas a ofrecer</strong>. Una buena
+                    definición del producto es la base de todo el estudio de mercado.</div>
+                <div class="form-section">
+                    <h3><span class="icon">📦</span> Información General</h3>
+                    <p class="hint">Describe tu producto o servicio de la forma más clara posible.</p>
+                    <div class="form-grid cols-2">
+                        <div class="form-group"><label>Nombre del producto/servicio</label><input type="text"
+                                id="prodName" placeholder="Ej: Servicio de Delivery de Comida Casera"></div>
+                        <div class="form-group"><label>Tipo</label><select id="prodType">
+                                <option value="">Seleccionar...</option>
+                                <option>Producto tangible</option>
+                                <option>Servicio</option>
+                                <option>Producto digital</option>
+                                <option>Producto + Servicio</option>
+                            </select></div>
+                    </div>
+                    <div class="form-grid" style="margin-top:14px">
+                        <div class="form-group"><label>Descripción detallada</label><textarea id="prodDesc"
+                                placeholder="Describe en detalle qué ofreces, cómo funciona y qué incluye..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h3><span class="icon">⭐</span> Beneficios y Diferenciadores</h3>
+                    <p class="hint">¿Qué hace especial a tu producto? ¿Por qué los clientes lo elegirían?</p>
+                    <div class="form-grid cols-2">
+                        <div class="form-group"><label>Beneficio principal</label><input type="text" id="prodBenefit1"
+                                placeholder="Ej: Ahorro de tiempo para el cliente"></div>
+                        <div class="form-group"><label>Beneficio secundario</label><input type="text" id="prodBenefit2"
+                                placeholder="Ej: Comida más saludable que la competencia"></div>
+                    </div>
+                    <div class="form-grid cols-2" style="margin-top:14px">
+                        <div class="form-group"><label>Diferenciador clave</label><input type="text" id="prodDiff"
+                                placeholder="Ej: Único servicio con menú personalizado diario"></div>
+                        <div class="form-group"><label>Necesidad que satisface</label><input type="text" id="prodNeed"
+                                placeholder="Ej: Alimentación rápida y saludable para trabajadores"></div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h3><span class="icon">🏷️</span> Clasificación del Producto</h3>
+                    <p class="hint">Selecciona todas las categorías que apliquen a tu producto.</p>
+                    <div class="tag-grid" id="prodTags">
+                        <div class="tag" onclick="toggleTag(this)">Consumo masivo</div>
+                        <div class="tag" onclick="toggleTag(this)">Especializado/Nicho</div>
+                        <div class="tag" onclick="toggleTag(this)">Primera necesidad</div>
+                        <div class="tag" onclick="toggleTag(this)">Lujo/Premium</div>
+                        <div class="tag" onclick="toggleTag(this)">B2C (al consumidor)</div>
+                        <div class="tag" onclick="toggleTag(this)">B2B (a empresas)</div>
+                        <div class="tag" onclick="toggleTag(this)">Perecedero</div>
+                        <div class="tag" onclick="toggleTag(this)">Duradero</div>
+                        <div class="tag" onclick="toggleTag(this)">Innovador</div>
+                        <div class="tag" onclick="toggleTag(this)">Tradicional</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: SEGMENTACIÓN -->
+            <div class="step-content" id="step2">
+                <div class="info-box">🎯 La segmentación divide el mercado total en grupos homogéneos. <strong>No puedes
+                        venderle a todos</strong> — define a quién le vas a vender.</div>
+                <div class="form-section">
+                    <h3><span class="icon">🌍</span> Segmentación Geográfica</h3>
+                    <p class="hint">¿Dónde se ubica tu mercado objetivo?</p>
+                    <div class="form-grid cols-2">
+                        <div class="form-group"><label>Ciudad/Municipio principal</label><input type="text" id="segCity"
+                                placeholder="Ej: Barrancabermeja"></div>
+                        <div class="form-group"><label>Zona específica / Barrios</label><input type="text" id="segZone"
+                                placeholder="Ej: Zona comercial del centro, sector industrial"></div>
+                        <div class="form-group"><label>Municipios adicionales de cobertura</label><input type="text"
+                                id="segExtra" placeholder="Ej: Puerto Wilches, San Vicente de Chucurí"></div>
+                        <div class="form-group"><label>Clima / Características geográficas relevantes</label><input
+                                type="text" id="segClimate" placeholder="Ej: Clima cálido tropical, 35°C promedio">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h3><span class="icon">👥</span> Segmentación Demográfica</h3>
+                    <p class="hint">Características medibles de tu público objetivo.</p>
+                    <div class="form-grid cols-3">
+                        <div class="form-group"><label>Rango de edad</label><input type="text" id="segAge"
+                                placeholder="Ej: 25-55 años"></div>
+                        <div class="form-group"><label>Género</label><select id="segGender">
+                                <option value="">Seleccionar...</option>
+                                <option>Ambos</option>
+                                <option>Masculino</option>
+                                <option>Femenino</option>
+                                <option>No aplica</option>
+                            </select></div>
+                        <div class="form-group"><label>Estrato socioeconómico</label><input type="text" id="segStrato"
+                                placeholder="Ej: Estratos 2, 3 y 4"></div>
+                        <div class="form-group"><label>Nivel de ingresos</label><input type="text" id="segIncome"
+                                placeholder="Ej: 1-4 SMMLV"></div>
+                        <div class="form-group"><label>Ocupación</label><input type="text" id="segJob"
+                                placeholder="Ej: Trabajadores, empleados, independientes"></div>
+                        <div class="form-group"><label>Nivel educativo</label><input type="text" id="segEdu"
+                                placeholder="Ej: Bachillerato en adelante"></div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h3><span class="icon">🧠</span> Segmentación Psicográfica y Conductual</h3>
+                    <p class="hint">Estilo de vida, motivaciones y comportamiento de compra.</p>
+                    <div class="form-grid cols-2">
+                        <div class="form-group"><label>Estilo de vida</label><input type="text" id="segLifestyle"
+                                placeholder="Ej: Personas activas con poco tiempo para cocinar"></div>
+                        <div class="form-group"><label>Motivación de compra</label><input type="text" id="segMotivation"
+                                placeholder="Ej: Practicidad, ahorro de tiempo, salud"></div>
+                        <div class="form-group"><label>Frecuencia de compra esperada</label><input type="text"
+                                id="segFrequency" placeholder="Ej: 3-5 veces por semana"></div>
+                        <div class="form-group"><label>Dónde busca información el cliente</label><input type="text"
+                                id="segMedia" placeholder="Ej: Redes sociales, WhatsApp, boca a boca"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: DEMANDA -->
+            <div class="step-content" id="step3">
+                <div class="info-box green">📈 El análisis de demanda cuantifica <strong>cuánto necesita el
+                        mercado</strong>. Usa datos reales para estimar el consumo actual y futuro.</div>
+                <div class="form-section">
+                    <h3><span class="icon">👥</span> Población y Mercado Objetivo</h3>
+                    <p class="hint">Cuantifica el tamaño de tu mercado potencial.</p>
+                    <div class="form-grid cols-3">
+                        <div class="form-group"><label>Población total de la zona</label><input type="number"
+                                id="demPop" placeholder="Ej: 210000">
+                            <div class="unit">habitantes</div>
+                        </div>
+                        <div class="form-group"><label>% del segmento objetivo</label><input type="number"
+                                id="demSegPct" placeholder="Ej: 35" step="0.1">
+                            <div class="unit">porcentaje del total</div>
+                        </div>
+                        <div class="form-group"><label>Mercado potencial</label><input type="text" id="demPotential"
+                                readonly class="computed">
+                            <div class="unit">se calcula automáticamente</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h3><span class="icon">📊</span> Cuantificación de la Demanda</h3>
+                    <p class="hint">Estima el consumo basándote en encuestas o datos secundarios.</p>
+                    <div class="form-grid cols-3">
+                        <div class="form-group"><label>% que compraría tu producto</label><input type="number"
+                                id="demBuyPct" placeholder="Ej: 60" step="0.1">
+                            <div class="unit">% de intención de compra</div>
+                        </div>
+                        <div class="form-group"><label>Consumo promedio por persona</label><input type="number"
+                                id="demConsume" placeholder="Ej: 12000" step="100">
+                            <div class="unit">$ por mes o unidades/mes</div>
+                        </div>
+                        <div class="form-group"><label>Unidad de medida</label><select id="demUnit">
+                                <option>$/mes</option>
+                                <option>unidades/mes</option>
+                                <option>kg/mes</option>
+                                <option>litros/mes</option>
+                                <option>servicios/mes</option>
+                            </select></div>
+                    </div>
+                    <div class="form-grid cols-2" style="margin-top:14px">
+                        <div class="form-group"><label>Demanda mensual estimada</label><input type="text"
+                                id="demMonthly" readonly class="computed">
+                            <div class="unit">se calcula automáticamente</div>
+                        </div>
+                        <div class="form-group"><label>Demanda anual estimada</label><input type="text" id="demYearly"
+                                readonly class="computed">
+                            <div class="unit">se calcula automáticamente</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h3><span class="icon">🔮</span> Proyección de Demanda (5 años)</h3>
+                    <p class="hint">Estima el crecimiento anual esperado de la demanda.</p>
+                    <div class="form-grid cols-2">
+                        <div class="form-group"><label>Tasa de crecimiento anual (%)</label><input type="number"
+                                id="demGrowth" placeholder="Ej: 5" step="0.1">
+                            <div class="unit">% anual estimado</div>
+                        </div>
+                        <div class="form-group"><label>Año base</label><input type="number" id="demBaseYear"
+                                placeholder="Ej: 2026" value="2026"></div>
+                    </div>
+                    <div id="demProjection" style="margin-top:16px"></div>
+                </div>
+            </div>
+
+            <!-- STEP 4: OFERTA -->
+            <div class="step-content" id="step4">
+                <div class="info-box gold">🏪 El análisis de oferta identifica <strong>quién más ofrece lo
+                        mismo</strong> y cuánto pueden cubrir del mercado. Conocer a tu competencia es vital.</div>
+                <div class="form-section">
+                    <h3><span class="icon">🏢</span> Competidores Identificados</h3>
+                    <p class="hint">Lista tus principales competidores directos. Agrega o quita filas según necesites.
+                    </p>
+                    <div style="display:flex;gap:8px;margin-bottom:10px">
+                        <button class="btn btn-sm btn-outline" onclick="addComp()">+ Agregar competidor</button>
+                        <button class="btn btn-sm btn-outline" onclick="removeComp()">− Quitar último</button>
+                    </div>
+                    <div style="overflow-x:auto">
+                        <table class="comp-table" id="compTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Producto/Servicio</th>
+                                    <th>Precio Promedio</th>
+                                    <th>Capacidad Mensual</th>
+                                    <th>Fortaleza</th>
+                                    <th>Debilidad</th>
+                                </tr>
+                            </thead>
+                            <tbody id="compBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h3><span class="icon">📊</span> Oferta Total del Mercado</h3>
+                    <p class="hint">Suma de la capacidad productiva de todos los competidores.</p>
+                    <div class="form-grid cols-3">
+                        <div class="form-group"><label>Oferta mensual total estimada</label><input type="number"
+                                id="offerMonthly" placeholder="Se puede calcular o ingresar">
+                            <div class="unit">misma unidad que la demanda</div>
+                        </div>
+                        <div class="form-group"><label>Oferta anual total estimada</label><input type="text"
+                                id="offerYearly" readonly class="computed"></div>
+                        <div class="form-group"><label>Tendencia de la oferta</label><select id="offerTrend">
+                                <option value="">Seleccionar...</option>
+                                <option>Creciente</option>
+                                <option>Estable</option>
+                                <option>Decreciente</option>
+                            </select></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 5: DEMANDA INSATISFECHA -->
+            <div class="step-content" id="step5">
+                <div class="info-box green">🎯 La demanda insatisfecha es la <strong>oportunidad real de
+                        mercado</strong>: la diferencia entre lo que el mercado necesita y lo que la competencia
+                    actualmente cubre.</div>
+                <div id="gapResults"></div>
+                <div class="form-section">
+                    <h3><span class="icon">🎯</span> Tu Participación de Mercado</h3>
+                    <p class="hint">¿Qué porcentaje de la demanda insatisfecha planeas capturar?</p>
+                    <div class="form-grid cols-3">
+                        <div class="form-group"><label>% de participación objetivo</label><input type="number"
+                                id="gapShare" placeholder="Ej: 30" step="1" value="30">
+                            <div class="unit">% de la demanda insatisfecha</div>
+                        </div>
+                        <div class="form-group"><label>Ventas mensuales objetivo</label><input type="text"
+                                id="gapTargetM" readonly class="computed"></div>
+                        <div class="form-group"><label>Ventas anuales objetivo</label><input type="text" id="gapTargetY"
+                                readonly class="computed"></div>
+                    </div>
+                </div>
+                <div id="gapProjection" style="margin-top:16px"></div>
+            </div>
+
+            <!-- STEP 6: PRECIOS -->
+            <div class="step-content" id="step6">
+                <div class="info-box gold">💰 La estrategia de precios debe equilibrar <strong>costos, competencia y
+                        valor percibido</strong>. Un precio correcto maximiza ingresos sin perder clientes.</div>
+                <div class="form-section">
+                    <h3><span class="icon">🧮</span> Análisis de Costos</h3>
+                    <p class="hint">Calcula el costo total por unidad de tu producto o servicio.</p>
+                    <div class="form-grid cols-3">
+                        <div class="form-group"><label>Costo de materia prima / insumos</label><input type="number"
+                                id="priceCostMP" placeholder="0" step="100">
+                            <div class="unit">$ por unidad</div>
+                        </div>
+                        <div class="form-group"><label>Costo de mano de obra</label><input type="number"
+                                id="priceCostMO" placeholder="0" step="100">
+                            <div class="unit">$ por unidad</div>
+                        </div>
+                        <div class="form-group"><label>Costos indirectos (CIF)</label><input type="number"
+                                id="priceCostCIF" placeholder="0" step="100">
+                            <div class="unit">$ por unidad</div>
+                        </div>
+                    </div>
+                    <div class="form-grid cols-2" style="margin-top:14px">
+                        <div class="form-group"><label>Costo total por unidad</label><input type="text"
+                                id="priceCostTotal" readonly class="computed">
+                            <div class="unit">se calcula automáticamente</div>
+                        </div>
+                        <div class="form-group"><label>Margen de ganancia deseado (%)</label><input type="number"
+                                id="priceMargin" placeholder="Ej: 35" step="1" value="35">
+                            <div class="unit">porcentaje sobre el costo</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h3><span class="icon">🏷️</span> Análisis Comparativo de Precios</h3>
+                    <p class="hint">Compara tu precio con el de la competencia.</p>
+                    <div class="form-grid cols-3">
+                        <div class="form-group"><label>Precio promedio competencia</label><input type="number"
+                                id="priceComp" placeholder="0" step="100">
+                            <div class="unit">$ por unidad</div>
+                        </div>
+                        <div class="form-group"><label>Precio sugerido (por costo + margen)</label><input type="text"
+                                id="priceSuggested" readonly class="computed"></div>
+                        <div class="form-group"><label>Precio final definido</label><input type="number" id="priceFinal"
+                                placeholder="Ingresa tu precio final" step="100">
+                            <div class="unit">$ por unidad</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h3><span class="icon">📋</span> Estrategia de Precios</h3>
+                    <p class="hint">Selecciona la estrategia que mejor se ajuste a tu proyecto.</p>
+                    <div class="tag-grid" id="priceTags">
+                        <div class="tag" onclick="toggleTag(this)">Penetración (precio bajo)</div>
+                        <div class="tag" onclick="toggleTag(this)">Competitivo (similar)</div>
+                        <div class="tag" onclick="toggleTag(this)">Premium (precio alto)</div>
+                        <div class="tag" onclick="toggleTag(this)">Descremado (alto inicial)</div>
+                        <div class="tag" onclick="toggleTag(this)">Basado en valor</div>
+                        <div class="tag" onclick="toggleTag(this)">Psicológico ($9.900)</div>
+                    </div>
+                </div>
+                <div id="priceResults" style="margin-top:16px"></div>
+            </div>
+
+            <!-- STEP 7: CANALES -->
+            <div class="step-content" id="step7">
+                <div class="info-box">🚚 Los canales de distribución determinan <strong>cómo llega tu producto al
+                        cliente</strong>. Elige los canales más eficientes para tu tipo de negocio.</div>
+                <div class="form-section">
+                    <h3><span class="icon">🏪</span> Selecciona tus Canales</h3>
+                    <p class="hint">Haz clic en los canales que planeas utilizar.</p>
+                    <div class="channel-grid" id="channelGrid">
+                        <div class="channel-card" onclick="toggleChannel(this)" data-ch="Punto de venta propio">
+                            <div class="ch-icon">🏬</div>
+                            <h4>Punto de Venta Propio</h4>
+                            <p>Local comercial, tienda o showroom propio donde atiendes directamente.</p>
+                        </div>
+                        <div class="channel-card" onclick="toggleChannel(this)" data-ch="Venta directa / Domicilio">
+                            <div class="ch-icon">🚚</div>
+                            <h4>Venta Directa / Domicilio</h4>
+                            <p>Entrega a domicilio, venta puerta a puerta o visitas comerciales a empresas.</p>
+                        </div>
+                        <div class="channel-card" onclick="toggleChannel(this)" data-ch="E-commerce / Tienda online">
+                            <div class="ch-icon">💻</div>
+                            <h4>E-commerce / Tienda Online</h4>
+                            <p>Página web, marketplace (MercadoLibre) o plataforma propia de ventas.</p>
+                        </div>
+                        <div class="channel-card" onclick="toggleChannel(this)"
+                            data-ch="Redes sociales (WhatsApp, Instagram)">
+                            <div class="ch-icon">📱</div>
+                            <h4>Redes Sociales</h4>
+                            <p>WhatsApp Business, Instagram Shopping, Facebook Marketplace, TikTok Shop.</p>
+                        </div>
+                        <div class="channel-card" onclick="toggleChannel(this)"
+                            data-ch="Distribuidores / Intermediarios">
+                            <div class="ch-icon">🤝</div>
+                            <h4>Distribuidores / Intermediarios</h4>
+                            <p>Mayoristas, minoristas o distribuidores que revenden tu producto.</p>
+                        </div>
+                        <div class="channel-card" onclick="toggleChannel(this)"
+                            data-ch="Apps de delivery / Plataformas">
+                            <div class="ch-icon">📲</div>
+                            <h4>Apps / Plataformas Digitales</h4>
+                            <p>Rappi, Domicilios.com, iFood u otras plataformas especializadas.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h3><span class="icon">📝</span> Estrategia de Distribución</h3>
+                    <p class="hint">Describe cómo funcionará la logística de distribución.</p>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Descripción de la estrategia de distribución</label><textarea
+                                id="chStrategy"
+                                placeholder="Describe cómo harás llegar tu producto al cliente: logística, tiempos de entrega, zona de cobertura, alianzas..."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-grid cols-2" style="margin-top:14px">
+                        <div class="form-group"><label>Cobertura geográfica</label><input type="text" id="chCoverage"
+                                placeholder="Ej: Radio de 10 km desde el centro de la ciudad"></div>
+                        <div class="form-group"><label>Tiempo de entrega estimado</label><input type="text" id="chTime"
+                                placeholder="Ej: 30-45 minutos para delivery"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 8: RESUMEN -->
+            <div class="step-content" id="step8">
+                <div class="info-box green" style="text-align:center;font-size:.9rem">📋 <strong>Resumen Ejecutivo del
+                        Estudio de Mercado</strong> — Revisa toda la información antes de exportar.</div>
+                <div class="report" id="reportContent"></div>
+                <div style="text-align:center;margin-top:24px">
+                    <button class="btn btn-gold" onclick="window.print()" style="font-size:1rem;padding:14px 32px">🖨️
+                        Imprimir / Exportar PDF</button>
+                </div>
+            </div>
+
+        </div><!-- /main-body -->
+
+        <footer class="main-footer">
+            <button class="btn btn-outline" id="btnPrev" onclick="prevStep()">← Anterior</button>
+            <div style="font-size:.8rem;color:var(--m)" id="footerInfo"></div>
+            <button class="btn btn-primary" id="btnNext" onclick="nextStep()">Siguiente →</button>
+        </footer>
+    </div>
+
+    <script>
+        const STEPS = [
+            { id: 'step1', title: 'Definición del <span class="hl">Producto</span>', icon: '📦', name: 'Producto/Servicio', desc: 'Qué ofreces' },
+            { id: 'step2', title: 'Segmentación de <span class="hl">Mercado</span>', icon: '🎯', name: 'Segmentación', desc: 'A quién le vendes' },
+            { id: 'step3', title: 'Análisis de <span class="hl">Demanda</span>', icon: '📈', name: 'Demanda', desc: 'Cuánto necesitan' },
+            { id: 'step4', title: 'Análisis de <span class="hl">Oferta</span>', icon: '🏪', name: 'Oferta', desc: 'Competencia actual' },
+            { id: 'step5', title: 'Demanda <span class="hl">Insatisfecha</span>', icon: '🎯', name: 'Brecha de Mercado', desc: 'Tu oportunidad' },
+            { id: 'step6', title: 'Estrategia de <span class="hl">Precios</span>', icon: '💰', name: 'Precios', desc: 'Cuánto cobrar' },
+            { id: 'step7', title: 'Canales de <span class="hl">Distribución</span>', icon: '🚚', name: 'Distribución', desc: 'Cómo entregas' },
+            { id: 'step8', title: 'Resumen <span class="hl">Ejecutivo</span>', icon: '📋', name: 'Resumen', desc: 'Reporte final' }
+        ];
+
+        let currentStep = 0;
+        let compRows = 3;
+
+        function init() {
+            renderSidebar(); renderComps(); updateUI();
+            document.querySelectorAll('input,select,textarea').forEach(el => el.addEventListener('input', autoCalc));
+        }
+
+        function renderSidebar() {
+            const c = document.getElementById('sidebarSteps'); c.innerHTML = '';
+            STEPS.forEach((s, i) => {
+                c.innerHTML += `<div class="sidebar-step${i === currentStep ? ' active' : ''}" id="ss${i}" onclick="goToStep(${i})">
+<div class="step-circle">${i < currentStep ? '' : i + 1}</div>
+<div class="step-info"><h3>${s.icon} ${s.name}</h3><p>${s.desc}</p></div></div>`;
+            });
+        }
+
+        function updateUI() {
+            document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(STEPS[currentStep].id).classList.add('active');
+            document.getElementById('mainTitle').innerHTML = STEPS[currentStep].title;
+            document.getElementById('stepBadge').textContent = `Paso ${currentStep + 1} de ${STEPS.length}`;
+            document.getElementById('progressFill').style.width = ((currentStep + 1) / STEPS.length * 100) + '%';
+            document.getElementById('footerInfo').textContent = `${Math.round((currentStep + 1) / STEPS.length * 100)}% completado`;
+            document.getElementById('btnPrev').style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+            document.getElementById('btnNext').innerHTML = currentStep === STEPS.length - 1 ? '📋 Ver Resumen' : 'Siguiente →';
+            document.querySelectorAll('.sidebar-step').forEach((el, i) => {
+                el.className = 'sidebar-step';
+                if (i < currentStep) el.classList.add('done');
+                if (i === currentStep) el.classList.add('active');
+            });
+            if (currentStep === 4) calcGap();
+            if (currentStep === 5) calcPrice();
+            if (currentStep === 7) generateReport();
+            autoCalc();
+        }
+
+        function goToStep(n) { currentStep = n; updateUI(); document.querySelector('.main-body').scrollTop = 0 }
+        function nextStep() { if (currentStep < STEPS.length - 1) { currentStep++; updateUI(); document.querySelector('.main-body').scrollTop = 0 } }
+        function prevStep() { if (currentStep > 0) { currentStep--; updateUI(); document.querySelector('.main-body').scrollTop = 0 } }
+
+        function toggleTag(el) { el.classList.toggle('selected') }
+        function toggleChannel(el) { el.classList.toggle('selected') }
+        function getSelectedTags(containerId) { return Array.from(document.querySelectorAll('#' + containerId + ' .tag.selected')).map(t => t.textContent) }
+        function getSelectedChannels() { return Array.from(document.querySelectorAll('#channelGrid .channel-card.selected')).map(c => c.dataset.ch) }
+
+        function val(id) { const el = document.getElementById(id); if (!el) return ''; return el.value }
+        function num(id) { return parseFloat(val(id)) || 0 }
+        function fmt(n) { return n.toLocaleString('es-CO', { maximumFractionDigits: 0 }) }
+
+        /* AUTO CALCULATIONS */
+        function autoCalc() {
+            const pop = num('demPop'), segPct = num('demSegPct');
+            const potential = Math.round(pop * segPct / 100);
+            setVal('demPotential', potential ? fmt(potential) + ' personas' : '');
+            const buyPct = num('demBuyPct'), consume = num('demConsume');
+            const demM = Math.round(potential * buyPct / 100 * consume);
+            const demY = demM * 12;
+            setVal('demMonthly', demM ? '$' + fmt(demM) : '');
+            setVal('demYearly', demY ? '$' + fmt(demY) : '');
+            calcProjection(demY);
+            const offerM = num('offerMonthly');
+            setVal('offerYearly', offerM ? '$' + fmt(offerM * 12) : '');
+            const costMP = num('priceCostMP'), costMO = num('priceCostMO'), costCIF = num('priceCostCIF');
+            const costTotal = costMP + costMO + costCIF;
+            setVal('priceCostTotal', costTotal ? '$' + fmt(costTotal) : '');
+            const margin = num('priceMargin');
+            const suggested = Math.round(costTotal * (1 + margin / 100));
+            setVal('priceSuggested', suggested ? '$' + fmt(suggested) : '');
+            if (currentStep === 4) calcGap();
+            if (currentStep === 5) calcPrice();
+        }
+        function setVal(id, v) { const el = document.getElementById(id); if (el) el.value = v }
+
+        function calcProjection(demY) {
+            const growth = num('demGrowth'), baseYear = num('demBaseYear') || 2026;
+            const c = document.getElementById('demProjection'); if (!c || !demY || !growth) return;
+            let html = '<div class="form-grid" style="grid-template-columns:repeat(5,1fr);gap:10px">';
+            for (let i = 0; i < 5; i++) {
+                const y = baseYear + i; const v = Math.round(demY * Math.pow(1 + growth / 100, i));
+                html += `<div class="result-card"><div class="label">${y}</div><div class="value blue" style="font-size:1.1rem">$${fmt(v)}</div><div class="sub">${i === 0 ? 'Año base' : '+' + (growth * i).toFixed(1) + '%'}</div></div>`;
+            }
+            c.innerHTML = html + '</div>';
+        }
+
+        /* COMPETITORS */
+        function renderComps() {
+            const b = document.getElementById('compBody'); b.innerHTML = '';
+            for (let i = 1; i <= compRows; i++) {
+                b.innerHTML += `<tr>
+<td style="font-weight:700;color:var(--a);width:30px">${i}</td>
+<td><input id="compN${i}" placeholder="Nombre"></td>
+<td><input id="compP${i}" placeholder="Producto"></td>
+<td><input id="compPr${i}" type="number" placeholder="$0"></td>
+<td><input id="compC${i}" type="number" placeholder="0"></td>
+<td><input id="compF${i}" placeholder="Fortaleza"></td>
+<td><input id="compD${i}" placeholder="Debilidad"></td>
+</tr>`;
+            }
+        }
+        function addComp() { compRows++; renderComps() }
+        function removeComp() { if (compRows > 1) { compRows--; renderComps() } }
+
+        /* DEMAND GAP */
+        function calcGap() {
+            const pop = num('demPop'), segPct = num('demSegPct');
+            const potential = Math.round(pop * segPct / 100);
+            const buyPct = num('demBuyPct'), consume = num('demConsume');
+            const demM = Math.round(potential * buyPct / 100 * consume);
+            const demY = demM * 12;
+            const offM = num('offerMonthly'); const offY = offM * 12;
+            const gapM = demM - offM; const gapY = demY - offY;
+            const gapPct = demY > 0 ? ((gapY / demY) * 100) : 0;
+
+            const c = document.getElementById('gapResults');
+            if (c) {
+                c.innerHTML = `
+<div class="form-grid" style="grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:24px">
+<div class="result-card"><div class="label">Demanda Anual</div><div class="value blue" style="font-size:1.4rem">${demY ? '$' + fmt(demY) : '—'}</div><div class="sub">Lo que el mercado necesita</div></div>
+<div class="result-card"><div class="label">Oferta Anual</div><div class="value gold" style="font-size:1.4rem">${offY ? '$' + fmt(offY) : '—'}</div><div class="sub">Lo que la competencia cubre</div></div>
+<div class="result-card" style="border-color:${gapY > 0 ? 'var(--g)' : 'var(--red)'}"><div class="label">Demanda Insatisfecha</div><div class="value ${gapY > 0 ? 'green' : 'red'}" style="font-size:1.4rem">${gapY ? '$' + fmt(gapY) : '—'}</div><div class="sub">${gapY > 0 ? 'Oportunidad de mercado' : 'Mercado saturado'}</div></div>
+<div class="result-card"><div class="label">% Insatisfecho</div><div class="value ${gapPct > 20 ? 'green' : 'gold'}" style="font-size:1.4rem">${gapPct ? gapPct.toFixed(1) + '%' : '—'}</div><div class="sub">del total de demanda</div></div>
+</div>`;
+            }
+
+            const share = num('gapShare');
+            const targetM = Math.round(gapM * share / 100);
+            const targetY = targetM * 12;
+            setVal('gapTargetM', targetM ? '$' + fmt(targetM) : '');
+            setVal('gapTargetY', targetY ? '$' + fmt(targetY) : '');
+        }
+
+        /* PRICING */
+        function calcPrice() {
+            const costTotal = num('priceCostMP') + num('priceCostMO') + num('priceCostCIF');
+            const margin = num('priceMargin');
+            const suggested = Math.round(costTotal * (1 + margin / 100));
+            const comp = num('priceComp');
+            const final = num('priceFinal') || suggested;
+            const marginReal = costTotal > 0 ? ((final - costTotal) / costTotal * 100) : 0;
+            const vsComp = comp > 0 ? ((final - comp) / comp * 100) : 0;
+
+            const c = document.getElementById('priceResults');
+            if (c && costTotal) c.innerHTML = `
+<div class="form-grid" style="grid-template-columns:1fr 1fr 1fr 1fr;gap:14px">
+<div class="result-card"><div class="label">Costo Unitario</div><div class="value gold" style="font-size:1.3rem">$${fmt(costTotal)}</div></div>
+<div class="result-card"><div class="label">Precio Sugerido</div><div class="value blue" style="font-size:1.3rem">$${fmt(suggested)}</div><div class="sub">+${margin}% margen</div></div>
+<div class="result-card"><div class="label">Margen Real</div><div class="value ${marginReal > 20 ? 'green' : 'red'}" style="font-size:1.3rem">${marginReal.toFixed(1)}%</div><div class="sub">sobre precio final</div></div>
+<div class="result-card"><div class="label">vs Competencia</div><div class="value ${vsComp < 0 ? 'green' : vsComp > 10 ? 'red' : 'gold'}" style="font-size:1.3rem">${vsComp >= 0 ? '+' : ''}${vsComp.toFixed(1)}%</div><div class="sub">${vsComp < 0 ? 'Más barato' : 'Más caro'}</div></div>
+</div>`;
+        }
+
+        /* REPORT */
+        function generateReport() {
+            const c = document.getElementById('reportContent');
+            const pop = num('demPop'), segPct = num('demSegPct');
+            const potential = Math.round(pop * segPct / 100);
+            const buyPct = num('demBuyPct'), consume = num('demConsume');
+            const demM = Math.round(potential * buyPct / 100 * consume);
+            const demY = demM * 12;
+            const offM = num('offerMonthly'); const offY = offM * 12;
+            const gapY = demY - offY;
+            const share = num('gapShare');
+            const targetY = Math.round((demM - offM) * share / 100) * 12;
+            const costTotal = num('priceCostMP') + num('priceCostMO') + num('priceCostCIF');
+            const final = num('priceFinal');
+            const channels = getSelectedChannels();
+            const prodTags = getSelectedTags('prodTags');
+            const priceTags = getSelectedTags('priceTags');
+
+            let comps = '';
+            for (let i = 1; i <= compRows; i++) { if (val('compN' + i)) comps += `<div class="report-row"><span class="rl">${val('compN' + i)}</span><span class="rv">$${fmt(num('compPr' + i))} — ${val('compF' + i)}</span></div>`; }
+
+            c.innerHTML = `
+<div class="report-section"><h3>📦 1. Producto / Servicio</h3>
+<div class="report-row"><span class="rl">Nombre</span><span class="rv">${val('prodName') || '—'}</span></div>
+<div class="report-row"><span class="rl">Tipo</span><span class="rv">${val('prodType') || '—'}</span></div>
+<div class="report-row"><span class="rl">Descripción</span><span class="rv" style="max-width:400px;text-align:right">${val('prodDesc') || '—'}</span></div>
+<div class="report-row"><span class="rl">Beneficio principal</span><span class="rv">${val('prodBenefit1') || '—'}</span></div>
+<div class="report-row"><span class="rl">Diferenciador</span><span class="rv">${val('prodDiff') || '—'}</span></div>
+<div class="report-row"><span class="rl">Clasificación</span><span class="rv">${prodTags.join(', ') || '—'}</span></div>
+</div>
+<div class="report-section"><h3>🎯 2. Segmentación de Mercado</h3>
+<div class="report-row"><span class="rl">Ciudad / Zona</span><span class="rv">${val('segCity') || '—'} — ${val('segZone') || ''}</span></div>
+<div class="report-row"><span class="rl">Rango de edad</span><span class="rv">${val('segAge') || '—'}</span></div>
+<div class="report-row"><span class="rl">Género</span><span class="rv">${val('segGender') || '—'}</span></div>
+<div class="report-row"><span class="rl">Estrato</span><span class="rv">${val('segStrato') || '—'}</span></div>
+<div class="report-row"><span class="rl">Ingresos</span><span class="rv">${val('segIncome') || '—'}</span></div>
+<div class="report-row"><span class="rl">Ocupación</span><span class="rv">${val('segJob') || '—'}</span></div>
+<div class="report-row"><span class="rl">Motivación</span><span class="rv">${val('segMotivation') || '—'}</span></div>
+<div class="report-row"><span class="rl">Frecuencia</span><span class="rv">${val('segFrequency') || '—'}</span></div>
+</div>
+<div class="report-section"><h3>📈 3. Análisis de Demanda</h3>
+<div class="report-row"><span class="rl">Población total</span><span class="rv">${pop ? fmt(pop) : ''} habitantes</span></div>
+<div class="report-row"><span class="rl">Segmento objetivo (${segPct}%)</span><span class="rv">${potential ? fmt(potential) : ''} personas</span></div>
+<div class="report-row"><span class="rl">Intención de compra</span><span class="rv">${buyPct}%</span></div>
+<div class="report-row"><span class="rl">Consumo promedio</span><span class="rv">$${fmt(consume)} ${val('demUnit')}</span></div>
+<div class="report-row" style="font-weight:700"><span class="rl">Demanda anual estimada</span><span class="rv" style="color:var(--a2)">$${fmt(demY)}</span></div>
+<div class="report-row"><span class="rl">Tasa de crecimiento</span><span class="rv">${num('demGrowth')}% anual</span></div>
+</div>
+<div class="report-section"><h3>🏪 4. Análisis de Oferta</h3>
+${comps || '<div class="report-row"><span class="rl">Sin competidores registrados</span></div>'}
+<div class="report-row" style="font-weight:700;margin-top:8px"><span class="rl">Oferta anual total</span><span class="rv" style="color:var(--gold)">$${fmt(offY)}</span></div>
+<div class="report-row"><span class="rl">Tendencia</span><span class="rv">${val('offerTrend') || '—'}</span></div>
+</div>
+<div class="report-section"><h3>🎯 5. Demanda Insatisfecha</h3>
+<div class="report-row"><span class="rl">Demanda − Oferta</span><span class="rv" style="color:${gapY > 0 ? 'var(--g2)' : 'var(--red)'}">$${fmt(gapY)}</span></div>
+<div class="report-row"><span class="rl">Participación objetivo</span><span class="rv">${share}%</span></div>
+<div class="report-row" style="font-weight:700"><span class="rl">Ventas anuales objetivo</span><span class="rv" style="color:var(--g2)">$${fmt(targetY)}</span></div>
+</div>
+<div class="report-section"><h3>💰 6. Estrategia de Precios</h3>
+<div class="report-row"><span class="rl">Costo unitario</span><span class="rv">$${fmt(costTotal)}</span></div>
+<div class="report-row"><span class="rl">Precio final</span><span class="rv" style="color:var(--a2)">$${fmt(final)}</span></div>
+<div class="report-row"><span class="rl">Margen</span><span class="rv">${costTotal > 0 ? ((final - costTotal) / costTotal * 100).toFixed(1) : '0'}%</span></div>
+<div class="report-row"><span class="rl">Precio competencia</span><span class="rv">$${fmt(num('priceComp'))}</span></div>
+<div class="report-row"><span class="rl">Estrategia</span><span class="rv">${priceTags.join(', ') || '—'}</span></div>
+</div>
+<div class="report-section"><h3>🚚 7. Canales de Distribución</h3>
+${channels.map(ch => `<div class="report-row"><span class="rl">✓</span><span class="rv">${ch}</span></div>`).join('') || '<div class="report-row"><span class="rl">Sin canales seleccionados</span></div>'}
+<div class="report-row" style="margin-top:8px"><span class="rl">Estrategia</span><span class="rv" style="max-width:400px;text-align:right">${val('chStrategy') || '—'}</span></div>
+<div class="report-row"><span class="rl">Cobertura</span><span class="rv">${val('chCoverage') || '—'}</span></div>
+</div>`;
+        }
+
+        /* KEYBOARD NAV */
+        document.addEventListener('keydown', e => { if (e.key === 'ArrowRight' && e.altKey) nextStep(); if (e.key === 'ArrowLeft' && e.altKey) prevStep() });
+
+        init();
+    </script>
+</body>
+
+</html>
