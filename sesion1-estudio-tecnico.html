@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sesión 1 - Introducción al Estudio Técnico | UNIPAZ</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a1a;--s:#12122a;--c:#1a1a3e;--b:#2a2a5e;--t:#e0e0ff;--m:#8888bb;--a:#6c5ce7;--a2:#a29bfe;--g:#00cec9;--ok:#55efc4;--no:#ff7675;--w:#fdcb6e;--o:#e17055}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;overflow:hidden}
+#app{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.slide{max-width:1100px;width:100%;min-height:80vh;background:var(--s);border:1px solid var(--b);border-radius:24px;padding:50px 60px;position:relative;animation:fadeIn .5s;display:flex;flex-direction:column;justify-content:center}
+.slide.scrollable{overflow-y:auto;max-height:95vh;justify-content:flex-start;padding-top:70px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes bounceIn{0%{transform:scale(0)}50%{transform:scale(1.1)}100%{transform:scale(1)}}
+@keyframes wrongShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.topbar{position:absolute;top:20px;left:30px;right:30px;display:flex;justify-content:space-between;align-items:center;z-index:10}
+.badge{padding:6px 16px;border-radius:20px;font-size:.7rem;font-weight:700;background:rgba(108,92,231,.2);color:var(--a2);letter-spacing:1px;text-transform:uppercase}
+.counter{font-size:.8rem;color:var(--m)}
+.pbar-top{position:absolute;top:0;left:0;right:0;height:4px;background:var(--c);border-radius:24px 24px 0 0;overflow:hidden;z-index:11}
+.pfill-top{height:100%;background:linear-gradient(90deg,var(--a),var(--g));transition:width .5s}
+h1.main{font-size:2.8rem;font-weight:900;line-height:1.2;margin-bottom:16px;background:linear-gradient(135deg,var(--a2),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+h2.section{font-size:1.8rem;font-weight:800;color:var(--a2);margin-bottom:20px}
+p.desc{font-size:1rem;color:var(--m);line-height:1.8;margin-bottom:16px}
+.highlight{background:linear-gradient(135deg,rgba(108,92,231,.15),rgba(0,206,201,.15));border:1px solid var(--b);border-radius:16px;padding:20px 24px;margin:16px 0}
+.highlight strong{color:var(--g)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:16px 0}
+.grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin:16px 0}
+.gcard{background:var(--c);border:1px solid var(--b);border-radius:16px;padding:20px;transition:.3s;cursor:default}
+.gcard:hover{border-color:var(--a);transform:translateY(-4px);box-shadow:0 8px 25px rgba(108,92,231,.2)}
+.gcard .icon{font-size:2rem;margin-bottom:10px}
+.gcard .title{font-size:.95rem;font-weight:700;color:var(--t);margin-bottom:6px}
+.gcard .text{font-size:.8rem;color:var(--m);line-height:1.5}
+.flow{display:flex;align-items:center;justify-content:center;gap:0;margin:20px 0;flex-wrap:wrap}
+.flow-item{background:var(--c);border:2px solid var(--b);border-radius:14px;padding:14px 18px;text-align:center;min-width:120px;transition:.3s}
+.flow-item:hover{border-color:var(--g);transform:scale(1.05)}
+.flow-item .fi-icon{font-size:1.5rem;margin-bottom:6px}
+.flow-item .fi-text{font-size:.75rem;font-weight:700;color:var(--t)}
+.flow-arrow{font-size:1.5rem;color:var(--a2);margin:0 4px}
+.list-item{display:flex;gap:14px;align-items:flex-start;padding:12px 16px;background:var(--c);border-radius:12px;margin:8px 0;border-left:3px solid var(--a);animation:slideRight .4s both}
+.list-item .li-num{min-width:32px;height:32px;border-radius:10px;background:var(--a);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;color:#fff;flex-shrink:0}
+.list-item .li-content{flex:1}
+.list-item .li-title{font-weight:700;font-size:.9rem;margin-bottom:4px}
+.list-item .li-desc{font-size:.8rem;color:var(--m);line-height:1.5}
+.nav{position:absolute;bottom:24px;left:30px;right:30px;display:flex;justify-content:space-between;align-items:center}
+.btn{padding:12px 28px;border-radius:14px;border:none;font-family:'Inter';font-size:.9rem;font-weight:700;cursor:pointer;transition:.3s}
+.btn-primary{background:linear-gradient(135deg,var(--a),var(--g));color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(108,92,231,.4)}
+.btn-ghost{background:transparent;border:2px solid var(--b);color:var(--m)}
+.btn-ghost:hover{border-color:var(--a);color:var(--t)}
+.game-area{background:var(--c);border:2px solid var(--b);border-radius:20px;padding:30px;margin:16px 0}
+.game-title{font-size:1.1rem;font-weight:800;color:var(--w);margin-bottom:16px;text-align:center}
+.opt{padding:14px 18px;border-radius:14px;border:2px solid var(--b);background:rgba(26,26,62,.8);cursor:pointer;transition:.3s;font-size:.88rem;line-height:1.5;display:flex;gap:12px;align-items:center;margin:8px 0}
+.opt:hover:not(.disabled){border-color:var(--a);background:rgba(108,92,231,.1)}
+.opt.correct{border-color:var(--ok);background:rgba(85,239,196,.1)}
+.opt.wrong{border-color:var(--no);background:rgba(255,118,117,.1)}
+.opt.disabled{cursor:default;opacity:.7}
+.opt-letter{min-width:30px;height:30px;border-radius:8px;background:var(--b);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;flex-shrink:0}
+.feedback{margin-top:14px;padding:14px;border-radius:12px;font-size:.85rem;line-height:1.6;animation:fadeIn .3s}
+.feedback.ok{background:rgba(85,239,196,.08);border:1px solid rgba(85,239,196,.2);color:var(--ok)}
+.feedback.bad{background:rgba(255,118,117,.08);border:1px solid rgba(255,118,117,.2);color:var(--no)}
+.match-col{display:flex;flex-direction:column;gap:8px}
+.match-item{padding:12px 16px;border-radius:12px;border:2px solid var(--b);background:var(--c);cursor:pointer;transition:.3s;font-size:.82rem;text-align:center}
+.match-item:hover{border-color:var(--a)}
+.match-item.selected{border-color:var(--w);background:rgba(253,203,110,.1);box-shadow:0 0 15px rgba(253,203,110,.2)}
+.match-item.matched{border-color:var(--ok);background:rgba(85,239,196,.1);cursor:default}
+.match-item.wrong-flash{animation:wrongShake .5s}
+.score-panel{text-align:center;padding:24px;background:var(--c);border-radius:16px;margin:16px 0}
+.score-big{font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,var(--a2),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:bounceIn .5s}
+.score-label{font-size:1rem;color:var(--m);margin-top:8px}
+.input-field{width:100%;padding:14px 18px;border-radius:14px;border:2px solid var(--b);background:var(--c);color:var(--t);font-family:'Inter';font-size:1rem;outline:none;transition:.3s;margin:8px 0}
+.input-field:focus{border-color:var(--a);box-shadow:0 0 20px rgba(108,92,231,.2)}
+.input-field::placeholder{color:var(--m)}
+.status-msg{text-align:center;padding:10px;font-size:.85rem;color:var(--m);margin-top:12px}
+.tf-btn{padding:16px 32px;border-radius:14px;border:2px solid var(--b);background:var(--c);cursor:pointer;font-family:'Inter';font-size:1rem;font-weight:700;transition:.3s;color:var(--t);flex:1;text-align:center}
+.tf-btn:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(108,92,231,.3)}
+.tf-btn.sel-true{border-color:var(--ok);background:rgba(85,239,196,.15);color:var(--ok)}
+.tf-btn.sel-false{border-color:var(--no);background:rgba(255,118,117,.15);color:var(--no)}
+.drag-label{font-size:.8rem;color:var(--m);margin-bottom:6px;font-weight:600}
+.r-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:.85rem}
+.r-item.ok{background:rgba(85,239,196,.08)}
+.r-item.bad{background:rgba(255,118,117,.08)}
+.timer-bar{height:6px;background:var(--c);border-radius:6px;margin:12px 0;overflow:hidden}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--ok),var(--w),var(--no));transition:width .1s linear}
+@media(max-width:768px){
+.slide{padding:30px 24px;min-height:auto}
+h1.main{font-size:1.8rem}
+h2.section{font-size:1.3rem}
+.grid2,.grid3,.grid4{grid-template-columns:1fr}
+.flow{flex-direction:column}
+.flow-arrow{transform:rotate(90deg)}
+.nav{position:relative;margin-top:20px}
+}</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const SHEET_URL='https://script.google.com/macros/s/AKfycbzR8tdOKuBLuVxvcXhfPqTGDzDkJfmPh6mkOTLsPXPqEQtAtpTRzX9NqaGqxnL02WSR/exec';
+const SLIDES=[
+{type:'register'},
+{type:'content',badge:'UNIDAD FORMATIVA 2',html:`
+<h1 class="main">Estudio Técnico</h1>
+<p class="desc" style="font-size:1.2rem;text-align:center">Formulación y Evaluación de Proyectos<br><strong style="color:var(--g)">Sesión 1</strong> — Jueves 12 de Marzo de 2026</p>
+<div class="grid4" style="margin-top:30px">
+<div class="gcard" style="text-align:center"><div class="icon">📐</div><div class="title">Tamaño</div><div class="text">Del proyecto</div></div>
+<div class="gcard" style="text-align:center"><div class="icon">📍</div><div class="title">Localización</div><div class="text">Del proyecto</div></div>
+<div class="gcard" style="text-align:center"><div class="icon">⚙️</div><div class="title">Capacidad</div><div class="text">De diseño</div></div>
+<div class="gcard" style="text-align:center"><div class="icon">🏭</div><div class="title">Ingeniería</div><div class="text">Del proyecto</div></div>
+</div>
+<div class="highlight" style="text-align:center;margin-top:20px"><p class="desc" style="margin:0">Hoy exploraremos: <strong>¿Qué es el Estudio Técnico?</strong> y <strong>Factores que determinan el tamaño del proyecto</strong></p></div>
+`},
+{type:'content',badge:'RECAPITULACIÓN',html:`
+<h2 class="section">🔄 ¿Qué estudiamos en la Unidad 1?</h2>
+<p class="desc">Antes de avanzar, recordemos los hallazgos clave del <strong style="color:var(--w)">Estudio de Mercado</strong>:</p>
+<div class="grid2">
+<div class="gcard"><div class="icon">📊</div><div class="title">Lo que descubrimos</div><div class="text">• Definimos el producto o servicio<br>• Analizamos demanda y oferta<br>• Calculamos demanda insatisfecha<br>• Determinamos precios<br>• Diseñamos canales de distribución</div></div>
+<div class="gcard" style="border-color:var(--g)"><div class="icon">🎯</div><div class="title">Lo que nos falta responder</div><div class="text">• ¿CÓMO vamos a producirlo?<br>• ¿DÓNDE se ubicará la planta?<br>• ¿QUÉ TAMAÑO tendrá?<br>• ¿QUÉ EQUIPOS necesitamos?<br>• ¿CUÁNTO podemos producir realmente?</div></div>
+</div>
+<div class="highlight"><p class="desc" style="margin:0">💡 El <strong>Estudio Técnico</strong> toma los resultados del Estudio de Mercado y diseña toda la operación del proyecto.</p></div>
+`},
+{type:'content',badge:'CONCEPTO',html:`
+<h2 class="section">🔬 ¿Qué es el Estudio Técnico?</h2>
+<p class="desc">El estudio técnico busca responder las preguntas fundamentales sobre <strong style="color:var(--g)">CÓMO</strong> producir lo que el estudio de mercado determinó que se puede vender.</p>
+<div class="grid2">
+<div class="gcard"><div class="icon">📊</div><div class="title">Estudio de Mercado</div><div class="text">Responde: <strong style="color:var(--w)">¿QUÉ producir?</strong><br>¿CUÁNTO se puede vender?<br>¿A QUÉ precio?<br>¿A QUIÉN venderle?</div></div>
+<div class="gcard" style="border-color:var(--g)"><div class="icon">🔧</div><div class="title">Estudio Técnico</div><div class="text">Responde: <strong style="color:var(--g)">¿CÓMO producir?</strong><br>¿DÓNDE producir?<br>¿QUÉ TAMAÑO tendrá la planta?<br>¿CON QUÉ recursos contamos?</div></div>
+</div>
+<div class="highlight"><p class="desc" style="margin:0">💡 El estudio técnico es el <strong>puente entre lo que el mercado necesita</strong> y la <strong>materialización del proyecto</strong>. Sin él, solo tenemos buenos deseos.</p></div>
+`},
+{type:'content',badge:'OBJETIVOS',html:`
+<h2 class="section">🎯 Objetivos del Estudio Técnico</h2>
+<p class="desc">Verificar la <strong style="color:var(--g)">posibilidad técnica</strong> de fabricar el producto o prestar el servicio, y determinar el <strong style="color:var(--w)">tamaño, localización, equipos, instalaciones y organización</strong> óptimos.</p>
+<div class="list-item"><div class="li-num">1</div><div class="li-content"><div class="li-title">Determinar el tamaño óptimo</div><div class="li-desc">¿Cuántas unidades producir? ¿Qué capacidad debe tener la planta?</div></div></div>
+<div class="list-item"><div class="li-num">2</div><div class="li-content"><div class="li-title">Definir la localización óptima</div><div class="li-desc">¿Dónde instalar la planta para minimizar costos y maximizar beneficios?</div></div></div>
+<div class="list-item"><div class="li-num">3</div><div class="li-content"><div class="li-title">Determinar la capacidad de diseño</div><div class="li-desc">¿Cuál es la capacidad máxima, instalada y real de producción?</div></div></div>
+<div class="list-item"><div class="li-num">4</div><div class="li-content"><div class="li-title">Diseñar la ingeniería del proyecto</div><div class="li-desc">Proceso productivo, equipos, distribución de planta y organización</div></div></div>
+`},
+{type:'content',badge:'ESTRUCTURA',html:`
+<h2 class="section">🧩 Partes del Estudio Técnico</h2>
+<p class="desc">El estudio técnico se compone de <strong style="color:var(--g)">cuatro grandes bloques</strong> que se analizan secuencialmente:</p>
+<div class="flow">
+<div class="flow-item"><div class="fi-icon">📐</div><div class="fi-text">TAMAÑO<br>del Proyecto</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-item"><div class="fi-icon">📍</div><div class="fi-text">LOCALIZACIÓN<br>del Proyecto</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-item"><div class="fi-icon">⚙️</div><div class="fi-text">CAPACIDAD<br>de Diseño</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-item"><div class="fi-icon">🏭</div><div class="fi-text">INGENIERÍA<br>del Proyecto</div></div>
+</div>
+<div class="highlight"><p class="desc" style="margin:0">⚠️ <strong>Interdependencia:</strong> Cada decisión afecta a las demás. El tamaño depende de la demanda, la localización afecta los costos, y la ingeniería define las inversiones necesarias.</p></div>
+<div class="grid2" style="margin-top:12px">
+<div class="gcard"><div class="icon">⬅️</div><div class="title">Recibe del Est. de Mercado</div><div class="text">Demanda insatisfecha, precios, canales, competencia</div></div>
+<div class="gcard"><div class="icon">➡️</div><div class="title">Entrega al Est. Financiero</div><div class="text">Inversiones, costos operativos, estructura organizacional</div></div>
+</div>
+`},
+{type:'quiz',badge:'🎮 JUEGO 1: QUIZ RÁPIDO',title:'¿Cuánto recuerdas?',questions:[
+{q:'¿Cuál es la pregunta principal que responde el Estudio Técnico?',o:['¿Cuánto dinero necesitamos?','¿Cómo, dónde y con qué producir?','¿A quién le vendemos?','¿Cuál es el precio ideal?'],c:1,f:'El estudio técnico resuelve el CÓMO, DÓNDE y CON QUÉ materializar el proyecto.'},
+{q:'¿Qué estudio debe realizarse ANTES del estudio técnico?',o:['El estudio financiero','El estudio legal','El estudio de mercado','El estudio ambiental'],c:2,f:'El estudio de mercado determina QUÉ y CUÁNTO vender; sin esa info no se puede diseñar la producción.'},
+{q:'¿Cuál NO es un componente del estudio técnico en este curso?',o:['Tamaño del proyecto','Localización del proyecto','Evaluación de la TIR y VPN','Capacidad de diseño'],c:2,f:'TIR y VPN son herramientas del estudio financiero y evaluación económica, no del técnico.'},
+{q:'Si una fábrica determinó que puede vender 10.000 frascos/mes, ¿qué define el estudio técnico?',o:['El precio de cada frasco','Cómo y dónde producir esos 10.000 frascos','A quién venderle los frascos','Si el negocio es rentable'],c:1,f:'El estudio técnico toma la demanda del estudio de mercado y diseña la operación para satisfacerla.'},
+{q:'¿Qué información entrega el estudio técnico al estudio financiero?',o:['Los precios de venta del producto','Las inversiones necesarias y los costos operativos','La demanda insatisfecha del mercado','Los canales de distribución'],c:1,f:'El estudio técnico cuantifica las inversiones en equipos, infraestructura y los costos para operar.'}
+]},
+{type:'content',badge:'☕ RECESO',html:`
+<div style="text-align:center">
+<h2 class="section">☕ Receso — 15 minutos</h2>
+<p class="desc" style="font-size:1.2rem">Tómate un café, estira las piernas.<br>Volvemos para entrar de lleno en el <strong style="color:var(--g)">Tamaño del Proyecto</strong></p>
+<div style="font-size:5rem;margin:30px 0">☕🍪🧃</div>
+<div class="highlight"><p class="desc" style="margin:0;text-align:center"><strong>Pregunta para reflexionar:</strong> Si tuvieras que montar una planta de procesamiento de frutas en Barrancabermeja, ¿qué tamaño le pondrías y por qué?</p></div>
+</div>
+`},
+{type:'content',badge:'TEMA 1: TAMAÑO',html:`
+<h2 class="section">📐 Tamaño del Proyecto</h2>
+<p class="desc">El tamaño de un proyecto se define como su <strong style="color:var(--g)">capacidad de producción</strong> durante un período de tiempo de funcionamiento normal.</p>
+<div class="grid2">
+<div class="gcard"><div class="icon">📦</div><div class="title">¿Qué mide?</div><div class="text">La cantidad de producto o servicio que se puede generar en un tiempo determinado.<br><br><strong style="color:var(--w)">Ejemplos:</strong><br>• Planta de jugos: 500 litros/día<br>• Fábrica de ladrillos: 10.000 und/mes<br>• Procesadora de palma: 2.000 ton/año<br>• Taller mecánico: 15 servicios/día</div></div>
+<div class="gcard"><div class="icon">💡</div><div class="title">¿Por qué importa?</div><div class="text">Un tamaño <strong style="color:var(--no)">muy grande</strong> → capacidad ociosa, costos fijos altos, pérdidas.<br><br>Un tamaño <strong style="color:var(--no)">muy pequeño</strong> → no cubre la demanda, pierde mercado, baja rentabilidad.<br><br>El tamaño <strong style="color:var(--ok)">óptimo</strong> → maximiza la rentabilidad equilibrando inversión y demanda.</div></div>
+</div>
+`},
+{type:'content',badge:'FACTORES DEL TAMAÑO',html:`
+<h2 class="section">🔑 Factores que Determinan el Tamaño</h2>
+<p class="desc">Hay <strong style="color:var(--g)">5 factores principales</strong> que condicionan el tamaño de cualquier proyecto:</p>
+<div class="grid3">
+<div class="gcard" style="border-left:3px solid var(--a)"><div class="icon">📊</div><div class="title">1. La Demanda</div><div class="text">El tamaño propuesto <strong style="color:var(--w)">solo puede ser igual o menor</strong> a la demanda. Es el factor más importante.</div></div>
+<div class="gcard" style="border-left:3px solid var(--g)"><div class="icon">🌾</div><div class="title">2. Los Suministros</div><div class="text">Disponibilidad de materias primas e insumos en cantidad y calidad suficiente.</div></div>
+<div class="gcard" style="border-left:3px solid var(--w)"><div class="icon">🔧</div><div class="title">3. La Tecnología</div><div class="text">Los equipos disponibles definen capacidades mínimas y máximas.</div></div>
+<div class="gcard" style="border-left:3px solid var(--o)"><div class="icon">💰</div><div class="title">4. El Financiamiento</div><div class="text">Los recursos financieros limitan el tamaño máximo alcanzable.</div></div>
+<div class="gcard" style="border-left:3px solid var(--no)"><div class="icon">👥</div><div class="title">5. La Organización</div><div class="text">Personal calificado y estructura administrativa necesaria.</div></div>
+</div>
+`},
+{type:'content',badge:'FACTOR: DEMANDA',html:`
+<h2 class="section">📊 Factor 1: La Demanda</h2>
+<p class="desc">Es el <strong style="color:var(--g)">factor más importante</strong>. El tamaño del proyecto debe ser igual o menor a la demanda insatisfecha calculada en el estudio de mercado.</p>
+<div class="highlight"><p class="desc" style="margin:0;font-size:1.1rem;text-align:center"><strong style="color:var(--w)">Regla de Oro:</strong> Tamaño del proyecto ≤ Demanda Insatisfecha</p></div>
+<div class="grid3">
+<div class="gcard" style="text-align:center"><div class="icon">✅</div><div class="title" style="color:var(--ok)">Ideal</div><div class="text">Demanda insatisfecha <strong>mucho mayor</strong> que el tamaño propuesto → Se recomienda invertir</div></div>
+<div class="gcard" style="text-align:center"><div class="icon">⚠️</div><div class="title" style="color:var(--w)">Riesgoso</div><div class="text">Demanda insatisfecha <strong>apenas igual</strong> al tamaño → Analizar riesgo antes de invertir</div></div>
+<div class="gcard" style="text-align:center"><div class="icon">🚫</div><div class="title" style="color:var(--no)">No viable</div><div class="text">Demanda insatisfecha <strong>menor</strong> que el tamaño mínimo rentable → No invertir</div></div>
+</div>
+<div class="list-item"><div class="li-num">💡</div><div class="li-content"><div class="li-title">Ejemplo: Restaurante en B/bermeja</div><div class="li-desc">Si hay demanda insatisfecha de 200 almuerzos/día, no montes un restaurante para 1.000 almuerzos/día → Tendrías 80% de capacidad ociosa.</div></div></div>
+`},
+{type:'content',badge:'FACTOR: SUMINISTROS',html:`
+<h2 class="section">🌾 Factor 2: Suministros e Insumos</h2>
+<p class="desc">Se refiere a la <strong style="color:var(--g)">disponibilidad de materias primas</strong> en cantidad, calidad y oportunidad suficientes para abastecer la producción.</p>
+<div class="grid2">
+<div class="gcard"><div class="icon">✅</div><div class="title">Preguntas clave</div><div class="text">• ¿Hay suficiente materia prima en la zona?<br>• ¿Es constante o estacional?<br>• ¿Cuál es la calidad disponible?<br>• ¿A qué distancia están los proveedores?<br>• ¿Hay proveedores alternativos?<br>• ¿Cuál es el costo de transporte?</div></div>
+<div class="gcard"><div class="icon">🌴</div><div class="title">Ejemplo: Magdalena Medio</div><div class="text"><strong style="color:var(--ok)">Ventaja:</strong> Una planta de aceite de palma aquí tiene ventaja porque hay <strong>cultivos abundantes</strong> en la zona.<br><br><strong style="color:var(--no)">Riesgo:</strong> Una planta de procesamiento de uvas en Barranca sería inviable: la materia prima viene de muy lejos y encarece los costos.</div></div>
+</div>
+<div class="highlight"><p class="desc" style="margin:0">⚠️ <strong>Si los suministros no son suficientes,</strong> se debe reducir el tamaño del proyecto o buscar fuentes alternativas de abastecimiento.</p></div>
+`},
+{type:'content',badge:'FACTOR: TECNOLOGÍA',html:`
+<h2 class="section">🔧 Factor 3: La Tecnología</h2>
+<p class="desc">Los equipos y maquinaria disponibles en el mercado <strong style="color:var(--g)">imponen restricciones</strong> sobre el tamaño del proyecto porque tienen capacidades fijas.</p>
+<div class="grid2">
+<div class="gcard"><div class="icon">⬇️</div><div class="title">Tamaño mínimo tecnológico</div><div class="text">Los equipos tienen una <strong style="color:var(--w)">capacidad mínima</strong>. Si el equipo más pequeño produce 500 kg/día, pero solo necesitas 100 kg/día, tendrás capacidad ociosa.<br><br><strong style="color:var(--no)">Problema:</strong> El proyecto puede no ser rentable si opera muy por debajo de su capacidad.</div></div>
+<div class="gcard"><div class="icon">⬆️</div><div class="title">Tamaño máximo tecnológico</div><div class="text">Los equipos también tienen un <strong style="color:var(--w)">techo de producción</strong>. Si la demanda es de 10.000 kg pero el equipo máximo produce 5.000 kg, necesitarás más unidades.<br><br><strong style="color:var(--ok)">Solución:</strong> Instalar varias unidades o buscar tecnología de mayor capacidad.</div></div>
+</div>
+<div class="list-item"><div class="li-num">💡</div><div class="li-content"><div class="li-title">Ejemplo: Horno industrial de pan</div><div class="li-desc">El horno más económico hornea mínimo 200 panes/hora. Si tu demanda es de solo 50 panes/hora, el horno está sobredimensionado. Debes buscar un horno más pequeño o aceptar operar al 25% de capacidad.</div></div></div>
+`},
+{type:'content',badge:'FACTORES: FINANCIAMIENTO Y ORGANIZACIÓN',html:`
+<h2 class="section">💰 Factor 4: Financiamiento | 👥 Factor 5: Organización</h2>
+<div class="grid2">
+<div class="gcard" style="border-top:3px solid var(--o)">
+<div class="icon">💰</div><div class="title">Financiamiento</div>
+<div class="text">Si los recursos financieros son <strong>insuficientes</strong>, el proyecto no alcanza su tamaño óptimo.<br><br>
+<strong style="color:var(--w)">Fuentes:</strong><br>• Capital propio de socios<br>• Créditos bancarios<br>• Inversionistas ángeles<br>• Fondos de emprendimiento<br>• Convocatorias del gobierno (Fondo Emprender, INNpulsa)<br><br>
+<strong style="color:var(--no)">Regla:</strong> Un proyecto con tamaño inferior al mínimo rentable NO debe ejecutarse.</div></div>
+<div class="gcard" style="border-top:3px solid var(--no)">
+<div class="icon">👥</div><div class="title">Organización</div>
+<div class="text">Se debe contar con el <strong>personal calificado</strong> para operar el tamaño propuesto.<br><br>
+<strong style="color:var(--w)">Incluye:</strong><br>• Mano de obra técnica y operativa<br>• Profesionales especializados<br>• Estructura administrativa<br>• Capacidad gerencial<br><br>
+<strong style="color:var(--ok)">Ventaja en B/bermeja:</strong> SENA, UNIPAZ y Ecopetrol forman técnicos calificados en la zona.</div></div>
+</div>
+`},
+{type:'tf',badge:'🎮 JUEGO 2: VERDADERO O FALSO',title:'¿Mito o Realidad del Tamaño?',statements:[
+{s:'El tamaño del proyecto siempre debe ser igual a la demanda total del mercado.',a:false,f:'FALSO. Debe ser igual o menor a la DEMANDA INSATISFECHA, no a la demanda total. La oferta existente ya cubre parte de esa demanda.'},
+{s:'Si no hay suficiente materia prima en la zona, se debe reducir el tamaño del proyecto.',a:true,f:'VERDADERO. Los suministros son un factor limitante directo. Sin materia prima suficiente, no se puede producir al tamaño deseado.'},
+{s:'Un proyecto siempre debe usar la tecnología más grande y moderna disponible.',a:false,f:'FALSO. La tecnología debe ser APROPIADA al tamaño del proyecto. Equipos sobredimensionados generan costos innecesarios y capacidad ociosa.'},
+{s:'Si el banco no presta suficiente dinero, una opción es buscar socios inversionistas.',a:true,f:'VERDADERO. El financiamiento puede venir de múltiples fuentes: socios, fondos, convocatorias del gobierno, etc.'},
+{s:'La disponibilidad de personal calificado no afecta el tamaño del proyecto.',a:false,f:'FALSO. Si no hay personal calificado para operar la planta, el tamaño debe ajustarse o se debe invertir en capacitación.'},
+{s:'En Barrancabermeja, una planta de aceite de palma tiene ventaja porque la materia prima está cerca.',a:true,f:'VERDADERO. La cercanía a los cultivos de palma del Magdalena Medio reduce costos de transporte y asegura abastecimiento.'},
+{s:'Es mejor montar un proyecto pequeño aunque la demanda sea grande, por seguridad.',a:false,f:'FALSO. Si el tamaño queda muy por debajo del óptimo, puede no ser rentable. Se busca un equilibrio entre demanda, inversión y riesgo.'},
+{s:'El factor más importante para determinar el tamaño es la demanda.',a:true,f:'VERDADERO. Sin demanda suficiente, ningún otro factor importa. Siempre se empieza analizando el mercado.'}
+]},
+{type:'match',badge:'🎮 JUEGO 3: RELACIONAR',title:'¿Qué factor limita cada situación?',pairs:[
+{left:'Solo hay cosecha de mango 4 meses al año',right:'Suministros',emoji:'🌾'},
+{left:'El banco solo aprueba crédito de $200 millones',right:'Financiamiento',emoji:'💰'},
+{left:'No hay ingenieros de alimentos en la zona',right:'Organización',emoji:'👥'},
+{left:'La máquina más pequeña produce 1.000 und/día',right:'Tecnología',emoji:'🔧'},
+{left:'Solo se pueden vender 500 unidades por mes',right:'Demanda',emoji:'📊'},
+{left:'El proveedor de envases está en Bogotá (lejano)',right:'Suministros',emoji:'🌾'},
+{left:'No hay presupuesto para contratar un gerente',right:'Financiamiento',emoji:'💰'}
+]},
+{type:'content',badge:'BACA URBINA: MARCO TEÓRICO',html:`
+<h2 class="section">📖 Referencia: Baca Urbina Cap. 3</h2>
+<p class="desc">Según Gabriel Baca Urbina en <strong style="color:var(--w)">"Evaluación de Proyectos"</strong>, el estudio técnico se puede dividir en cuatro partes fundamentales:</p>
+<div class="list-item"><div class="li-num">1</div><div class="li-content"><div class="li-title">Determinación del tamaño óptimo de la planta</div><div class="li-desc">Análisis de la capacidad de producción que maximice la rentabilidad, considerando restricciones de demanda, tecnología y financiamiento.</div></div></div>
+<div class="list-item"><div class="li-num">2</div><div class="li-content"><div class="li-title">Determinación de la localización óptima</div><div class="li-desc">Métodos cualitativos (por puntos) y cuantitativos (Vogel, Brown & Gibson) para elegir la mejor ubicación.</div></div></div>
+<div class="list-item"><div class="li-num">3</div><div class="li-content"><div class="li-title">Ingeniería del proyecto</div><div class="li-desc">Proceso de producción, selección de equipos, distribución de planta (layout) y organización humana.</div></div></div>
+<div class="list-item"><div class="li-num">4</div><div class="li-content"><div class="li-title">Análisis organizativo, administrativo y legal</div><div class="li-desc">Estructura organizacional, marco legal y aspectos administrativos necesarios para operar.</div></div></div>
+<div class="highlight"><p class="desc" style="margin:0">📚 <strong>Lectura:</strong> Baca Urbina, Cap. 3, págs. 73-88. Este será nuestro texto guía durante toda la Unidad 2.</p></div>
+`},
+{type:'content',badge:'EJEMPLO NUMÉRICO',html:`
+<h2 class="section">🔢 Ejemplo: ¿Qué tamaño elegir?</h2>
+<p class="desc">Una empresa quiere producir <strong style="color:var(--g)">pulpa de fruta congelada</strong> en Barrancabermeja. Los datos del estudio de mercado son:</p>
+<div class="grid3">
+<div class="gcard" style="text-align:center;border-top:3px solid var(--g)"><div class="icon">📊</div><div class="title">Demanda insatisfecha</div><div class="text" style="font-size:1.2rem;font-weight:800;color:var(--g)">8.000 kg/mes</div></div>
+<div class="gcard" style="text-align:center;border-top:3px solid var(--w)"><div class="icon">🌾</div><div class="title">MP disponible</div><div class="text" style="font-size:1.2rem;font-weight:800;color:var(--w)">12.000 kg/mes</div></div>
+<div class="gcard" style="text-align:center;border-top:3px solid var(--a2)"><div class="icon">💰</div><div class="title">Presupuesto</div><div class="text" style="font-size:1.2rem;font-weight:800;color:var(--a2)">$180 millones</div></div>
+</div>
+<div class="grid2" style="margin-top:12px">
+<div class="gcard"><div class="icon">🔧</div><div class="title">Opciones tecnológicas</div><div class="text">• <strong>Equipo A:</strong> 5.000 kg/mes → $120M<br>• <strong>Equipo B:</strong> 10.000 kg/mes → $200M<br>• <strong>Equipo C:</strong> 15.000 kg/mes → $350M</div></div>
+<div class="gcard" style="border-color:var(--ok)"><div class="icon">✅</div><div class="title">Análisis</div><div class="text">• Demanda limita a <strong>8.000</strong> kg/mes<br>• Suministros permiten hasta <strong>12.000</strong><br>• Presupuesto: solo alcanza Equipo A ($120M)<br>• <strong style="color:var(--ok)">Tamaño óptimo: 5.000 kg/mes (Equipo A)</strong><br>• Cubre 62.5% de demanda → puede crecer</div></div>
+</div>
+`},
+{type:'content',badge:'CASOS REALES: MAGDALENA MEDIO',html:`
+<h2 class="section">🏭 Casos Reales en Nuestra Región</h2>
+<p class="desc">Analicemos cómo los <strong style="color:var(--g)">factores del tamaño</strong> se aplican en empresas reales del Magdalena Medio:</p>
+<div class="grid2">
+<div class="gcard" style="border-left:3px solid var(--ok)"><div class="icon">🌴</div><div class="title" style="color:var(--ok)">Caso exitoso: Extractora de Palma</div><div class="text">• <strong>Tamaño:</strong> 30 ton fruto/hora<br>• <strong>Demanda:</strong> Mercado nacional creciente<br>• <strong>Suministros:</strong> Cultivos abundantes en la zona<br>• <strong>Tecnología:</strong> Equipos colombianos disponibles<br>• <strong>Resultado:</strong> Operan al 85% de capacidad ✅</div></div>
+<div class="gcard" style="border-left:3px solid var(--no)"><div class="icon">🐄</div><div class="title" style="color:var(--no)">Caso fallido: Procesadora de Lácteos</div><div class="text">• <strong>Tamaño:</strong> 20.000 litros/día<br>• <strong>Problema:</strong> Solo conseguían 5.000 L/día de leche<br>• <strong>Factor limitante:</strong> SUMINISTROS insuficientes<br>• <strong>Resultado:</strong> Operaban al 25%, costos altísimos<br>• <strong>Lección:</strong> Verificar MP antes de invertir ❌</div></div>
+</div>
+<div class="highlight"><p class="desc" style="margin:0">💡 <strong>Moraleja:</strong> No basta con tener demanda. Si los suministros, la tecnología o el financiamiento no acompañan, el proyecto fracasa por sobredimensionamiento.</p></div>
+`},
+{type:'content',badge:'ECONOMÍAS DE ESCALA',html:`
+<h2 class="section">📉 Relación Tamaño-Costos: Economías de Escala</h2>
+<p class="desc">A mayor volumen de producción, el <strong style="color:var(--g)">costo unitario tiende a disminuir</strong>. Esto se conoce como economías de escala.</p>
+<div class="grid2">
+<div class="gcard"><div class="icon">📉</div><div class="title">¿Por qué bajan los costos?</div><div class="text">• Los costos fijos (alquiler, salarios admin, seguros) se <strong>reparten entre más unidades</strong><br>• Mayor poder de negociación con proveedores<br>• Mejor aprovechamiento de la capacidad instalada<br>• Eficiencia en el uso de recursos</div></div>
+<div class="gcard"><div class="icon">⚠️</div><div class="title">¿Hay un límite?</div><div class="text">Sí. Después de cierto punto aparecen <strong style="color:var(--no)">deseconomías de escala</strong>:<br>• Complejidad administrativa<br>• Problemas de coordinación<br>• Mayor burocracia<br>• Dificultad para supervisar<br>• Los costos unitarios vuelven a subir</div></div>
+</div>
+<div class="highlight"><p class="desc" style="margin:0">💡 <strong>El tamaño óptimo</strong> se encuentra en el punto donde el costo unitario es mínimo, ANTES de que aparezcan las deseconomías de escala.</p></div>
+`},
+{type:'content',badge:'ERRORES COMUNES',html:`
+<h2 class="section">🚫 Errores Comunes al Definir el Tamaño</h2>
+<p class="desc">Errores frecuentes que cometen los emprendedores al determinar el tamaño de su proyecto:</p>
+<div class="list-item" style="border-left-color:var(--no)"><div class="li-num" style="background:var(--no)">1</div><div class="li-content"><div class="li-title">Sobredimensionar por optimismo</div><div class="li-desc">"Vamos a vender muchísimo" → Montan una planta enorme → Solo usan el 20% → Quiebran por costos fijos altos.</div></div></div>
+<div class="list-item" style="border-left-color:var(--no)"><div class="li-num" style="background:var(--no)">2</div><div class="li-content"><div class="li-title">Subdimensionar por miedo</div><div class="li-desc">"Mejor empezamos chiquito" → No cubren la demanda → Pierden clientes que van a la competencia.</div></div></div>
+<div class="list-item" style="border-left-color:var(--no)"><div class="li-num" style="background:var(--no)">3</div><div class="li-content"><div class="li-title">Ignorar la estacionalidad</div><div class="li-desc">No considerar que la materia prima o la demanda varía según la época del año.</div></div></div>
+<div class="list-item" style="border-left-color:var(--no)"><div class="li-num" style="background:var(--no)">4</div><div class="li-content"><div class="li-title">No considerar el crecimiento</div><div class="li-desc">Dimensionar solo para hoy sin pensar en la demanda futura a 5-10 años.</div></div></div>
+<div class="list-item" style="border-left-color:var(--ok)"><div class="li-num" style="background:var(--ok)">✓</div><div class="li-content"><div class="li-title">Lo correcto</div><div class="li-desc">Analizar TODOS los factores, proyectar a futuro, y elegir un tamaño que permita crecimiento gradual.</div></div></div>
+`},
+{type:'content',badge:'RESUMEN',html:`
+<h2 class="section">📋 Resumen: ¿Cómo decidir el tamaño?</h2>
+<div class="flow" style="flex-wrap:wrap;gap:8px">
+<div class="flow-item" style="border-color:var(--a)"><div class="fi-icon">1️⃣</div><div class="fi-text">Analizar<br>DEMANDA</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-item" style="border-color:var(--g)"><div class="fi-icon">2️⃣</div><div class="fi-text">Verificar<br>SUMINISTROS</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-item" style="border-color:var(--w)"><div class="fi-icon">3️⃣</div><div class="fi-text">Evaluar<br>TECNOLOGÍA</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-item" style="border-color:var(--o)"><div class="fi-icon">4️⃣</div><div class="fi-text">Revisar<br>FINANCIAMIENTO</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-item" style="border-color:var(--no)"><div class="fi-icon">5️⃣</div><div class="fi-text">Confirmar<br>ORGANIZACIÓN</div></div>
+</div>
+<div class="highlight" style="margin-top:20px"><p class="desc" style="margin:0;text-align:center">🎯 <strong>El tamaño óptimo será el mayor que cumpla TODOS los factores simultáneamente</strong></p></div>
+<div class="grid2" style="margin-top:12px">
+<div class="gcard" style="text-align:center;border-color:var(--ok)"><div class="icon">✅</div><div class="title" style="color:var(--ok)">Próxima clase (Lun 16 Mar)</div><div class="text">Métodos matemáticos para calcular el tamaño:<br><strong>Método de Lange y Escalación</strong></div></div>
+<div class="gcard" style="text-align:center;border-color:var(--w)"><div class="icon">📚</div><div class="title" style="color:var(--w)">Lectura recomendada</div><div class="text">Baca Urbina Cap. 3<br>Páginas 73-88</div></div>
+</div>
+`},
+{type:'quiz',badge:'🎮 JUEGO 4: CASO PRÁCTICO',title:'Planta procesadora de Cacao en el Magdalena Medio',context:'Un grupo de emprendedores quiere montar una <strong>planta procesadora de chocolate artesanal</strong> en Barrancabermeja. El estudio de mercado mostró demanda insatisfecha de <strong>3.000 kg/mes</strong>. Tienen acceso a cacao de Landázuri y San Vicente de Chucurí.',questions:[
+{q:'¿Qué tamaño máximo debería considerar esta planta?',o:['10.000 kg/mes para dominar el mercado','3.000 kg/mes o menos, según la demanda insatisfecha','El más grande posible sin importar la demanda','Solo 100 kg/mes para comenzar despacio'],c:1,f:'El tamaño ≤ demanda insatisfecha (3.000 kg/mes). Producir más generaría inventario sin vender.'},
+{q:'El cacao en San Vicente solo se cosecha de octubre a marzo. ¿Qué factor limita?',o:['La demanda','Los suministros (materia prima estacional)','La tecnología','La organización'],c:1,f:'Si la materia prima es estacional, hay que considerar almacenamiento o reducir producción en meses sin cosecha.'},
+{q:'El tostador más económico tiene capacidad de 500 kg/día. ¿Qué factor condiciona?',o:['La demanda','Los suministros','La tecnología (capacidad mínima del equipo)','El financiamiento'],c:2,f:'La tecnología impone un tamaño mínimo. 500 kg/día × 22 días = 11.000 kg/mes, ¡mucho más que los 3.000 de demanda!'},
+{q:'El banco ofrece crédito de $150M pero la planta ideal cuesta $300M. ¿Qué hacer?',o:['Olvidarse del proyecto','Buscar más fuentes: inversionistas, fondos, aportes de socios','Abrir sin equipos completos','Pedir más sin justificación'],c:1,f:'Diversificar fuentes de financiamiento: socios, Fondo Emprender, INNpulsa, convocatorias del gobierno.'},
+{q:'No hay técnicos en procesamiento de cacao en B/bermeja. ¿Solución óptima?',o:['Operar sin personal calificado','Capacitar personal con SENA o traer técnicos de zonas cacaoteras','Cancelar el proyecto','Automatizar todo sin personal'],c:1,f:'Capacitación con SENA o alianzas con municipios cacaoteros resuelve la brecha de talento humano.'},
+{q:'Si la demanda crece 10% anual, ¿cómo dimensionarías la planta?',o:['Solo para la demanda actual de 3.000 kg/mes','Con capacidad para 5.000 kg/mes pensando en el crecimiento a 5 años','Para 50.000 kg/mes por si el negocio explota','No importa el crecimiento futuro'],c:1,f:'Proyectar la demanda a futuro permite dimensionar con capacidad de crecimiento gradual sin sobredimensionar.'}
+]},
+{type:'quiz',badge:'🎮 JUEGO 5: CASO SERVICIOS',title:'Taller de Soldadura Industrial en Barrancabermeja',context:'Un ingeniero mecánico quiere abrir un <strong>taller de soldadura especializada (TIG, MIG) y mecanizado</strong> para empresas del sector petrolero y palmero. El estudio de mercado identificó <strong>85 empresas</strong> industriales que requieren estos servicios con frecuencia.',questions:[
+{q:'¿Cómo se mide el "tamaño" de un proyecto de servicios como este taller?',o:['Por el número de empleados','Por la cantidad de servicios que puede realizar al mes (horas-hombre o trabajos/mes)','Por el tamaño del local en m²','Por el número de clientes que tiene en redes sociales'],c:1,f:'En servicios, el tamaño se mide en capacidad de atención: servicios/mes, horas-hombre disponibles, etc.'},
+{q:'Si las 85 empresas demandan en total 400 horas de soldadura al mes, ¿qué capacidad instalar?',o:['1.000 horas/mes para impresionar a los clientes','400 horas/mes o menos según demanda insatisfecha','Solo 50 horas/mes por precaución','Las horas que el dueño quiera trabajar'],c:1,f:'Igual que manufactura: el tamaño ≤ demanda. Considerar que ya hay competidores atendiendo parte de esa demanda.'},
+{q:'¿Cuál sería el factor "suministros" en un taller de soldadura?',o:['Disponibilidad de gas argón, electrodos, acero y consumibles de soldadura','La cantidad de clientes','El precio del alquiler del local','El clima de Barrancabermeja'],c:0,f:'En servicios, los "suministros" son los materiales e insumos necesarios: gases industriales, electrodos, materiales.'},
+{q:'Un equipo de soldadura TIG profesional cuesta $45M y puede atender 200 horas/mes. ¿Cuántos equipos?',o:['5 equipos para tener de sobra','2 equipos: 400 horas de capacidad = la demanda completa','10 equipos por si crecen los clientes','Solo 1 equipo para empezar'],c:1,f:'2 equipos dan exactamente la capacidad necesaria. Se puede arrancar con 1 y crecer al confirmar la demanda.'}
+]},
+{type:'content',badge:'ACTIVIDAD GRUPAL',html:`
+<h2 class="section">👥 Actividad Grupal: Identifica los Factores</h2>
+<p class="desc">En grupos de 3-4 personas, analicen <strong style="color:var(--g)">uno de los siguientes proyectos</strong> y determinen los 5 factores que condicionan su tamaño:</p>
+<div class="grid2">
+<div class="gcard" style="border-color:var(--a)"><div class="icon">🌴</div><div class="title">Grupo A: Planta extractora de aceite de palma</div><div class="text">Ubicación: zona rural del Magdalena Medio<br>Mercado: industria alimentaria nacional</div></div>
+<div class="gcard" style="border-color:var(--g)"><div class="icon">🐟</div><div class="title">Grupo B: Planta de procesamiento de pescado</div><div class="text">Ubicación: ribera del río Magdalena<br>Mercado: Bucaramanga y ciudades cercanas</div></div>
+<div class="gcard" style="border-color:var(--w)"><div class="icon">🧱</div><div class="title">Grupo C: Fábrica de bloques y ladrillos</div><div class="text">Ubicación: zona industrial de B/bermeja<br>Mercado: construcción local y regional</div></div>
+<div class="gcard" style="border-color:var(--o)"><div class="icon">🔧</div><div class="title">Grupo D: Empresa de mantenimiento industrial</div><div class="text">Ubicación: B/bermeja<br>Mercado: sector petrolero y palmero</div></div>
+</div>
+<div class="highlight"><p class="desc" style="margin:0"><strong>Para cada proyecto deben responder:</strong><br>1. ¿Cómo medirían el tamaño? (unidad de medida)<br>2. ¿Cuál es el factor limitante principal?<br>3. ¿Qué información del estudio de mercado necesitan?<br>4. ¿Qué riesgo hay de sobredimensionar o subdimensionar?<br><br>⏱️ <strong>Tiempo: 25 minutos de trabajo + 15 minutos de socialización</strong></p></div>
+`},
+{type:'results'}
+];
+
+let S={slide:0,name:'',score:0,total:0,answers:[],quizState:null,matchState:null,tfState:null};
+
+function render(){
+    const app=document.getElementById('app');
+    const sl=SLIDES[S.slide];
+    const progress=Math.round((S.slide/(SLIDES.length-1))*100);
+    if(sl.type==='register'){
+        app.innerHTML=`<div class="slide" style="text-align:center">
+<div class="pbar-top"><div class="pfill-top" style="width:${progress}%"></div></div>
+<h1 class="main">📐 Estudio Técnico</h1>
+<p class="desc" style="font-size:1.1rem">Sesión 1: Introducción al Estudio Técnico + Factores del Tamaño<br>Formulación y Evaluación de Proyectos — UNIPAZ</p>
+<div style="max-width:400px;margin:20px auto">
+<input class="input-field" id="nameInput" placeholder="🧑‍🎓 Escribe tu nombre completo" onkeypress="if(event.key==='Enter')startPresentation()">
+<button class="btn btn-primary" style="width:100%;margin-top:12px" onclick="startPresentation()">Comenzar presentación →</button>
+</div></div>`;
+        setTimeout(()=>{const i=document.getElementById('nameInput');if(i)i.focus()},100);
+    }
+    else if(sl.type==='content'){
+        app.innerHTML=`<div class="slide">
+<div class="pbar-top"><div class="pfill-top" style="width:${progress}%"></div></div>
+<div class="topbar"><span class="badge">${sl.badge||''}</span><span class="counter">${S.slide}/${SLIDES.length-1} · ${S.name}</span></div>
+${sl.html}
+<div class="nav"><button class="btn btn-ghost" onclick="prev()">← Anterior</button><button class="btn btn-primary" onclick="next()">Siguiente →</button></div></div>`;
+    }
+    else if(sl.type==='quiz') renderQuiz(sl);
+    else if(sl.type==='match') renderMatch(sl);
+    else if(sl.type==='tf') renderTF(sl);
+    else if(sl.type==='results') renderResults();
+    window.scrollTo(0,0);
+}
+
+function renderQuiz(sl){
+    if(!S.quizState||S.quizState.slideIdx!==S.slide)
+        S.quizState={slideIdx:S.slide,qi:0,answered:false,selected:-1,correct:0};
+    const qs=S.quizState, q=sl.questions[qs.qi];
+    const progress=Math.round((S.slide/(SLIDES.length-1))*100);
+    const letters=['A','B','C','D'];
+    const ctx=sl.context&&qs.qi===0?`<div class="highlight"><p class="desc" style="margin:0">${sl.context}</p></div>`:'';
+    let opts=q.o.map((o,i)=>{
+        let c='opt';
+        if(qs.answered){c+=' disabled';if(i===q.c)c+=' correct';else if(i===qs.selected)c+=' wrong';}
+        return `<div class="${c}" onclick="quizAnswer(${i})"><span class="opt-letter">${letters[i]}</span><span>${o}</span></div>`;
+    }).join('');
+    let fb='';
+    if(qs.answered){
+        const ok=qs.selected===q.c;
+        fb=`<div class="feedback ${ok?'ok':'bad'}">${ok?'✅ ¡Correcto! ':'❌ Incorrecto. '}${q.f}</div>
+<button class="btn btn-primary" style="width:100%;margin-top:12px" onclick="quizNext()">${qs.qi<sl.questions.length-1?'Siguiente pregunta →':'Continuar →'}</button>`;
+    }
+    document.getElementById('app').innerHTML=`<div class="slide scrollable">
+<div class="pbar-top"><div class="pfill-top" style="width:${progress}%"></div></div>
+<div class="topbar"><span class="badge">${sl.badge}</span><span class="counter">${S.name} · ${qs.qi+1}/${sl.questions.length}</span></div>
+<div class="game-area"><div class="game-title">🎮 ${sl.title}</div>${ctx}
+<p style="font-size:.75rem;color:var(--a);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:6px">Pregunta ${qs.qi+1} de ${sl.questions.length}</p>
+<p style="font-size:1.05rem;font-weight:600;line-height:1.6;margin-bottom:16px">${q.q}</p>
+<div>${opts}</div>${fb}</div>
+<div class="nav"><button class="btn btn-ghost" onclick="prev()">← Anterior</button><span></span></div></div>`;
+}
+
+function quizAnswer(i){
+    if(S.quizState.answered)return;
+    S.quizState.answered=true;S.quizState.selected=i;
+    const q=SLIDES[S.slide].questions[S.quizState.qi];
+    if(i===q.c){S.quizState.correct++;S.score++;}
+    S.total++;
+    S.answers.push({q:q.q,selected:q.o[i],correct:q.o[q.c],isCorrect:i===q.c,game:SLIDES[S.slide].title});
+    render();
+}
+
+function quizNext(){
+    const sl=SLIDES[S.slide];
+    if(S.quizState.qi<sl.questions.length-1){S.quizState.qi++;S.quizState.answered=false;S.quizState.selected=-1;render();}
+    else next();
+}
+
+function renderTF(sl){
+    if(!S.tfState||S.tfState.slideIdx!==S.slide)
+        S.tfState={slideIdx:S.slide,qi:0,answered:false,selected:null};
+    const ts=S.tfState, st=sl.statements[ts.qi];
+    const progress=Math.round((S.slide/(SLIDES.length-1))*100);
+    let btns='';
+    if(!ts.answered){
+        btns=`<div style="display:flex;gap:16px;margin-top:20px">
+<div class="tf-btn" onclick="tfAnswer(true)" style="border-color:var(--ok)">✅ Verdadero</div>
+<div class="tf-btn" onclick="tfAnswer(false)" style="border-color:var(--no)">❌ Falso</div></div>`;
+    }else{
+        const ok=ts.selected===st.a;
+        btns=`<div style="display:flex;gap:16px;margin-top:16px">
+<div class="tf-btn ${ts.selected===true?(ok?'sel-true':'sel-false'):''}" style="opacity:${ts.selected===true?1:.5}">✅ Verdadero</div>
+<div class="tf-btn ${ts.selected===false?(ok?'sel-true':'sel-false'):''}" style="opacity:${ts.selected===false?1:.5}">❌ Falso</div></div>
+<div class="feedback ${ok?'ok':'bad'}">${ok?'✅ ¡Correcto! ':'❌ Incorrecto. '}${st.f}</div>
+<button class="btn btn-primary" style="width:100%;margin-top:12px" onclick="tfNext()">${ts.qi<sl.statements.length-1?'Siguiente →':'Continuar →'}</button>`;
+    }
+    document.getElementById('app').innerHTML=`<div class="slide scrollable">
+<div class="pbar-top"><div class="pfill-top" style="width:${progress}%"></div></div>
+<div class="topbar"><span class="badge">${sl.badge}</span><span class="counter">${S.name} · ${ts.qi+1}/${sl.statements.length}</span></div>
+<div class="game-area"><div class="game-title">${sl.title}</div>
+<p style="font-size:.75rem;color:var(--a);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:10px">Afirmación ${ts.qi+1} de ${sl.statements.length}</p>
+<p style="font-size:1.15rem;font-weight:700;line-height:1.7;margin-bottom:10px;padding:16px;background:rgba(26,26,62,.5);border-radius:12px;border-left:3px solid var(--w)">"${st.s}"</p>
+${btns}</div>
+<div class="nav"><button class="btn btn-ghost" onclick="prev()">← Anterior</button><span></span></div></div>`;
+}
+
+function tfAnswer(val){
+    if(S.tfState.answered)return;
+    S.tfState.answered=true;S.tfState.selected=val;
+    const st=SLIDES[S.slide].statements[S.tfState.qi];
+    const ok=val===st.a;
+    if(ok)S.score++;
+    S.total++;
+    S.answers.push({q:st.s,selected:val?'Verdadero':'Falso',correct:st.a?'Verdadero':'Falso',isCorrect:ok,game:SLIDES[S.slide].title});
+    render();
+}
+
+function tfNext(){
+    const sl=SLIDES[S.slide];
+    if(S.tfState.qi<sl.statements.length-1){S.tfState.qi++;S.tfState.answered=false;S.tfState.selected=null;render();}
+    else next();
+}
+
+function renderMatch(sl){
+    if(!S.matchState||S.matchState.slideIdx!==S.slide){
+        const sr=[...sl.pairs].sort(()=>Math.random()-0.5);
+        S.matchState={slideIdx:S.slide,selectedLeft:-1,selectedRight:-1,matched:[],wrongPair:null,shuffledRight:sr};
+    }
+    const ms=S.matchState;
+    const progress=Math.round((S.slide/(SLIDES.length-1))*100);
+    const done=ms.matched.length===sl.pairs.length;
+    let lh=sl.pairs.map((p,i)=>{
+        const m=ms.matched.includes(i);let c='match-item';
+        if(m)c+=' matched';else if(ms.selectedLeft===i)c+=' selected';
+        return `<div class="${c}" onclick="matchSel('left',${i})">${m?'✅ ':''}${p.left}</div>`;
+    }).join('');
+    let rh=ms.shuffledRight.map((p,i)=>{
+        const oi=sl.pairs.indexOf(p);const m=ms.matched.includes(oi);let c='match-item';
+        if(m)c+=' matched';else if(ms.selectedRight===i)c+=' selected';
+        if(ms.wrongPair&&ms.wrongPair.right===i)c+=' wrong-flash';
+        return `<div class="${c}" onclick="matchSel('right',${i})">${m?'✅ ':''}${p.emoji} ${p.right}</div>`;
+    }).join('');
+    let st=done?`<div class="feedback ok" style="text-align:center;margin-top:16px">🎉 ¡Todas las parejas correctas!</div>
+<button class="btn btn-primary" style="width:100%;margin-top:12px" onclick="next()">Continuar →</button>`:
+`<p style="text-align:center;font-size:.85rem;color:var(--m);margin-top:12px">Selecciona una de cada columna (${ms.matched.length}/${sl.pairs.length})</p>`;
+    document.getElementById('app').innerHTML=`<div class="slide scrollable">
+<div class="pbar-top"><div class="pfill-top" style="width:${progress}%"></div></div>
+<div class="topbar"><span class="badge">${sl.badge}</span><span class="counter">${S.name} · ${ms.matched.length}/${sl.pairs.length}</span></div>
+<div class="game-area"><div class="game-title">🔗 ${sl.title}</div>
+<div class="grid2"><div class="match-col"><p class="drag-label">📌 Situación</p>${lh}</div>
+<div class="match-col"><p class="drag-label">🏷️ Factor</p>${rh}</div></div>${st}</div>
+<div class="nav"><button class="btn btn-ghost" onclick="prev()">← Anterior</button><span></span></div></div>`;
+}
+
+function matchSel(side,idx){
+    const sl=SLIDES[S.slide],ms=S.matchState;
+    if(side==='left'){if(ms.matched.includes(idx))return;ms.selectedLeft=idx;}
+    else{const oi=sl.pairs.indexOf(ms.shuffledRight[idx]);if(ms.matched.includes(oi))return;ms.selectedRight=idx;}
+    if(ms.selectedLeft>=0&&ms.selectedRight>=0){
+        const roi=sl.pairs.indexOf(ms.shuffledRight[ms.selectedRight]);
+        if(ms.selectedLeft===roi){ms.matched.push(ms.selectedLeft);S.score++;S.total++;
+            S.answers.push({q:sl.pairs[ms.selectedLeft].left,selected:sl.pairs[ms.selectedLeft].right,correct:sl.pairs[ms.selectedLeft].right,isCorrect:true,game:sl.title});
+        }else{ms.wrongPair={left:ms.selectedLeft,right:ms.selectedRight};S.total++;
+            S.answers.push({q:sl.pairs[ms.selectedLeft].left,selected:ms.shuffledRight[ms.selectedRight].right,correct:sl.pairs[ms.selectedLeft].right,isCorrect:false,game:sl.title});
+            setTimeout(()=>{ms.wrongPair=null;render()},600);
+        }
+        ms.selectedLeft=-1;ms.selectedRight=-1;
+    }
+    render();
+}
+
+function renderResults(){
+    const pct=S.total>0?Math.round((S.score/S.total)*100):0;
+    const grade=(pct/100*5).toFixed(1);
+    const msg=pct>=80?'🌟 ¡Excelente trabajo!':pct>=60?'👍 ¡Buen trabajo!':'📚 Debes repasar los temas';
+    let d=S.answers.map((a,i)=>`<div class="r-item ${a.isCorrect?'ok':'bad'}"><span style="font-size:1.1rem">${a.isCorrect?'✅':'❌'}</span><span style="flex:1;font-size:.78rem">${i+1}. ${a.q.substring(0,60)}...</span></div>`).join('');
+    document.getElementById('app').innerHTML=`<div class="slide scrollable">
+<div class="pbar-top"><div class="pfill-top" style="width:100%"></div></div>
+<h2 class="section" style="text-align:center">📊 Resultados Finales — Sesión 1</h2>
+<div class="score-panel"><div class="score-big">${S.score}/${S.total}</div>
+<div class="score-label">${pct}% — Nota: ${grade}/5.0 — ${msg}</div></div>
+<div style="max-height:300px;overflow-y:auto;margin:16px 0">${d}</div>
+<p class="status-msg" id="sendStatus">📤 Enviando resultados a Google Sheets...</p>
+<button class="btn btn-primary" style="width:100%;margin-top:12px" onclick="location.reload()">🔄 Reiniciar</button></div>`;
+    sendResults(pct,grade);
+}
+
+function startPresentation(){
+    const name=document.getElementById('nameInput').value.trim();
+    if(!name){alert('Por favor escribe tu nombre');return;}
+    S.name=name;S.slide=1;render();
+}
+function next(){if(S.slide<SLIDES.length-1){S.slide++;S.quizState=null;S.matchState=null;S.tfState=null;render();}}
+function prev(){if(S.slide>1){S.slide--;S.quizState=null;S.matchState=null;S.tfState=null;render();}}
+
+document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '){const sl=SLIDES[S.slide];if(sl.type==='content')next();}
+    if(e.key==='ArrowLeft')prev();
+});
+
+function sendResults(pct,grade){
+    const payload={
+        actividad:'Sesion1_Estudio_Tecnico_U2',nombre:S.name,
+        puntaje:S.score+'/'+S.total,porcentaje:pct+'%',nota:grade+'/5.0',
+        totalPreguntas:S.total,respuestasCorrectas:S.score,
+        detalle:S.answers.map((a,i)=>({num:i+1,pregunta:a.q.substring(0,80),respuesta:(a.selected+'').substring(0,50),correcto:a.isCorrect?'SI':'NO'})),
+        fecha:new Date().toLocaleString('es-CO',{timeZone:'America/Bogota'})
+    };
+    fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(()=>{const el=document.getElementById('sendStatus');if(el)el.textContent='✅ Resultados guardados exitosamente';})
+    .catch(()=>{const el=document.getElementById('sendStatus');if(el)el.textContent='❌ Error al enviar. Contacta al profesor.';});
+}
+
+render();
+
+</script>
+</body>
+</html>

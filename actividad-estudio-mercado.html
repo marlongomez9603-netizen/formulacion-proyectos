@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio de Mercado - Actividad Interactiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #0a0a1a;
+            --s: #12122a;
+            --c: #1a1a3e;
+            --b: #2a2a5e;
+            --t: #e0e0ff;
+            --m: #8888bb;
+            --a: #6c5ce7;
+            --a2: #a29bfe;
+            --g: #00cec9;
+            --ok: #55efc4;
+            --no: #ff7675;
+            --w: #fdcb6e
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--t);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px
+        }
+
+        #app {
+            max-width: 800px;
+            width: 100%
+        }
+
+        .card {
+            background: var(--s);
+            border: 1px solid var(--b);
+            border-radius: 24px;
+            padding: 40px;
+            animation: fadeIn .5s
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--a2), var(--g));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--a2)
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--m);
+            margin-bottom: 30px;
+            font-size: .95rem;
+            line-height: 1.6
+        }
+
+        .ctx {
+            background: var(--c);
+            border: 1px solid var(--b);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            font-size: .9rem;
+            color: var(--m);
+            line-height: 1.7
+        }
+
+        .ctx strong {
+            color: var(--t)
+        }
+
+        .student-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 24px
+        }
+
+        .student-btn {
+            padding: 24px;
+            border-radius: 16px;
+            border: 2px solid var(--b);
+            background: var(--c);
+            cursor: pointer;
+            transition: .3s;
+            text-align: center
+        }
+
+        .student-btn:hover {
+            border-color: var(--a);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(108, 92, 231, .3)
+        }
+
+        .student-btn .icon {
+            font-size: 2.2rem;
+            margin-bottom: 8px
+        }
+
+        .student-btn .name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--t)
+        }
+
+        .student-btn .desc {
+            font-size: .75rem;
+            color: var(--m);
+            margin-top: 4px
+        }
+
+        .progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px
+        }
+
+        .pbar {
+            flex: 1;
+            height: 8px;
+            background: var(--c);
+            border-radius: 8px;
+            overflow: hidden
+        }
+
+        .pfill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--a), var(--g));
+            border-radius: 8px;
+            transition: width .4s
+        }
+
+        .ptext {
+            font-size: .8rem;
+            color: var(--m);
+            white-space: nowrap
+        }
+
+        .q-number {
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--a);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 20px
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .opt {
+            padding: 16px 20px;
+            border-radius: 14px;
+            border: 2px solid var(--b);
+            background: var(--c);
+            cursor: pointer;
+            transition: .3s;
+            font-size: .9rem;
+            line-height: 1.5;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start
+        }
+
+        .opt:hover:not(.disabled) {
+            border-color: var(--a);
+            background: rgba(108, 92, 231, .1)
+        }
+
+        .opt.correct {
+            border-color: var(--ok);
+            background: rgba(85, 239, 196, .1)
+        }
+
+        .opt.wrong {
+            border-color: var(--no);
+            background: rgba(255, 118, 117, .1)
+        }
+
+        .opt.disabled {
+            cursor: default;
+            opacity: .7
+        }
+
+        .opt-letter {
+            min-width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: .75rem;
+            flex-shrink: 0
+        }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: .88rem;
+            line-height: 1.6;
+            animation: fadeIn .3s
+        }
+
+        .feedback.ok {
+            background: rgba(85, 239, 196, .08);
+            border: 1px solid rgba(85, 239, 196, .2);
+            color: var(--ok)
+        }
+
+        .feedback.bad {
+            background: rgba(255, 118, 117, .08);
+            border: 1px solid rgba(255, 118, 117, .2);
+            color: var(--no)
+        }
+
+        .next-btn {
+            margin-top: 20px;
+            width: 100%;
+            padding: 14px;
+            border-radius: 14px;
+            border: none;
+            background: linear-gradient(135deg, var(--a), var(--g));
+            color: #fff;
+            font-family: 'Inter';
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .3s
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, .4)
+        }
+
+        .result-score {
+            text-align: center;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--a2), var(--g));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0 10px
+        }
+
+        .result-label {
+            text-align: center;
+            color: var(--m);
+            font-size: 1.1rem;
+            margin-bottom: 24px
+        }
+
+        .result-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 24px
+        }
+
+        .r-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: .85rem
+        }
+
+        .r-item.ok {
+            background: rgba(85, 239, 196, .08)
+        }
+
+        .r-item.bad {
+            background: rgba(255, 118, 117, .08)
+        }
+
+        .r-icon {
+            font-size: 1.1rem
+        }
+
+        .attempt-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: .75rem;
+            font-weight: 600;
+            background: rgba(253, 203, 110, .15);
+            color: var(--w);
+            margin-bottom: 16px
+        }
+
+        .sending {
+            text-align: center;
+            padding: 12px;
+            color: var(--m);
+            font-size: .85rem
+        }
+
+        @media(max-width:600px) {
+            .student-grid {
+                grid-template-columns: 1fr
+            }
+
+            .card {
+                padding: 24px 18px
+            }
+
+            h1 {
+                font-size: 1.5rem
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzR8tdOKuBLuVxvcXhfPqTGDzDkJfmPh6mkOTLsPXPqEQtAtpTRzX9NqaGqxnL02WSR/exec';
+        const DATA = {
+            'Juan': {
+                title: 'Taller de Repuestos para Motos', icon: '🏍️',
+                ctx: 'En Barrancabermeja, la moto es el principal medio de transporte. Con más de <strong>45.000 motos registradas</strong>, trabajadores de la refinería, mototaxistas y población general dependen de sus motos diariamente. Quieres abrir un <strong>taller de repuestos y accesorios para motocicletas</strong>.',
+                q: [
+                    { q: 'Para iniciar tu estudio, ¿cómo defines correctamente tu producto/servicio?', o: ['Vender todo tipo de autopartes para carros y motos sin especialización', 'Repuestos, accesorios, lubricantes para motos con servicio de instalación básica', 'Solo vender cascos y guantes de moto', 'Importar motos nuevas desde China'], c: 1, f: 'Debes definir claramente el alcance: repuestos + accesorios + servicio, enfocado exclusivamente en motocicletas.' },
+                    { q: '¿Cuál es la segmentación geográfica adecuada para tu estudio de mercado?', o: ['Todo el departamento de Santander', 'Solo el barrio donde estará la tienda', 'Barrancabermeja y municipios cercanos (San Vicente, Puerto Wilches) con alto uso de moto', 'Las principales ciudades de Colombia'], c: 2, f: 'La zona de influencia debe cubrir donde hay concentración real de tu mercado potencial.' },
+                    { q: '¿Quién es tu público objetivo principal?', o: ['Todos los habitantes sin distinción', 'Propietarios de motos de 18-55 años: trabajadores, mototaxistas y deportistas', 'Solo jóvenes universitarios con motos deportivas', 'Empresas de transporte pesado de carga'], c: 1, f: 'Segmentar por quienes realmente compran repuestos: dueños de motos en edad productiva.' },
+                    { q: '¿Cuál es el método más efectivo para recopilar información primaria?', o: ['Solo buscar datos en internet', 'Encuestas en talleres, parqueaderos y gasolineras frecuentados por motociclistas', 'Preguntar solo a familiares y amigos cercanos', 'Enviar cartas postales a hogares aleatorios'], c: 1, f: 'Hay que ir donde están los clientes: talleres, parqueaderos y puntos donde se concentran motociclistas.' },
+                    { q: '¿Qué pregunta es imprescindible incluir en tu encuesta?', o: ['¿Cuál es su color favorito?', '¿Cuánto gasta mensualmente en repuestos y mantenimiento de su moto?', '¿Prefiere Coca-Cola o Pepsi?', '¿En qué banco tiene su cuenta?'], c: 1, f: 'La pregunta sobre gasto mensual en repuestos te da el dato clave para cuantificar la demanda.' },
+                    { q: 'Con 45.000 motos en Barrancabermeja, ¿cómo determinas el tamaño de tu muestra?', o: ['Encuestar a tus 10 amigos motociclistas', 'Intentar encuestar a los 45.000 propietarios', 'Fórmula estadística con 95% confianza y 5% error: aprox. 381 encuestas', 'Encuestar a 20 personas en la calle'], c: 2, f: 'La fórmula estadística garantiza resultados representativos sin encuestar a toda la población.' },
+                    { q: '¿Cuál fuente secundaria es la más confiable para complementar tu estudio?', o: ['Comentarios y opiniones en redes sociales', 'Registro de motocicletas de la Secretaría de Tránsito y datos del RUNT', 'Opiniones informales de vecinos del barrio', 'Videos de YouTube sobre mecánica de motos'], c: 1, f: 'Fuentes oficiales como Tránsito y RUNT dan datos verificables sobre el parque automotor.' },
+                    { q: '¿Cómo cuantificas la demanda actual de repuestos?', o: ['Adivinando cuánto podrían comprar los clientes', '(Nº motos registradas) × (gasto promedio mensual en repuestos según encuesta)', 'Copiando las ventas estimadas de un competidor', 'Usando datos de otro país como referencia directa'], c: 1, f: 'La demanda se calcula multiplicando la población objetivo por su consumo promedio.' },
+                    { q: '¿Qué método usarías para proyectar la demanda a 5 años?', o: ['Multiplicar la demanda actual por 5 directamente', 'Suponer que la demanda será siempre igual', 'Regresión lineal con datos históricos de registro de motos en la ciudad', 'Pedir una estimación a un conocido del sector'], c: 2, f: 'La regresión lineal usa tendencias históricas reales para proyectar matemáticamente la demanda futura.' },
+                    { q: '¿Quiénes son tus competidores directos en Barrancabermeja?', o: ['Supermercados y tiendas de barrio', 'Concesionarios de automóviles nuevos', 'Talleres mecánicos y almacenes de repuestos de moto existentes en la ciudad', 'Ferreterías y misceláneas del centro'], c: 2, f: 'Competidores directos son quienes venden productos similares al mismo segmento.' },
+                    { q: '¿Qué aspecto de la competencia es más importante analizar?', o: ['El color de la fachada de sus locales', 'Precios, variedad de inventario, ubicación, horarios y calidad del servicio', 'La vida personal de los dueños de los negocios', 'Solo si tienen cuentas en redes sociales'], c: 1, f: 'El análisis competitivo debe enfocarse en factores que impactan la decisión de compra del cliente.' },
+                    { q: '¿Cómo se calcula la demanda insatisfecha?', o: ['Demanda insatisfecha = Oferta − Demanda', 'Demanda insatisfecha = Demanda Proyectada − Oferta Existente', 'Demanda insatisfecha = Precio × Cantidad vendida', 'No se puede calcular, es subjetiva'], c: 1, f: 'La brecha entre lo que el mercado necesita y lo que la competencia actualmente ofrece es tu oportunidad.' },
+                    { q: '¿Qué estrategia de precios es adecuada para entrar al mercado?', o: ['Los precios más altos de la zona para parecer exclusivo', 'Regalar productos para atraer clientes', 'Precios competitivos, ligeramente menores que la competencia, con valor agregado en instalación', 'Poner cualquier precio sin estudiar la competencia'], c: 2, f: 'Entrar con precios competitivos y diferenciarte en servicio es la estrategia más sostenible.' },
+                    { q: '¿Cuál canal de distribución sería el más efectivo?', o: ['Solo ventas por internet con envío internacional', 'Punto de venta en zona de alto tráfico de motociclistas + WhatsApp Business para pedidos', 'Venta puerta a puerta en barrios residenciales', 'Solo por catálogo impreso enviado por correo'], c: 1, f: 'Combinar punto físico estratégico con canal digital (WhatsApp) maximiza el alcance local.' },
+                    { q: '¿Cuál estrategia de promoción sería más efectiva para tu negocio?', o: ['Anuncios en periódicos de circulación nacional', 'Volantes en la puerta de colegios de primaria', 'Convenios con mototaxistas, redes sociales y descuentos de lanzamiento en talleres aliados', 'Esperar a que los clientes lleguen solos'], c: 2, f: 'Llegar directamente a tu público (mototaxistas, talleres) con incentivos genera clientes rápidamente.' }
+                ]
+            },
+            'Sebastián': {
+                title: 'Servicio de Delivery de Comida Casera', icon: '🍔',
+                ctx: 'El calor intenso de Barrancabermeja (<strong>35°C promedio</strong>) hace que trabajadores y familias prefieran pedir comida a domicilio. Sin embargo, las opciones de <strong>delivery de comida casera y saludable</strong> son limitadas. Quieres crear un servicio de preparación y entrega de almuerzos caseros.',
+                q: [
+                    { q: '¿Cómo defines correctamente tu servicio?', o: ['Un restaurante de lujo con meseros y reservaciones', 'Preparación y entrega a domicilio de almuerzos caseros con menú diario variado', 'Una tienda de ingredientes y abarrotes', 'Un food truck ambulante sin ruta fija'], c: 1, f: 'Definir que es delivery (sin local para clientes) de comida casera con menú rotativo diario.' },
+                    { q: '¿Cuál zona geográfica es adecuada para el estudio?', o: ['Todo Colombia como mercado potencial', 'Solo tu cuadra y vecinos inmediatos', 'Zona urbana de Barrancabermeja: sector comercial, industrial y residencial estratos 3-5', 'Solo el sector de la refinería Ecopetrol'], c: 2, f: 'El delivery tiene radio de cobertura local; debes cubrir las zonas con mayor concentración de clientes.' },
+                    { q: '¿Cuál es tu público objetivo?', o: ['Trabajadores de oficina, empleados de empresas y familias que buscan comida casera', 'Solo turistas que visitan la ciudad', 'Niños menores de 5 años exclusivamente', 'Deportistas de élite con dietas especializadas'], c: 0, f: 'Tu mercado son personas que necesitan almuerzo diario práctico y no tienen tiempo de cocinar.' },
+                    { q: '¿Cómo recopilarías información primaria efectivamente?', o: ['Encuestas en empresas, oficinas y conjuntos residenciales en hora de almuerzo', 'Investigar qué comen en otros países', 'Leer reseñas de restaurantes en Google Maps', 'Solo observar qué venden otros restaurantes'], c: 0, f: 'Ir donde están tus clientes potenciales (oficinas, empresas) durante el momento de consumo.' },
+                    { q: '¿Qué pregunta clave incluirías en la encuesta?', o: ['¿Cuál es su signo zodiacal?', '¿Cuántas veces por semana pide comida a domicilio y cuánto paga en promedio?', '¿Tiene mascota en su hogar?', '¿Qué marca de celular utiliza actualmente?'], c: 1, f: 'Frecuencia de pedido y ticket promedio son datos esenciales para cuantificar tu demanda.' },
+                    { q: 'Con 210.000 habitantes, ¿cómo determinas el tamaño de muestra?', o: ['Encuestar solo a 5 amigos y familiares', 'Encuestar a todos los 210.000 habitantes', 'Fórmula estadística: 95% confianza, 5% error → ~384 encuestas en población activa', 'Hacer 15 encuestas rápidas y extrapolar'], c: 2, f: 'La fórmula estadística con nivel de confianza y margen de error da muestras representativas.' },
+                    { q: '¿Cuál fuente secundaria es más útil?', o: ['Blogs de recetas de cocina internacional', 'Datos de apps de delivery en Barrancabermeja y estadísticas de la Cámara de Comercio', 'Enciclopedia de gastronomía colombiana', 'Estadísticas del fútbol colombiano'], c: 1, f: 'Datos de apps de delivery y Cámara de Comercio muestran el comportamiento real del mercado local.' },
+                    { q: '¿Cómo cuantificas la demanda actual?', o: ['Preguntando a un solo restaurante cuánto vende', '(Trabajadores zona urbana) × (frecuencia pedidos/semana) × (ticket promedio de encuesta)', 'Inventando un número que suene convincente', 'Usando datos de delivery en Bogotá como iguales'], c: 1, f: 'Multiplicas la población objetivo por la frecuencia y valor de consumo obtenidos en la encuesta.' },
+                    { q: '¿Cómo proyectarías la demanda futura a 5 años?', o: ['Suponiendo que nunca cambiará la demanda', 'Tasa de crecimiento del sector delivery en Colombia aplicada al mercado local', 'Duplicando el número actual sin justificación', 'Preguntándole a una IA sin verificar datos'], c: 1, f: 'Usar tasas de crecimiento del sector con datos de fuentes confiables para proyectar.' },
+                    { q: '¿Quiénes son tus competidores directos?', o: ['Supermercados como Éxito y Ara', 'Restaurantes con domicilio, vendedoras de almuerzos caseros y apps de delivery en la zona', 'Solo cadenas internacionales de comida rápida', 'Los vendedores ambulantes de empanadas'], c: 1, f: 'Competidores directos son todos los que ofrecen comida a domicilio en tu misma zona.' },
+                    { q: '¿Qué debes evaluar de la competencia?', o: ['Solo el nombre del restaurante y logo', 'Menú, precios, tiempos de entrega, cobertura, calidad percibida y volumen de pedidos', 'Si los dueños son simpáticos o no', 'Solo mirar cuántos seguidores tienen en Instagram'], c: 1, f: 'Un análisis competitivo completo incluye todas las variables que afectan la decisión del cliente.' },
+                    { q: '¿Cómo calculas la demanda insatisfecha?', o: ['Capacidad de entrega de competidores restada al total de demanda estimada de domicilios', 'Sumando oferta más demanda total', 'Dividiendo la población entre el número de restaurantes', 'No es posible calcularla en servicios de comida'], c: 0, f: 'La brecha entre la demanda total y la capacidad actual de los competidores es tu oportunidad.' },
+                    { q: '¿Qué estrategia de precios usarías?', o: ['El almuerzo más barato aunque pierdas dinero', 'Cobrar el triple que cualquier competidor', 'Precio competitivo: menú casero completo similar al restaurante, con entrega incluida', 'Cambiar el precio diariamente según tu humor'], c: 2, f: 'Ofrecer valor (comida casera + delivery incluido) a precio comparable con restaurantes.' },
+                    { q: '¿Cuál es el canal de distribución más adecuado?', o: ['Abrir local con mesas, sillas y meseros', 'Entrega directa con motoristas propios + pedidos por WhatsApp e Instagram', 'Solo venta en plazas de mercado del centro', 'Envío de comida por correo postal certificado'], c: 1, f: 'Delivery propio + canales digitales (WhatsApp/Instagram) es el modelo más eficiente y de menor inversión.' },
+                    { q: '¿Qué promoción sería más efectiva?', o: ['Comercial en canal nacional de televisión', 'Publicidad en emisora de otro departamento', 'Redes sociales locales, degustaciones en empresas y programa de referidos con descuentos', 'Pegar un cartel en la puerta de tu casa'], c: 2, f: 'Marketing hiperlocal: redes enfocadas en la ciudad, degustaciones directas y boca a boca incentivado.' }
+                ]
+            },
+            'Yair': {
+                title: 'Taller de Mantenimiento Industrial', icon: '🔧',
+                ctx: 'La <strong>refinería de Ecopetrol</strong> y las empresas del sector palmero y minero-energético generan alta demanda de mantenimiento industrial en Barrancabermeja. Quieres abrir un <strong>taller de soldadura, mecanizado y mantenimiento de equipos industriales</strong>.',
+                q: [
+                    { q: '¿Cómo defines correctamente tu servicio?', o: ['Reparación de electrodomésticos del hogar', 'Soldadura especializada (TIG, MIG), mecanizado de piezas y mantenimiento preventivo/correctivo industrial', 'Venta de herramientas en una ferretería', 'Fabricación y venta de muebles de madera'], c: 1, f: 'El servicio debe ser claro: soldadura especializada + mecanizado + mantenimiento para la industria.' },
+                    { q: '¿Cuál segmentación geográfica aplica?', o: ['Solo dentro de la planta de Ecopetrol', 'Zona industrial de Barrancabermeja, Yondó, Puerto Wilches y corredor petrolero-palmero', 'Solo Bogotá y Medellín', 'Exclusivamente tu barrio de residencia'], c: 1, f: 'Tu mercado está en toda la zona industrial y petrolera-palmera del Magdalena Medio.' },
+                    { q: '¿Quién es tu cliente objetivo?', o: ['Amas de casa para reparaciones del hogar', 'Empresas petroleras, palmeras, contratistas industriales y talleres metalmecánicos', 'Estudiantes universitarios de primer semestre', 'Turistas que visitan Barrancabermeja'], c: 1, f: 'Clientes B2B: empresas industriales que necesitan mantenimiento especializado de sus equipos.' },
+                    { q: '¿Cuál método de investigación primaria es más adecuado?', o: ['Encuestas masivas en centros comerciales', 'Entrevistas directas con jefes de mantenimiento de empresas y visitas a plantas', 'Encuestas por email a correos aleatorios de internet', 'Focus group con niños de escuela primaria'], c: 1, f: 'En mercados B2B, la entrevista directa con decisores (jefes de mantenimiento) es el método más efectivo.' },
+                    { q: '¿Qué pregunta clave incluirías en tu instrumento de recolección?', o: ['¿Le gusta la música vallenata?', '¿Con qué frecuencia requiere soldadura/mecanizado y cuál es su presupuesto de mantenimiento?', '¿Cuántos empleados tiene en total su empresa?', '¿En qué año exacto se fundó su empresa?'], c: 1, f: 'Frecuencia de necesidad y presupuesto son datos clave para estimar la demanda.' },
+                    { q: 'Con ~85 empresas industriales en la zona, ¿cuál es tu enfoque de muestreo?', o: ['Encuestar solo a Ecopetrol porque es la más grande', 'Al ser universo pequeño (85), hacer censo: entrevistar a todas o la mayoría', 'Solo entrevistar a 3 empresas al azar', 'No es necesario hacer encuestas en el sector industrial'], c: 1, f: 'Con universos pequeños (<100) es mejor hacer un censo que un muestreo.' },
+                    { q: '¿Cuál fuente secundaria es más relevante?', o: ['Estadísticas del DANE sobre producción industrial y registros de Cámara de Comercio local', 'Revistas de moda y entretenimiento', 'Rankings internacionales de universidades', 'Noticias de farándula colombiana'], c: 0, f: 'El DANE y Cámara de Comercio proporcionan datos confiables sobre la actividad industrial de la zona.' },
+                    { q: '¿Cómo cuantificas la demanda de mantenimiento industrial?', o: ['Adivinando un número que suene grande', 'Gasto promedio en mantenimiento de las empresas encuestadas × frecuencia de contratación anual', 'Preguntando a un solo ingeniero conocido', 'Copiando datos industriales de otro país directamente'], c: 1, f: 'Sumar el gasto real de las empresas obtenido en las entrevistas da la demanda real del mercado.' },
+                    { q: '¿Cómo proyectas la demanda a futuro?', o: ['Suponiendo que baja cada año sin razón', 'Usando crecimiento del sector palmero e inversiones de Ecopetrol como indicadores', 'Multiplicando por un número inventado', 'No se puede proyectar en el sector industrial'], c: 1, f: 'Los planes de inversión de Ecopetrol y la expansión palmera son indicadores directos de demanda futura.' },
+                    { q: '¿Quiénes son tus competidores directos?', o: ['Las panaderías del sector comercial', 'Talleres de soldadura y empresas de mantenimiento industrial en Barrancabermeja y Yondó', 'Restaurantes de la zona industrial', 'Tiendas de ropa del centro de la ciudad'], c: 1, f: 'Competidores directos ofrecen los mismos servicios al mismo tipo de cliente industrial.' },
+                    { q: '¿Qué evaluar de los competidores industriales?', o: ['Si tienen uniformes bonitos', 'Capacidad técnica, certificaciones, precios por servicio, tiempos de respuesta y portafolio de clientes', 'Cuántos seguidores tienen en TikTok', 'Si el dueño del taller tiene carro nuevo'], c: 1, f: 'En el sector industrial, las certificaciones, capacidad técnica y tiempos de respuesta son decisivos.' },
+                    { q: '¿Cómo se identifica la demanda insatisfecha en mantenimiento industrial?', o: ['Servicios requeridos pero no atendidos por falta de talleres con capacidad técnica (según entrevistas)', 'Sumando oferta + demanda directamente', 'Contando el número de empleados de las fábricas', 'Viendo cuántas herramientas venden en ferreterías'], c: 0, f: 'Las entrevistas revelan qué servicios necesitan las empresas pero no encuentran quién los realice.' },
+                    { q: '¿Qué estrategia de precios es adecuada?', o: ['Cobrar lo mínimo posible para ganar todo', 'Cotización técnica por trabajo: materiales + mano de obra especializada + margen, competitivo localmente', 'Un precio fijo único para todos los servicios', 'Cobrar solo cuando el cliente quiera pagar'], c: 1, f: 'En servicios industriales, la cotización por proyecto basada en costos reales es el estándar.' },
+                    { q: '¿Cuál es el mejor canal para llegar a clientes industriales?', o: ['Puesto en la plaza de mercado', 'Visitas comerciales a empresas, registro como contratista de Ecopetrol y directorio industrial', 'Repartir volantes en semáforos de la ciudad', 'Hacer bailes virales en TikTok'], c: 1, f: 'Las ventas B2B se hacen con visitas directas, registro en bases de contratistas y networking industrial.' },
+                    { q: '¿Qué promoción es más efectiva en el sector industrial?', o: ['Rifas y concursos en centros comerciales', 'Bailarines con pancartas en zonas residenciales', 'Ferias industriales, diagnóstico gratuito de equipos y portafolio profesional con certificaciones', 'Poner un aviso clasificado en periódico dominical'], c: 2, f: 'En B2B: presencia en eventos industriales, demostración de capacidad técnica y credenciales.' }
+                ]
+            },
+            'Natalia': {
+                title: 'Tienda de Cosméticos y Belleza', icon: '💄',
+                ctx: 'El calor de Barrancabermeja impulsa un mercado activo de <strong>cuidado personal y belleza</strong>. Hay muchos salones pero pocas tiendas especializadas con variedad y asesoría. Quieres abrir una <strong>tienda de cosméticos, maquillaje y skincare</strong> con asesoría personalizada.',
+                q: [
+                    { q: '¿Cómo defines correctamente tu negocio?', o: ['Una peluquería con servicio de cortes', 'Tienda especializada en cosméticos, maquillaje, productos capilares y skincare con asesoría', 'Una droguería con medicamentos genéricos', 'Una tienda de ropa femenina y accesorios'], c: 1, f: 'El diferenciador es que no solo vendes productos sino que ofreces asesoría beauty personalizada.' },
+                    { q: '¿Cuál segmentación geográfica es correcta?', o: ['Solo un centro comercial específico', 'Todo el caribe colombiano como región', 'Zona urbana de Barrancabermeja: sectores comerciales y zonas residenciales estratos 2-5', 'Solo barrios de estrato 6 de la ciudad'], c: 2, f: 'Tu mercado está en la zona urbana, cubriendo estratos con poder adquisitivo para cosméticos.' },
+                    { q: '¿Quién es tu público objetivo principal?', o: ['Solo hombres mayores de 60 años', 'Mujeres de 15-55 años, profesionales de belleza (estilistas) y personas interesadas en cuidado personal', 'Niños en edad escolar primaria', 'Solo extranjeros que visitan la ciudad'], c: 1, f: 'El público principal son mujeres en rango amplio + profesionales de belleza como compradoras frecuentes.' },
+                    { q: '¿Cuál método de recolección primaria es más efectivo?', o: ['Encuestas en salones de belleza, centros comerciales y redes sociales (Instagram)', 'Entrevistas en talleres mecánicos de la ciudad', 'Envío de encuestas por correo postal tradicional', 'Observar solo qué venden las tiendas en Bogotá'], c: 0, f: 'Ir donde está tu público: salones de belleza, malls y comunidades beauty en Instagram.' },
+                    { q: '¿Qué pregunta no puede faltar en tu encuesta?', o: ['¿Qué tipo de vehículo tiene?', '¿Dónde compra actualmente sus productos de belleza y cuánto invierte mensualmente?', '¿Cuántas mascotas tiene en casa?', '¿Cuál es su equipo de fútbol favorito?'], c: 1, f: 'Saber dónde compra hoy y cuánto gasta revela la competencia y el potencial del mercado.' },
+                    { q: 'Con ~70.000 mujeres como mercado potencial, ¿cómo determinas la muestra?', o: ['Encuestar solo a 8 amigas cercanas', 'Entrevistar a todas las 70.000 mujeres', 'Fórmula: 95% confianza, 5% error → ~382 encuestas distribuidas por edad y estrato', 'Hacer 30 encuestas rápidas en redes sociales'], c: 2, f: 'La fórmula estadística con distribución proporcional garantiza que la muestra represente al mercado.' },
+                    { q: '¿Fuente secundaria más confiable para tu estudio?', o: ['Influencers de belleza en YouTube sin datos', 'Informes de la industria cosmética (Cámara de Industria Cosmética ANDI) y Cámara de Comercio', 'Horóscopos de revistas de farándula', 'Datos del sector agrícola del DANE'], c: 1, f: 'Los informes sectoriales de la ANDI y registros de Cámara de Comercio dan datos verificables del sector.' },
+                    { q: '¿Cómo cuantificas la demanda actual?', o: ['Adivinando según lo que crees que compran', '(Mujeres del segmento) × (% que compra cosméticos) × (gasto mensual promedio de encuesta)', 'Contando los likes de tiendas en Instagram', 'Contando cuántos salones de belleza hay en la ciudad'], c: 1, f: 'Segmento × tasa de consumo × gasto promedio = demanda cuantificada con datos reales.' },
+                    { q: '¿Método para proyectar la demanda a 5 años?', o: ['Suponer que será siempre igual sin cambios', 'Tasa de crecimiento del sector cosmético en Colombia (~8% anual) aplicada al mercado local', 'Inventar un porcentaje de crecimiento al azar', 'Esperar 5 años y ver qué pasa sin planificar'], c: 1, f: 'El sector cosmético colombiano tiene tasas de crecimiento documentadas que puedes aplicar localmente.' },
+                    { q: '¿Quiénes son tus competidores directos?', o: ['Los restaurantes del centro de la ciudad', 'Tiendas de cosméticos, catálogos (Avon, Esika, Yanbal), ventas online y sección belleza de supermercados', 'Las ferreterías del barrio comercial', 'Los gimnasios de Barrancabermeja'], c: 1, f: 'Todo canal que venda cosméticos a tu mismo público es competencia: tiendas, catálogos y online.' },
+                    { q: '¿Qué analizar de la competencia?', o: ['Si las vendedoras son bonitas o no', 'Variedad de marcas, precios, ubicación, experiencia de compra, presencia digital y fidelización', 'Cuántas sillas tienen en el local', 'Solo en qué año abrieron el negocio'], c: 1, f: 'Un análisis competitivo integral cubre producto, precio, plaza, promoción y experiencia del cliente.' },
+                    { q: '¿Cómo calculas la demanda insatisfecha?', o: ['No existe demanda insatisfecha en cosméticos', 'Demanda total estimada − ventas actuales de competidores = mercado disponible', 'Oferta × precio = demanda insatisfecha', 'Solo viendo si hay locales vacíos en la zona comercial'], c: 1, f: 'La brecha entre la demanda total y lo que actualmente se vende es la oportunidad para tu negocio.' },
+                    { q: '¿Estrategia de precios para tu tienda?', o: ['Los precios más altos del mercado sin justificación', 'Todo a $1.000 para atraer gente sin importar el margen', 'Precios competitivos diferenciados por categoría (premium vs básico) con ofertas y combos', 'Precio único para absolutamente todos los productos'], c: 2, f: 'Diferencias por categoría permiten tener productos de entrada y premium, maximizando el margen global.' },
+                    { q: '¿Canal de distribución ideal?', o: ['Solo venta ambulante en calles y semáforos', 'Tienda física en zona comercial de alto tráfico + tienda online por Instagram/WhatsApp con domicilio', 'Solo envío por correo postal nacional', 'Exclusivamente dentro de supermercados'], c: 1, f: 'Combinar tienda física bien ubicada con canal digital (Instagram/WhatsApp) maximiza tu alcance.' },
+                    { q: '¿Mejor estrategia de promoción?', o: ['Esperar que lleguen las clientas solas al local', 'Anuncio en periódico de circulación nacional', 'Instagram con tutoriales de maquillaje, alianzas con estilistas locales, muestras gratis y tarjeta de cliente frecuente', 'Imprimir miles de volantes y repartir en toda la ciudad'], c: 2, f: 'Contenido beauty en redes + alianzas con salones + sampling + fidelización = estrategia completa.' }
+                ]
+            }
+        };
+
+        let state = { screen: 'login', student: null, qi: 0, answers: [], answered: false, selected: -1 };
+
+        function getAttempt(name) { return parseInt(localStorage.getItem('em_' + name) || '0') + 1 }
+        function setAttempt(name, n) { localStorage.setItem('em_' + name, n) }
+
+        function render() {
+            const app = document.getElementById('app');
+            if (state.screen === 'login') {
+                app.innerHTML = `<div class="card">
+<h1>📊 Estudio de Mercado</h1>
+<p class="subtitle">Actividad Interactiva - Formulación y Evaluación de Proyectos<br><strong>Selecciona tu nombre</strong> para comenzar tu escenario personalizado</p>
+<div class="student-grid">
+${Object.entries(DATA).map(([n, d]) => `<div class="student-btn" onclick="selectStudent('${n}')"><div class="icon">${d.icon}</div><div class="name">${n}</div><div class="desc">${d.title}</div></div>`).join('')}
+</div></div>`;
+            } else if (state.screen === 'quiz') {
+                const d = DATA[state.student], q = d.q[state.qi], att = getAttempt(state.student);
+                const letters = ['A', 'B', 'C', 'D'];
+                app.innerHTML = `<div class="card">
+<div class="progress"><div class="pbar"><div class="pfill" style="width:${((state.qi) / 15) * 100}%"></div></div><div class="ptext">${state.qi + 1}/15</div></div>
+<span class="attempt-badge">Intento #${att} · ${state.student}</span>
+<div class="q-number">${d.icon} ${d.title} — Pregunta ${state.qi + 1}</div>
+${state.qi === 0 ? `<div class="ctx">${d.ctx}</div>` : ''}
+<div class="q-text">${q.q}</div>
+<div class="options">${q.o.map((o, i) => {
+                    let cls = 'opt';
+                    if (state.answered) { cls += ' disabled'; if (i === q.c) cls += ' correct'; else if (i === state.selected) cls += ' wrong' }
+                    return `<div class="${cls}" onclick="answer(${i})"><span class="opt-letter">${letters[i]}</span><span>${o}</span></div>`
+                }).join('')}
+</div>
+${state.answered ? `<div class="feedback ${state.selected === q.c ? 'ok' : 'bad'}">${state.selected === q.c ? '✅ ¡Correcto! ' : '❌ Incorrecto. '}${q.f}</div>
+<button class="next-btn" onclick="next()">${state.qi < 14 ? 'Siguiente pregunta →' : 'Ver resultados 📊'}</button>` : ''}
+</div>`;
+            } else if (state.screen === 'results') {
+                const d = DATA[state.student], score = state.answers.filter((a, i) => a === d.q[i].c).length;
+                const pct = Math.round((score / 15) * 100); const att = getAttempt(state.student) - 1;
+                app.innerHTML = `<div class="card">
+<h1>📊 Resultados</h1>
+<span class="attempt-badge">Intento #${att} · ${state.student} · ${d.title}</span>
+<div class="result-score">${score}/15</div>
+<div class="result-label">${pct}% — ${pct >= 80 ? '¡Excelente! 🌟' : pct >= 60 ? 'Buen trabajo 👍' : 'Necesitas repasar 📚'}</div>
+<div class="result-detail">${d.q.map((q, i) => `<div class="r-item ${state.answers[i] === q.c ? 'ok' : 'bad'}"><span class="r-icon">${state.answers[i] === q.c ? '✅' : '❌'}</span><span style="flex:1;font-size:.82rem">${i + 1}. ${q.q.substring(0, 70)}...</span></div>`).join('')}</div>
+<button class="next-btn" onclick="restart()">🔄 Volver al inicio</button>
+<p class="sending" id="sendStatus">📤 Enviando resultados...</p>
+</div>`;
+                sendResults(score, att);
+            }
+        }
+
+        function selectStudent(name) { state.student = name; state.screen = 'quiz'; state.qi = 0; state.answers = []; state.answered = false; state.selected = -1; render() }
+        function answer(i) { if (state.answered) return; state.answered = true; state.selected = i; state.answers.push(i); render() }
+        function next() { if (state.qi < 14) { state.qi++; state.answered = false; state.selected = -1; render(); window.scrollTo(0, 0) } else { const att = getAttempt(state.student); setAttempt(state.student, att); state.screen = 'results'; render() } }
+        function restart() { state = { screen: 'login', student: null, qi: 0, answers: [], answered: false, selected: -1 }; render() }
+
+        function sendResults(score, attempt) {
+            if (!SHEET_URL || SHEET_URL === '%%SHEET_URL%%') { document.getElementById('sendStatus').textContent = '⚠️ URL de hoja no configurada'; return }
+            const d = DATA[state.student];
+            const payload = {
+                nombre: state.student, escenario: d.title, puntaje: score + '/15', porcentaje: Math.round((score / 15) * 100) + '%', intento: attempt,
+                respuestas: state.answers.map((a, i) => ({ p: i + 1, r: d.q[i].o[a].substring(0, 50), ok: a === d.q[i].c ? '✅' : '❌' })),
+                fecha: new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' })
+            };
+            fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+                .then(() => { const el = document.getElementById('sendStatus'); if (el) el.textContent = '✅ Resultados guardados exitosamente' })
+                .catch(() => { const el = document.getElementById('sendStatus'); if (el) el.textContent = '❌ Error al enviar. Intenta de nuevo' })
+        }
+        render();
+    </script>
+</body>
+
+</html>
