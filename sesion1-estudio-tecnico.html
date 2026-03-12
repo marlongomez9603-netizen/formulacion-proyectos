@@ -10,7 +10,7 @@
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;overflow:hidden}
 #app{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
 .slide{max-width:1100px;width:100%;min-height:80vh;background:var(--s);border:1px solid var(--b);border-radius:24px;padding:50px 60px;position:relative;animation:fadeIn .5s;display:flex;flex-direction:column;justify-content:center}
-.slide.scrollable{overflow-y:auto;max-height:95vh;justify-content:flex-start;padding-top:70px}
+.slide.scrollable{overflow-y:auto;max-height:95vh;justify-content:flex-start;padding-top:70px;padding-bottom:90px}
 @keyframes fadeIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 @keyframes slideRight{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
@@ -51,7 +51,7 @@ p.desc{font-size:1rem;color:var(--m);line-height:1.8;margin-bottom:16px}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(108,92,231,.4)}
 .btn-ghost{background:transparent;border:2px solid var(--b);color:var(--m)}
 .btn-ghost:hover{border-color:var(--a);color:var(--t)}
-.game-area{background:var(--c);border:2px solid var(--b);border-radius:20px;padding:30px;margin:16px 0}
+.game-area{background:var(--c);border:2px solid var(--b);border-radius:20px;padding:30px;margin:16px 0;position:relative;z-index:5}
 .game-title{font-size:1.1rem;font-weight:800;color:var(--w);margin-bottom:16px;text-align:center}
 .opt{padding:14px 18px;border-radius:14px;border:2px solid var(--b);background:rgba(26,26,62,.8);cursor:pointer;transition:.3s;font-size:.88rem;line-height:1.5;display:flex;gap:12px;align-items:center;margin:8px 0}
 .opt:hover:not(.disabled){border-color:var(--a);background:rgba(108,92,231,.1)}
