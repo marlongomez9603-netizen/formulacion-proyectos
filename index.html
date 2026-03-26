@@ -2,64 +2,1029 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formulación y Evaluación de Proyectos | UNIPAZ</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Localización del Proyecto | UNIPAZ 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+:root{
+  --bg:#0a0a1a;--s:#12122a;--c:#1a1a3e;--b:#2a2a5e;--t:#e0e0ff;--m:#8888bb;
+  --a:#6c5ce7;--a2:#a29bfe;--g:#00cec9;--ok:#55efc4;--no:#ff7675;--w:#fdcb6e;
+  --o:#e17055;--p:#fd79a8
+}
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0a0a1a;--s:#12122a;--c:#1a1a3e;--b:#2a2a5e;--t:#e0e0ff;--m:#8888bb;--a:#6c5ce7;--a2:#a29bfe;--g:#00cec9;--ok:#55efc4;--no:#ff7675;--w:#fdcb6e;--o:#e17055}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;padding:40px 20px}
-.container{max-width:900px;margin:0 auto}
-h1{font-size:2.5rem;font-weight:900;text-align:center;margin-bottom:8px;background:linear-gradient(135deg,var(--a2),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.subtitle{text-align:center;color:var(--m);margin-bottom:40px;font-size:1rem}
-.section-title{font-size:1.3rem;font-weight:800;color:var(--a2);margin:30px 0 16px;padding-left:12px;border-left:4px solid var(--a)}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.card{background:var(--s);border:1px solid var(--b);border-radius:20px;padding:28px;transition:.3s;cursor:pointer;text-decoration:none;color:var(--t);display:block}
-.card:hover{border-color:var(--a);transform:translateY(-4px);box-shadow:0 8px 30px rgba(108,92,231,.25)}
-.card .icon{font-size:2.5rem;margin-bottom:12px}
-.card .title{font-size:1.05rem;font-weight:700;margin-bottom:6px}
-.card .desc{font-size:.82rem;color:var(--m);line-height:1.6}
-.badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.7rem;font-weight:700;letter-spacing:.5px;margin-bottom:10px}
-.badge-green{background:rgba(85,239,196,.15);color:var(--ok)}
-.badge-yellow{background:rgba(253,203,110,.15);color:var(--w)}
-.badge-blue{background:rgba(162,155,254,.15);color:var(--a2)}
-.footer{text-align:center;margin-top:50px;padding:20px;color:var(--m);font-size:.8rem;border-top:1px solid var(--b)}
+html,body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);width:100%;height:100%;overflow:hidden}
+#app{width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
+
+/* ── SLIDE: flex column, clips overflow at corners ── */
+.slide{
+  max-width:1100px;width:100%;max-height:96vh;
+  background:var(--s);border:1px solid var(--b);border-radius:24px;
+  position:relative;display:flex;flex-direction:column;overflow:hidden;
+}
+/* ── PROGRESS BAR ── */
+.pbar-top{position:absolute;top:0;left:0;right:0;height:4px;background:var(--c);border-radius:24px 24px 0 0;z-index:20}
+.pfill-top{height:100%;background:linear-gradient(90deg,var(--a),var(--g));transition:width .5s}
+/* ── TOPBAR ── */
+.topbar{
+  position:absolute;top:14px;left:26px;right:26px;
+  display:flex;justify-content:space-between;align-items:center;z-index:15;
+}
+.badge{padding:5px 13px;border-radius:20px;font-size:.66rem;font-weight:700;background:rgba(108,92,231,.2);color:var(--a2);letter-spacing:1px;text-transform:uppercase}
+.counter{font-size:.76rem;color:var(--m)}
+/* ── SCROLLABLE CONTENT BODY ── */
+.slide-body{
+  flex:1;overflow-y:auto;padding:60px 52px 20px;
+  -webkit-overflow-scrolling:touch;
+}
+.slide-body::-webkit-scrollbar{width:5px}
+.slide-body::-webkit-scrollbar-track{background:var(--c);border-radius:3px}
+.slide-body::-webkit-scrollbar-thumb{background:var(--b);border-radius:3px}
+.slide-body::-webkit-scrollbar-thumb:hover{background:var(--a)}
+/* center variant */
+.slide-body.center{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+/* ── BOTTOM NAV — flex-shrink 0 so it never overlaps ── */
+.nav{
+  flex-shrink:0;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:13px 26px 17px;
+  background:linear-gradient(0deg,var(--s) 85%,transparent);
+  border-top:1px solid rgba(42,42,94,.35);z-index:15;
+}
+/* ── ANIMATIONS ── */
+@keyframes fadeIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideR{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:translateX(0)}}
+@keyframes bounceIn{0%{transform:scale(0)}55%{transform:scale(1.1)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}30%{transform:translateX(-7px)}70%{transform:translateX(7px)}}
+.animate{animation:fadeIn .4s ease both}
+/* ── TYPOGRAPHY ── */
+h1.main{font-size:2.3rem;font-weight:900;line-height:1.2;margin-bottom:13px;background:linear-gradient(135deg,var(--a2),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+h2.section{font-size:1.5rem;font-weight:800;color:var(--a2);margin-bottom:14px}
+h3.sub{font-size:.96rem;font-weight:700;color:var(--g);margin:13px 0 7px}
+p.desc{font-size:.88rem;color:var(--m);line-height:1.8;margin-bottom:11px}
+/* ── LAYOUT ── */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:11px 0}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:10px 0}
+/* ── CARDS ── */
+.gcard{background:var(--c);border:1px solid var(--b);border-radius:13px;padding:15px;transition:.25s;cursor:default}
+.gcard:hover{border-color:var(--a);transform:translateY(-3px);box-shadow:0 5px 18px rgba(108,92,231,.16)}
+.gcard .icon{font-size:1.5rem;margin-bottom:6px}
+.gcard .title{font-size:.83rem;font-weight:700;color:var(--t);margin-bottom:4px}
+.gcard .text{font-size:.74rem;color:var(--m);line-height:1.55}
+/* ── HIGHLIGHT ── */
+.highlight{background:linear-gradient(135deg,rgba(108,92,231,.11),rgba(0,206,201,.11));border:1px solid var(--b);border-radius:13px;padding:14px 18px;margin:11px 0}
+.highlight strong{color:var(--g)}
+/* ── LIST ITEMS ── */
+.list-item{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;background:var(--c);border-radius:10px;margin:5px 0;border-left:3px solid var(--a);animation:slideR .3s both}
+.li-num{min-width:26px;height:26px;border-radius:7px;background:var(--a);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.72rem;color:#fff;flex-shrink:0}
+.li-content{flex:1}
+.li-title{font-weight:700;font-size:.84rem;margin-bottom:2px}
+.li-desc{font-size:.74rem;color:var(--m);line-height:1.5}
+/* ── FORMULA BOX ── */
+.formula-box{background:linear-gradient(135deg,rgba(108,92,231,.08),rgba(0,206,201,.05));border:1px solid var(--a);border-radius:13px;padding:14px 18px;margin:10px 0}
+.formula-title{font-family:'Courier New',monospace;font-size:1rem;font-weight:900;color:var(--a2);text-align:center;padding:9px 12px;background:rgba(10,10,40,.6);border-radius:9px;margin-bottom:13px;letter-spacing:.4px}
+.formula-comps{display:flex;flex-direction:column;gap:6px}
+.formula-comp{display:grid;grid-template-columns:110px 1fr 1fr;gap:9px;background:var(--c);border-radius:9px;padding:8px 11px;align-items:start}
+.comp-sym{font-family:'Courier New',monospace;font-size:.86rem;font-weight:900;color:var(--a2);align-self:center}
+.comp-meaning{font-size:.76rem;font-weight:700;color:var(--t);line-height:1.4}
+.comp-source{font-size:.71rem;color:var(--ok);margin-top:2px;line-height:1.4}
+.comp-source::before{content:"📥 ";color:var(--m)}
+/* ── STEP BOXES ── */
+.step-box{background:rgba(26,26,62,.55);border-left:4px solid var(--g);border-radius:0 10px 10px 0;padding:10px 13px;margin:6px 0}
+.step-n{color:var(--g);font-weight:800;font-size:.7rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.step-c{font-size:.8rem;line-height:1.72;color:var(--t)}
+/* ── DEF CARDS ── */
+.defcard{background:rgba(10,10,40,.8);border:1px solid var(--b);border-radius:12px;padding:12px 15px;margin:6px 0}
+.defcard-sym{font-size:1.1rem;font-weight:900;color:var(--a2);font-family:'Courier New',monospace;margin-bottom:3px}
+.defcard-name{font-size:.76rem;font-weight:700;color:var(--w);margin-bottom:4px}
+.defcard-def{font-size:.74rem;color:var(--m);line-height:1.6}
+.defcard-ex{font-size:.71rem;color:var(--ok);margin-top:4px;font-style:italic}
+/* ── TABLES ── */
+.table-std{width:100%;border-collapse:collapse;font-size:.74rem;margin:7px 0}
+.table-std th{background:rgba(108,92,231,.28);color:var(--a2);padding:6px 8px;text-align:left;font-weight:700}
+.table-std td{padding:6px 8px;border-bottom:1px solid rgba(42,42,94,.7);color:var(--t)}
+.table-std tr:last-child td{border-bottom:none}
+.table-std tr.best td{background:rgba(0,184,148,.07);color:var(--ok);font-weight:700}
+.table-std tr:hover td{background:rgba(108,92,231,.05)}
+/* ── TAGS ── */
+.tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:.68rem;font-weight:700;letter-spacing:.4px}
+.tag-ok{background:rgba(85,239,196,.15);color:var(--ok);border:1px solid rgba(85,239,196,.3)}
+.tag-no{background:rgba(255,118,117,.15);color:var(--no);border:1px solid rgba(255,118,117,.3)}
+.tag-w{background:rgba(253,203,110,.15);color:var(--w);border:1px solid rgba(253,203,110,.3)}
+.tag-a{background:rgba(162,155,254,.15);color:var(--a2);border:1px solid rgba(162,155,254,.3)}
+/* ── FLOW ── */
+.flow{display:flex;align-items:center;justify-content:center;gap:0;margin:12px 0;flex-wrap:wrap}
+.flow-item{background:var(--c);border:2px solid var(--b);border-radius:11px;padding:9px 12px;text-align:center;min-width:96px;transition:.25s}
+.flow-item:hover{border-color:var(--g);transform:scale(1.04)}
+.flow-item .fi-icon{font-size:1.2rem;margin-bottom:3px}
+.flow-item .fi-text{font-size:.65rem;font-weight:700;color:var(--t)}
+.flow-arrow{font-size:1.2rem;color:var(--a2);margin:0 2px}
+/* ── BUTTONS ── */
+.btn{padding:10px 22px;border-radius:12px;border:none;font-family:'Inter';font-size:.84rem;font-weight:700;cursor:pointer;transition:.25s}
+.btn-primary{background:linear-gradient(135deg,var(--a),var(--g));color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 5px 16px rgba(108,92,231,.4)}
+.btn-ghost{background:transparent;border:2px solid var(--b);color:var(--m)}
+.btn-ghost:hover{border-color:var(--a);color:var(--t)}
+/* ── QUIZ ── */
+.game-area{background:var(--c);border:2px solid var(--b);border-radius:17px;padding:20px;margin:10px 0}
+.game-title{font-size:.96rem;font-weight:800;color:var(--w);margin-bottom:11px;text-align:center}
+.opt{padding:11px 14px;border-radius:11px;border:2px solid var(--b);background:rgba(26,26,62,.8);cursor:pointer;transition:.25s;font-size:.82rem;line-height:1.5;display:flex;gap:9px;align-items:center;margin:5px 0}
+.opt:hover:not(.disabled){border-color:var(--a);background:rgba(108,92,231,.1)}
+.opt.correct{border-color:var(--ok);background:rgba(85,239,196,.1)}
+.opt.wrong{border-color:var(--no);background:rgba(255,118,117,.1);animation:shake .4s}
+.opt.disabled{cursor:default;opacity:.7}
+.opt-letter{min-width:25px;height:25px;border-radius:7px;background:var(--b);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.68rem;flex-shrink:0}
+.feedback{margin-top:9px;padding:11px;border-radius:10px;font-size:.8rem;line-height:1.6;animation:fadeIn .3s}
+.feedback.ok{background:rgba(85,239,196,.08);border:1px solid rgba(85,239,196,.2);color:var(--ok)}
+.feedback.bad{background:rgba(255,118,117,.08);border:1px solid rgba(255,118,117,.2);color:var(--no)}
+/* ── INTERACTIVE ── */
+.calc-input{padding:5px 7px;border-radius:7px;border:2px solid var(--b);background:var(--c);color:var(--t);font-family:'Inter';font-size:.82rem;text-align:center;outline:none;transition:.2s}
+.calc-input:focus{border-color:var(--a)}
+.calc-btn{padding:9px 18px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--a),var(--g));color:#fff;font-family:'Inter';font-size:.82rem;font-weight:700;cursor:pointer;transition:.25s}
+.calc-btn:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(108,92,231,.4)}
+.calc-result{margin-top:9px;padding:12px;border-radius:10px;background:rgba(0,206,201,.05);border:1px solid rgba(0,206,201,.16);font-size:.8rem;color:var(--t);line-height:1.7}
+.int-input{width:50px;padding:4px 5px;border-radius:6px;border:1px solid var(--b);background:var(--c);color:var(--t);font-family:'Inter';font-size:.73rem;text-align:center;outline:none}
+.int-input:focus{border-color:var(--a)}
+/* ── SCORE ── */
+.score-panel{text-align:center;padding:18px;background:var(--c);border-radius:13px;margin:11px 0}
+.score-big{font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,var(--a2),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:bounceIn .5s}
+.score-label{font-size:.88rem;color:var(--m);margin-top:5px}
+/* ── INPUT ── */
+.input-field{width:100%;padding:11px 14px;border-radius:11px;border:2px solid var(--b);background:var(--c);color:var(--t);font-family:'Inter';font-size:.88rem;outline:none;transition:.25s;margin:5px 0}
+.input-field:focus{border-color:var(--a);box-shadow:0 0 14px rgba(108,92,231,.16)}
+.input-field::placeholder{color:var(--m)}
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .slide-body{padding:54px 16px 16px}
+  h1.main{font-size:1.55rem}
+  h2.section{font-size:1.15rem}
+  .grid2,.grid3{grid-template-columns:1fr}
+  .flow{flex-direction:column}
+  .flow-arrow{transform:rotate(90deg)}
+  .formula-comp{grid-template-columns:80px 1fr;gap:7px}
+}
 </style>
 </head>
 <body>
-<div class="container">
-<h1>📚 Formulación y Evaluación de Proyectos</h1>
-<p class="subtitle">Instituto Universitario de la Paz — UNIPAZ<br>Ingeniería de Producción · 2026-A</p>
+<div id="app"></div>
+<script>
+const SLIDES=[
 
-<div class="section-title">📊 Unidad 1: Estudio de Mercado</div>
-<div class="cards">
-<a class="card" href="actividad-estudio-mercado.html">
-<span class="badge badge-green">✅ COMPLETADA</span>
-<div class="icon">📊</div>
-<div class="title">Actividad: Estudio de Mercado</div>
-<div class="desc">Escenarios personalizados por estudiante. 15 preguntas sobre segmentación, demanda, oferta, precios y canales.</div>
-</a>
-<a class="card" href="estudio-mercado.html">
-<span class="badge badge-green">✅ COMPLETADA</span>
-<div class="icon">🛠️</div>
-<div class="title">Herramienta: Estudio de Mercado Completo</div>
-<div class="desc">Wizard paso a paso para elaborar un estudio de mercado: producto, segmentación, demanda, oferta, precios y más.</div>
-</a>
-</div>
+/* 0 ─ REGISTRO */
+{type:'register'},
 
-<div class="section-title">📐 Unidad 2: Estudio Técnico</div>
-<div class="cards">
-<a class="card" href="sesion1-estudio-tecnico.html">
-<span class="badge badge-yellow">🟡 SESIÓN 1 — Jue 12 Mar</span>
-<div class="icon">📐</div>
-<div class="title">Sesión 1: Introducción al Estudio Técnico</div>
-<div class="desc">¿Qué es el estudio técnico? Factores que determinan el tamaño del proyecto: demanda, suministros, tecnología, financiamiento y organización. 5 juegos interactivos.</div>
-</a>
+/* 1 ─ PORTADA */
+{type:'content',badge:'SÉPTIMA SEMANA — UNIPAZ 2026',html:`
+<h1 class="main">📍 Localización del Proyecto</h1>
+<p class="desc" style="font-size:.98rem;text-align:center">
+  Formulación y Evaluación de Proyectos<br>
+  <strong style="color:var(--g)">Sesión: Localización</strong> — UNIPAZ 2026
+</p>
+<div class="grid3" style="margin-top:16px">
+  <div class="gcard" style="text-align:center;border-color:var(--a)">
+    <div class="icon">📊</div><div class="title">MÉTODO POR PUNTOS</div>
+    <div class="text">Evaluación ponderada de factores cualitativos y cuantitativos para comparar ubicaciones candidatas</div>
+  </div>
+  <div class="gcard" style="text-align:center;border-color:var(--g)">
+    <div class="icon">🧮</div><div class="title">BROWN Y GIBSON</div>
+    <div class="text">Modelo matemático que separa factores objetivos (costos reales) de subjetivos con rigor numérico</div>
+  </div>
+  <div class="gcard" style="text-align:center;border-color:var(--w)">
+    <div class="icon">🏭</div><div class="title">CASOS PRÁCTICOS</div>
+    <div class="text">Ejercicios interactivos paso a paso con contexto del Magdalena Medio colombiano</div>
+  </div>
 </div>
+<div class="highlight" style="text-align:center;margin-top:10px">
+  <p class="desc" style="margin:0">Al finalizar podrás <strong>determinar matemáticamente la ubicación óptima</strong> de cualquier proyecto usando dos métodos complementarios.</p>
+</div>
+`},
 
-<div class="footer">
-<p>Prof. Marlon Gómez · UNIPAZ · Barrancabermeja, Santander 🇨🇴</p>
+/* 2 ─ ¿POR QUÉ IMPORTA? */
+{type:'content',badge:'FUNDAMENTOS DE LOCALIZACIÓN',html:`
+<h2 class="section">🤔 ¿Por qué es crítica la Localización?</h2>
+<p class="desc">La localización es una decisión <strong style="color:var(--no)">prácticamente irreversible</strong>. Reubicar una planta después implica vender terreno, desmontar equipos, rehacer permisos y reinvertir millones. Por eso se analiza con rigor desde el inicio.</p>
+<div class="grid2">
+  <div class="gcard" style="border-left:3px solid var(--ok)">
+    <div class="icon">✅</div><div class="title">Buena localización</div>
+    <div class="text">✔ Menores costos de transporte<br>✔ Cercanía a materia prima y clientes<br>✔ Mano de obra disponible y calificada<br>✔ Incentivos fiscales municipales<br>✔ Servicios públicos confiables</div>
+  </div>
+  <div class="gcard" style="border-left:3px solid var(--no)">
+    <div class="icon">❌</div><div class="title">Mala localización</div>
+    <div class="text">✗ Fletes excesivos que encarecen el producto<br>✗ Escasez de personal calificado<br>✗ Problemas crónicos de abastecimiento<br>✗ Costos ocultos no previstos<br>✗ Dificultad para competir → fracaso</div>
+  </div>
+</div>
+<div class="highlight">
+  <p class="desc" style="margin:0">💡 Se estudia en <strong>dos niveles</strong>: la <strong style="color:var(--a2)">macrolocalización</strong> (región, departamento, municipio) y la <strong style="color:var(--g)">microlocalización</strong> (terreno o predio exacto dentro de la zona elegida).</p>
+</div>
+<div class="grid2">
+  <div class="gcard" style="border-top:3px solid var(--a)">
+    <div class="icon">🗺️</div><div class="title">MACROLOCALIZACIÓN</div>
+    <div class="text"><strong style="color:var(--a2)">¿En qué región o municipio?</strong><br>Factores: mercado meta, políticas fiscales, infraestructura regional, clima, marco legal, incentivos ZOMAC.</div>
+  </div>
+  <div class="gcard" style="border-top:3px solid var(--g)">
+    <div class="icon">📌</div><div class="title">MICROLOCALIZACIÓN</div>
+    <div class="text"><strong style="color:var(--g)">¿En qué terreno específico?</strong><br>Factores: costo del lote/m², vías de acceso internas, redes de servicios, topografía, vecindario industrial.</div>
+  </div>
+</div>
+`},
+
+/* 3 ─ FACTORES */
+{type:'content',badge:'FACTORES QUE CONDICIONAN LA UBICACIÓN',html:`
+<h2 class="section">📋 Factores Clave de Localización</h2>
+<p class="desc">Los factores relevantes varían por tipo de proyecto. Identificarlos correctamente es el primer paso de cualquier análisis.</p>
+<div class="grid3">
+  <div class="gcard"><div class="icon">🚛</div><div class="title">Transporte y logística</div>
+  <div class="text">Distancia y costo de flete a materia prima y al mercado. Estado de vías, accesibilidad para camiones pesados.</div></div>
+  <div class="gcard"><div class="icon">👷</div><div class="title">Mano de obra</div>
+  <div class="text">Disponibilidad local, nivel de calificación técnica, costo salarial promedio y cultura laboral de la región.</div></div>
+  <div class="gcard"><div class="icon">💡</div><div class="title">Servicios públicos</div>
+  <div class="text">Energía eléctrica (voltaje industrial 440V), agua industrial, gas, telecomunicaciones: calidad y continuidad garantizada.</div></div>
+  <div class="gcard"><div class="icon">🏛️</div><div class="title">Marco legal y fiscal</div>
+  <div class="text">Incentivos tributarios, regulaciones ambientales, permisos de uso de suelo industrial, zonas francas o ZOMAC.</div></div>
+  <div class="gcard"><div class="icon">🌍</div><div class="title">Clima y geografía</div>
+  <div class="text">Temperatura, humedad relativa, riesgo de inundación/sismo, topografía del terreno e impacto sobre el proceso.</div></div>
+  <div class="gcard"><div class="icon">🏘️</div><div class="title">Comunidad y entorno</div>
+  <div class="text">Actitud de la comunidad, servicios de salud y educación para empleados, seguridad ciudadana e impacto social.</div></div>
+</div>
+<div class="highlight">
+  <p class="desc" style="margin:0">⚠️ <strong>No todos los factores pesan igual.</strong> Para una planta de jugos tropicales la cercanía a frutas es crítica; para un call center, la conectividad y la mano de obra calificada dominan. Los métodos de localización <strong>cuantifican esa diferencia de importancia</strong>.</p>
+</div>
+`},
+
+/* 4 ─ QUIZ CALENTAMIENTO */
+{type:'quiz',badge:'🎮 CALENTAMIENTO',title:'¿Comprendes los fundamentos?',questions:[
+  {q:'¿Por qué la localización se considera una decisión "prácticamente irreversible"?',
+   o:['Porque es la primera decisión del proyecto','Porque reubicar una planta después es extremadamente costoso','Porque la ley prohíbe cambiar de sede','Porque el estudio de mercado ya está finalizado'],
+   c:1,f:'Reubicar implica vender terreno, desmontar equipos, reconstruir y rehacer todas las licencias. El costo es tan alto que en la práctica se considera irreversible. Por eso la decisión inicial debe ser muy rigurosa y bien justificada.'},
+  {q:'¿Cuál es la diferencia entre macrolocalización y microlocalización?',
+   o:['Una es para proyectos grandes y la otra para pequeños','Macro define la región general; micro selecciona el terreno exacto','Macro incluye análisis de costos; micro no','Son exactamente lo mismo, solo cambia el nombre'],
+   c:1,f:'La macrolocalización elige la zona amplia (región, municipio) y la microlocalización selecciona el predio específico. Primero se hace macro (tamizado general) y luego micro (decisión final de sitio).'},
+  {q:'Para una planta procesadora de leche en el Magdalena Medio, ¿cuál factor es probablemente el MÁS crítico?',
+   o:['Incentivos fiscales','Cercanía a zonas ganaderas (materia prima perecedera y voluminosa)','Velocidad del internet empresarial','Tamaño del aeropuerto más cercano'],
+   c:1,f:'La leche es perecedera y muy voluminosa. La cercanía a las fincas ganaderas minimiza costos de transporte y el deterioro del producto. En alimentos perecederos, este factor suele ser el más determinante de todos.'},
+  {q:'¿Por qué usar métodos cuantitativos para elegir ubicación?',
+   o:['Porque la intuición siempre lleva a errores graves','Para analizar múltiples factores de forma sistemática y reducir el sesgo personal','Porque el gobierno los exige por ley','Porque son mucho más rápidos que el análisis cualitativo'],
+   c:1,f:'Los métodos cuantitativos permiten comparar alternativas considerando múltiples factores con diferentes pesos, documentar el proceso y reducir el sesgo del evaluador. Son la base para justificar la decisión ante inversionistas y financiadores.'}
+]},
+
+/* 5 ─ INTRO MÉTODO POR PUNTOS */
+{type:'content',badge:'MÉTODO POR PUNTOS — FUNDAMENTO',html:`
+<h2 class="section">📊 Método de Evaluación por Puntos Ponderados</h2>
+<p class="desc">También llamado <strong style="color:var(--w)">Método Cualitativo por Puntos</strong>. Es el más utilizado en la práctica por su sencillez, versatilidad y fácil comprensión.</p>
+<div class="defcard">
+  <div class="defcard-sym">📊 ¿Qué hace?</div>
+  <div class="defcard-name">Compara ubicaciones asignando puntajes ponderados a factores relevantes</div>
+  <div class="defcard-def">Asigna <strong>pesos</strong> a cada factor según su importancia, luego <strong>califica</strong> cada alternativa en cada factor y suma un <strong>puntaje total ponderado</strong>. Gana la de mayor puntaje.</div>
+  <div class="defcard-ex">Es como un examen donde cada tema vale distinto porcentaje del total. Si "transporte" vale 30% y "mano de obra" 20%, una ciudad con muy buen transporte puede superar a otra con mejor mano de obra pero pésimo transporte.</div>
+</div>
+<div class="formula-box">
+  <div class="formula-title">Puntaje_i = Σ ( w_j × c_ij )</div>
+  <div class="formula-comps">
+    <div class="formula-comp">
+      <div class="comp-sym">Puntaje_i</div>
+      <div>
+        <div class="comp-meaning">Puntaje total ponderado de la localización i (entre 0 y 10)</div>
+        <div class="comp-source">Resultado de sumar todos los productos peso×calificación. Localización con MAYOR Puntaje_i es la recomendada.</div>
+      </div>
+    </div>
+    <div class="formula-comp">
+      <div class="comp-sym">w_j</div>
+      <div>
+        <div class="comp-meaning">Peso del factor j — su importancia relativa sobre el total</div>
+        <div class="comp-source">Lo define el equipo evaluador según el tipo de proyecto. La SUMA de todos los w_j debe ser exactamente 1.00 (100%).</div>
+      </div>
+    </div>
+    <div class="formula-comp">
+      <div class="comp-sym">c_ij</div>
+      <div>
+        <div class="comp-meaning">Calificación de la localización i en el factor j (escala 1–10)</div>
+        <div class="comp-source">La asigna el equipo: 10=excelente, 5=regular, 1=muy deficiente. Debe basarse en datos: visitas de campo, cotizaciones, estadísticas DANE, tarifas de servicios públicos.</div>
+      </div>
+    </div>
+    <div class="formula-comp">
+      <div class="comp-sym">Σ</div>
+      <div>
+        <div class="comp-meaning">Sumatoria sobre todos los factores j incluidos en el análisis</div>
+        <div class="comp-source">Se suman los aportes de TODOS los factores para obtener el puntaje global de la localización i.</div>
+      </div>
+    </div>
+  </div>
+</div>
+`},
+
+/* 6 ─ PASOS PUNTOS */
+{type:'content',badge:'MÉTODO POR PUNTOS — PROCEDIMIENTO',html:`
+<h2 class="section">📋 Procedimiento Paso a Paso</h2>
+<div class="list-item" style="animation-delay:.05s"><div class="li-num">1</div><div class="li-content">
+  <div class="li-title">Identificar los factores relevantes para el proyecto</div>
+  <div class="li-desc">Solo incluir factores que realmente diferencian las alternativas. Factores que son iguales en todas las localizaciones no aportan información útil al análisis.</div>
+</div></div>
+<div class="list-item" style="animation-delay:.1s"><div class="li-num">2</div><div class="li-content">
+  <div class="li-title">Asignar peso w_j a cada factor — verificar Σ w_j = 1.00</div>
+  <div class="li-desc">El peso refleja la importancia relativa. Un factor crítico puede valer 0.30 mientras uno menor vale 0.05. <strong style="color:var(--ok)">Siempre verificar que la suma sea exactamente 1.00</strong>, de lo contrario el método pierde validez matemática.</div>
+</div></div>
+<div class="list-item" style="animation-delay:.15s"><div class="li-num">3</div><div class="li-content">
+  <div class="li-title">Definir criterios para la escala de calificación (1 a 10)</div>
+  <div class="li-desc">Para reducir subjetividad, documentar qué significa cada rango. Ejemplo para "costo arriendo": 9-10 = menos de $15M/mes, 6-8 = $15-25M/mes, 1-5 = más de $25M/mes.</div>
+</div></div>
+<div class="list-item" style="animation-delay:.2s"><div class="li-num">4</div><div class="li-content">
+  <div class="li-title">Calificar cada alternativa c_ij basándose en datos reales</div>
+  <div class="li-desc">Usar información concreta: cotizaciones de arriendo, tarifas de EPM/Electricaribe, encuestas salariales, estadísticas DANE, visitas de campo. <strong style="color:var(--w)">Documentar la fuente de cada calificación</strong>.</div>
+</div></div>
+<div class="list-item" style="animation-delay:.25s"><div class="li-num">5</div><div class="li-content">
+  <div class="li-title">Calcular Puntaje_i = Σ (w_j × c_ij) para cada alternativa</div>
+  <div class="li-desc">Multiplicar peso × calificación en cada factor y sumar. El resultado es un número entre 0 y 10 que representa el desempeño global ponderado de cada localización candidata.</div>
+</div></div>
+<div class="list-item" style="animation-delay:.3s"><div class="li-num">6</div><div class="li-content">
+  <div class="li-title">Elegir la de MAYOR puntaje — si hay empate técnico, hacer sensibilidad</div>
+  <div class="li-desc">Si dos alternativas difieren en menos de 0.5 puntos, variar los pesos ±0.03 en los factores más importantes y verificar si el ganador cambia. Si cambia → decisión frágil, reanalizar.</div>
+</div></div>
+`},
+
+/* 7 ─ EJEMPLO PUNTOS */
+{type:'content',badge:'EJEMPLO RESUELTO — MÉTODO POR PUNTOS',html:`
+<h2 class="section">🏭 Ejemplo: Planta de Jugos en Santander</h2>
+<p class="desc">Se evalúan 3 candidatas para instalar una planta de jugos naturales: <strong style="color:var(--a2)">Barrancabermeja</strong>, <strong style="color:var(--g)">San Gil</strong> y <strong style="color:var(--w)">Bucaramanga</strong>.</p>
+<div class="step-box"><div class="step-n">Factores y pesos (definidos por el equipo evaluador)</div>
+<div class="step-c">
+Cercanía a MP (frutas tropicales): <strong>w=0.30</strong> — crítico por perecibilidad de la materia prima<br>
+Mano de obra disponible: <strong>w=0.20</strong> — operarios para planta industrial (cotizado con SENA)<br>
+Costo de transporte al mercado: <strong>w=0.20</strong> — flete estimado hacia Bogotá y Barranquilla<br>
+Servicios públicos: <strong>w=0.15</strong> — agua industrial + energía 440V (tarifas ESP locales)<br>
+Costo del terreno: <strong>w=0.10</strong> — precio/m² zona industrial (lonja regional)<br>
+Incentivos fiscales: <strong>w=0.05</strong> — ZOMAC, exención predial municipal<br>
+<strong style="color:var(--ok)">Verificación: 0.30+0.20+0.20+0.15+0.10+0.05 = 1.00 ✓</strong>
+</div></div>
+<table class="table-std">
+<thead><tr><th>Factor</th><th>w_j</th><th>Bmeja (c)</th><th>w×c</th><th>S.Gil (c)</th><th>w×c</th><th>B/manga (c)</th><th>w×c</th></tr></thead>
+<tbody>
+<tr><td>Cercanía MP</td><td><strong>0.30</strong></td><td>9</td><td style="color:var(--ok)">2.70</td><td>7</td><td>2.10</td><td>5</td><td>1.50</td></tr>
+<tr><td>Mano de obra</td><td><strong>0.20</strong></td><td>6</td><td>1.20</td><td>5</td><td>1.00</td><td>8</td><td style="color:var(--ok)">1.60</td></tr>
+<tr><td>Transporte MP</td><td><strong>0.20</strong></td><td>7</td><td>1.40</td><td>6</td><td>1.20</td><td>8</td><td style="color:var(--ok)">1.60</td></tr>
+<tr><td>Servicios púb.</td><td><strong>0.15</strong></td><td>7</td><td>1.05</td><td>6</td><td>0.90</td><td>9</td><td style="color:var(--ok)">1.35</td></tr>
+<tr><td>Costo terreno</td><td><strong>0.10</strong></td><td>6</td><td>0.60</td><td>8</td><td style="color:var(--ok)">0.80</td><td>4</td><td>0.40</td></tr>
+<tr><td>Inc. fiscales</td><td><strong>0.05</strong></td><td>8</td><td>0.40</td><td>5</td><td>0.25</td><td>6</td><td>0.30</td></tr>
+<tr style="background:rgba(108,92,231,.11)"><td><strong>TOTAL</strong></td><td><strong>1.00</strong></td><td></td><td style="color:var(--a2);font-weight:900"><strong>7.35 🏆</strong></td><td></td><td>6.25</td><td></td><td style="color:var(--m)">6.75</td></tr>
+</tbody></table>
+<div class="highlight">
+  <p class="desc" style="margin:0">🏆 <strong>Barrancabermeja (7.35)</strong> es la recomendada. Aunque Bucaramanga gana en mano de obra y servicios, la alta ponderación de "cercanía a MP" (w=0.30) le da a Barrancabermeja una ventaja decisiva gracias a la abundancia de frutas tropicales en la región.</p>
+</div>
+`},
+
+/* 8 ─ EJERCICIO INTERACTIVO */
+{type:'interactive_points',badge:'🎮 EJERCICIO INTERACTIVO — MÉTODO POR PUNTOS'},
+
+/* 9 ─ QUIZ PUNTOS */
+{type:'quiz',badge:'🎮 EVALUEMOS: MÉTODO POR PUNTOS',title:'¿Dominas el Método por Puntos?',questions:[
+  {q:'¿Qué DEBE sumar la columna de pesos (w_j) en el método por puntos?',
+   o:['100 puntos en escala 1-10','1.00 exactamente (equivalente a 100%)','10.00 exactamente','No importa cuánto sumen si son proporcionales entre sí'],
+   c:1,f:'Los pesos son proporciones de importancia relativa. Deben sumar 1.00 (100%) para que el resultado sea un promedio ponderado válido. Si no suman 1.00, el puntaje máximo posible no sería 10 y los resultados serían matemáticamente incorrectos.'},
+  {q:'Si w_j = 0.25 y c_ij = 8, ¿cuánto aporta ese factor al puntaje total?',
+   o:['0.25 puntos','2.00 puntos','8.25 puntos','33.00 puntos'],
+   c:1,f:'Aporte = w_j × c_ij = 0.25 × 8 = 2.00 puntos. Este valor se suma al aporte de los demás factores para obtener el puntaje total ponderado de la localización.'},
+  {q:'¿Cuál es la principal VENTAJA del método por puntos frente a un simple ranking?',
+   o:['Es más complicado, lo que lo hace más confiable','Permite ponderar factores de distinta importancia y combinar cualitativos con cuantitativos','No requiere ningún tipo de dato numérico','Es el único método reconocido internacionalmente para localización'],
+   c:1,f:'La gran ventaja es asignar pesos DIFERENTES a cada factor según su importancia real para el proyecto, y poder incluir factores no monetarios (calidad de vida, seguridad) en el mismo análisis numérico.'},
+  {q:'Dos alternativas obtienen 7.35 y 7.30. ¿Cuál es la recomendación correcta?',
+   o:['Elegir la de 7.35 directamente sin más análisis','Hacer análisis de sensibilidad variando los pesos para verificar la robustez de la decisión','Promediar y buscar un punto intermedio entre ambas','Descartar ambas y buscar nuevas alternativas'],
+   c:1,f:'Una diferencia de 0.05 puntos es insignificante. Un pequeño ajuste en los pesos podría invertir el resultado. El análisis de sensibilidad (variar pesos ±0.03 en los factores más importantes) determina si la decisión es robusta o frágil.'},
+  {q:'¿Cuál es la principal LIMITACIÓN del método por puntos?',
+   o:['Que solo funciona con exactamente dos alternativas','Que los pesos y calificaciones son subjetivos y pueden variar entre evaluadores','Que requiere software especializado muy costoso','Que no considera factores de tipo cualitativo'],
+   c:1,f:'Tanto la asignación de pesos como las calificaciones dependen del criterio personal. Evaluadores distintos pueden llegar a resultados distintos. Se mitiga: trabajando en equipo, definiendo criterios claros y verificables, y documentando la fuente de cada calificación.'}
+]},
+
+/* 10 ─ INTRO B&G */
+{type:'content',badge:'BROWN Y GIBSON — FUNDAMENTO',html:`
+<h2 class="section">🧮 Método de Brown y Gibson</h2>
+<p class="desc">Propuesto por <strong style="color:var(--w)">P.A. Brown</strong> y <strong style="color:var(--w)">D.F. Gibson</strong>. Más riguroso que el método por puntos porque <strong style="color:var(--g)">separa explícitamente</strong> los factores en dos categorías con tratamiento matemático diferente.</p>
+<div class="grid2">
+  <div class="gcard" style="border-top:3px solid var(--a)">
+    <div class="icon">💰</div><div class="title">Factores Objetivos (FO)</div>
+    <div class="text">Cuantificables en dinero: costos de materia prima, transporte, mano de obra, energía, arriendo, impuestos. Se calculan con fórmulas exactas sobre costos reales.<br><br><span class="tag tag-a">Se miden en $/año</span></div>
+  </div>
+  <div class="gcard" style="border-top:3px solid var(--g)">
+    <div class="icon">🎯</div><div class="title">Factores Subjetivos (FS)</div>
+    <div class="text">No se expresan en dinero: clima laboral, actitud de la comunidad, calidad de vida, seguridad, infraestructura educativa. Se evalúan por comparaciones pareadas.<br><br><span class="tag tag-w">Se miden por comparación</span></div>
+  </div>
+</div>
+<div class="formula-box">
+  <div class="formula-title">MPL_i = α × FO_i + (1 − α) × FS_i</div>
+  <div class="formula-comps">
+    <div class="formula-comp">
+      <div class="comp-sym">MPL_i</div>
+      <div>
+        <div class="comp-meaning">Medida de Preferencia de Localización de la ubicación i</div>
+        <div class="comp-source">Puntaje final integrado. La localización con MAYOR MPL_i es la recomendada. Se calcula una vez que se tienen FO_i y FS_i de cada alternativa.</div>
+      </div>
+    </div>
+    <div class="formula-comp">
+      <div class="comp-sym">α (alfa)</div>
+      <div>
+        <div class="comp-meaning">Peso de los factores objetivos (costos). Valor entre 0 y 1</div>
+        <div class="comp-source">Lo define el evaluador: si α=0.75 → costos pesan 75%, subjetivos 25%. Generalmente α ≥ 0.50. Proyectos con márgenes ajustados usan α alto (0.70-0.85).</div>
+      </div>
+    </div>
+    <div class="formula-comp">
+      <div class="comp-sym">FO_i</div>
+      <div>
+        <div class="comp-meaning">Factor Objetivo normalizado de la localización i (valor entre 0 y 1)</div>
+        <div class="comp-source">Se calcula del costo anual total de cada alternativa usando recíprocos. Mayor FO_i = menores costos totales. Ver fórmula completa en la siguiente diapositiva.</div>
+      </div>
+    </div>
+    <div class="formula-comp">
+      <div class="comp-sym">FS_i</div>
+      <div>
+        <div class="comp-meaning">Factor Subjetivo ponderado de la localización i (valor entre 0 y 1)</div>
+        <div class="comp-source">Se calcula mediante comparaciones pareadas entre factores y entre localizaciones. Mayor FS_i = mejor desempeño cualitativo global. Ver cálculo en diapositivas siguientes.</div>
+      </div>
+    </div>
+    <div class="formula-comp">
+      <div class="comp-sym">(1 − α)</div>
+      <div>
+        <div class="comp-meaning">Peso residual de los factores subjetivos — complemento de α</div>
+        <div class="comp-source">Si α=0.75 → (1-α)=0.25. Siempre α + (1-α) = 1.00, lo que garantiza que la MPL sea un promedio ponderado válido entre 0 y 1.</div>
+      </div>
+    </div>
+  </div>
+</div>
+`},
+
+/* 11 ─ FO */
+{type:'content',badge:'B&G — FACTORES OBJETIVOS (FO_i)',html:`
+<h2 class="section">💰 Paso 1: Calcular los Factores Objetivos FO_i</h2>
+<p class="desc">Los FO_i miden el desempeño de cada localización en términos de <strong style="color:var(--g)">costos anuales totales</strong>. La lógica: a menor costo → mayor preferencia → mayor FO_i.</p>
+<div class="formula-box">
+  <div class="formula-title">FO_i = (1 / C_i) / Σ_j (1 / C_j)</div>
+  <div class="formula-comps">
+    <div class="formula-comp">
+      <div class="comp-sym">C_i</div>
+      <div>
+        <div class="comp-meaning">Costo total anual de la localización i (en $M/año o $/año)</div>
+        <div class="comp-source">Se obtiene sumando TODOS los costos anuales: materia prima + mano de obra + transporte + energía + arriendo + agua + impuestos locales. Fuente: cotizaciones reales, tarifas ESP, estadísticas DANE, estudios de mercado laboral.</div>
+      </div>
+    </div>
+    <div class="formula-comp">
+      <div class="comp-sym">1 / C_i</div>
+      <div>
+        <div class="comp-meaning">Recíproco del costo — invierte la relación para que menor costo = mayor valor</div>
+        <div class="comp-source">Si C_A=$200M → 1/200=0.005 | Si C_B=$250M → 1/250=0.004. Como 0.005 &gt; 0.004, A tiene ventaja objetiva (es más económica). El recíproco hace posible esa comparación.</div>
+      </div>
+    </div>
+    <div class="formula-comp">
+      <div class="comp-sym">Σ_j (1/C_j)</div>
+      <div>
+        <div class="comp-meaning">Suma de los recíprocos de TODAS las alternativas evaluadas</div>
+        <div class="comp-source">Denominador normalizador: garantiza que todos los FO_i sumen exactamente 1.00. Se calcula sumando 1/C_j de cada una de las n localizaciones candidatas.</div>
+      </div>
+    </div>
+    <div class="formula-comp">
+      <div class="comp-sym">FO_i</div>
+      <div>
+        <div class="comp-meaning">Factor Objetivo normalizado — proporción de preferencia basada en costos</div>
+        <div class="comp-source">Resultado: número entre 0 y 1. La suma de todos los FO_i debe ser 1.00 (verificación obligatoria). La alternativa más económica tiene el FO_i más alto.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="highlight">
+  <p class="desc" style="margin:0">💡 <strong>¿Por qué el recíproco y no el costo directamente?</strong> Porque necesitamos que <em>menor costo = mayor preferencia</em>. El recíproco logra exactamente eso: C bajo → 1/C alto → FO alto. Si usáramos el costo directo, la ciudad MÁS CARA parecería la más preferida.</p>
+</div>
+<div class="step-box"><div class="step-n">Verificación obligatoria después del cálculo</div>
+<div class="step-c"><strong style="color:var(--ok)">FO_A + FO_B + FO_C + ... = 1.0000</strong><br>
+Si la suma difiere de 1.00, hay un error aritmético. Encontrarlo y corregirlo antes de continuar.</div></div>
+`},
+
+/* 12 ─ FS */
+{type:'content',badge:'B&G — FACTORES SUBJETIVOS (FS_i)',html:`
+<h2 class="section">🎯 Paso 2: Calcular los Factores Subjetivos FS_i</h2>
+<p class="desc">Los FS_i capturan lo que no se mide en dinero mediante <strong style="color:var(--w)">comparaciones pareadas</strong> (de a dos elementos a la vez) en dos niveles:</p>
+<div class="formula-box">
+  <div class="formula-title">FS_i = Σ_j ( R_ij × W_j )</div>
+  <div class="formula-comps">
+    <div class="formula-comp">
+      <div class="comp-sym">W_j</div>
+      <div>
+        <div class="comp-meaning">Peso (importancia) del factor subjetivo j</div>
+        <div class="comp-source">Se compara cada par de factores subjetivos: al más importante → 1, al otro → 0. W_j = (suma de 1s del factor j) / (total de comparaciones entre factores). Fuente: consenso del equipo evaluador con justificación documentada.</div>
+      </div>
+    </div>
+    <div class="formula-comp">
+      <div class="comp-sym">R_ij</div>
+      <div>
+        <div class="comp-meaning">Calificación normalizada de la localización i en el factor subjetivo j</div>
+        <div class="comp-source">Para CADA factor, se comparan las localizaciones: la más favorable → 1, la otra → 0. R_ij = (suma de 1s de localización i en factor j) / (total de comparaciones entre localizaciones). Fuente: visitas, entrevistas comunitarias, estadísticas locales.</div>
+      </div>
+    </div>
+    <div class="formula-comp">
+      <div class="comp-sym">FS_i</div>
+      <div>
+        <div class="comp-meaning">Factor Subjetivo ponderado de la localización i</div>
+        <div class="comp-source">Promedio ponderado de calificaciones subjetivas. Mayor FS_i = mejor desempeño cualitativo global. La suma de todos los FS_i debe ser 1.00 (verificación obligatoria).</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="step-box"><div class="step-n">Ejemplo: 3 factores subjetivos — Clima laboral (A), Seguridad (B), Vivienda (C)</div>
+<div class="step-c">
+Comparaciones entre factores:<br>
+A vs B → Seguridad gana (B=1, A=0) | A vs C → Clima gana (A=1, C=0) | B vs C → Seguridad gana (B=1, C=0)<br>
+Sumas: A=1, B=2, C=0 → Total de comparaciones = 3<br>
+<strong style="color:var(--ok)">W_clima = 1/3 = 0.333 | W_seguridad = 2/3 = 0.667 | W_vivienda = 0/3 = 0.000</strong><br>
+Verificación: 0.333 + 0.667 + 0.000 = 1.000 ✓
+</div></div>
+<div class="step-box"><div class="step-n">Después: comparar LOCALIZACIONES en CADA factor subjetivo (mismo proceso)</div>
+<div class="step-c">Para cada factor subjetivo, comparar pares de localizaciones y calcular R_ij del mismo modo.<br>
+Luego aplicar: <strong style="color:var(--ok)">FS_i = Σ (R_ij × W_j)</strong> — sumatoria ponderada de todas las calificaciones subjetivas de la localización i.</div></div>
+`},
+
+/* 13 ─ MPL */
+{type:'content',badge:'B&G — MPL FINAL Y ANÁLISIS DE SENSIBILIDAD',html:`
+<h2 class="section">🏆 Paso 3: Calcular MPL y Verificar Robustez</h2>
+<div class="formula-box">
+  <div class="formula-title">MPL_i = α × FO_i + (1 − α) × FS_i</div>
+  <div class="formula-comps">
+    <div class="formula-comp">
+      <div class="comp-sym">MPL_i</div>
+      <div>
+        <div class="comp-meaning">Medida de Preferencia de Localización — puntaje final integrado</div>
+        <div class="comp-source">Combina costos objetivos (FO) y calidad subjetiva (FS) en un solo número. MAYOR MPL_i → localización recomendada. Si hay empate, revisar datos o agregar más factores.</div>
+      </div>
+    </div>
+    <div class="formula-comp">
+      <div class="comp-sym">α</div>
+      <div>
+        <div class="comp-meaning">Peso de los factores objetivos. Sugerido: 0.60 ≤ α ≤ 0.80</div>
+        <div class="comp-source">Proyectos con márgenes ajustados → α=0.75-0.85. Proyectos de servicios o turismo → α=0.50-0.65. Proyectos sociales → α=0.30-0.50. El evaluador lo justifica según la naturaleza del negocio.</div>
+      </div>
+    </div>
+    <div class="formula-comp">
+      <div class="comp-sym">(1-α)</div>
+      <div>
+        <div class="comp-meaning">Peso de los factores subjetivos — siempre complemento de α</div>
+        <div class="comp-source">Automáticamente igual a (1 menos el valor de α elegido). Garantiza que α + (1-α) = 1.00 y la MPL sea un promedio ponderado matemáticamente válido.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h3 class="sub">¿Por qué hacer Análisis de Sensibilidad?</h3>
+<p class="desc">Porque α es subjetivo. Si el ganador cambia al variar α, la decisión es frágil y merece análisis adicional.</p>
+<table class="table-std">
+<thead><tr><th>Escenario</th><th>α</th><th>Interpretación</th></tr></thead>
+<tbody>
+<tr><td>Costos dominantes</td><td>0.80</td><td>Proyectos industriales o comerciales con alta competencia en precios</td></tr>
+<tr><td>Equilibrado</td><td>0.60</td><td>Proyectos donde imagen, entorno y calidad de vida importan (turismo, servicios)</td></tr>
+<tr><td>Subjetivo relevante</td><td>0.40</td><td>Proyectos sociales o culturales donde la comunidad es el centro del proyecto</td></tr>
+</tbody></table>
+<div class="highlight">
+  <p class="desc" style="margin:0">🔬 <strong>Regla de oro:</strong> Calcular MPL con al menos 3 valores de α (ej: 0.60, 0.70, 0.80). Si el mismo ganador aparece en los 3 → <span class="tag tag-ok">decisión robusta</span>. Si cambia el ganador → <span class="tag tag-no">decisión frágil, revisar datos cuidadosamente</span>.</p>
+</div>
+`},
+
+/* 14 ─ EJEMPLO B&G P1 */
+{type:'content',badge:'EJEMPLO B&G — FACTORES OBJETIVOS (PASO 1)',html:`
+<h2 class="section">🏭 Ejemplo Completo: Planta de Concentrados</h2>
+<p class="desc">Alternativas: <strong style="color:var(--a2)">A — Barrancabermeja</strong>, <strong style="color:var(--g)">B — San Gil</strong>, <strong style="color:var(--w)">C — Bucaramanga</strong>.</p>
+<h3 class="sub">Costos Anuales Totales C_i (todos los rubros en $M/año)</h3>
+<table class="table-std">
+<thead><tr><th>Rubro de costo</th><th style="color:var(--a2)">A (Bmeja)</th><th style="color:var(--g)">B (S.Gil)</th><th style="color:var(--w)">C (B/manga)</th><th>Fuente del dato</th></tr></thead>
+<tbody>
+<tr><td>Materia prima</td><td>$85M</td><td>$92M</td><td>$105M</td><td>Cotizaciones a proveedores regionales</td></tr>
+<tr><td>Mano de obra</td><td>$60M</td><td>$52M</td><td>$70M</td><td>Estadísticas salariales SENA / Mintrabajo</td></tr>
+<tr><td>Transporte productos</td><td>$45M</td><td>$55M</td><td>$35M</td><td>Cotizaciones empresas de carga terrestre</td></tr>
+<tr><td>Arriendo + servicios</td><td>$30M</td><td>$25M</td><td>$40M</td><td>Lonja inmobiliaria + tarifas ESP locales</td></tr>
+<tr style="background:rgba(108,92,231,.11)"><td><strong>TOTAL C_i</strong></td><td><strong>$220M</strong></td><td><strong>$224M</strong></td><td><strong>$250M</strong></td><td>Suma de todos los rubros anteriores</td></tr>
+</tbody></table>
+<div class="step-box"><div class="step-n">Calcular recíprocos (1/C_i)</div>
+<div class="step-c">
+1/C_A = 1/220 = <strong style="color:var(--a2)">0.004545</strong> &nbsp;|&nbsp;
+1/C_B = 1/224 = <strong style="color:var(--g)">0.004464</strong> &nbsp;|&nbsp;
+1/C_C = 1/250 = <strong style="color:var(--w)">0.004000</strong><br>
+<strong>Σ recíprocos = 0.004545 + 0.004464 + 0.004000 = 0.013009</strong>
+</div></div>
+<div class="step-box"><div class="step-n">Calcular FO_i = (1/C_i) / 0.013009</div>
+<div class="step-c">
+<strong style="color:var(--a2)">FO_A = 0.004545 / 0.013009 = 0.3494</strong><br>
+<strong style="color:var(--g)">FO_B = 0.004464 / 0.013009 = 0.3431</strong><br>
+<strong style="color:var(--w)">FO_C = 0.004000 / 0.013009 = 0.3075</strong><br>
+Verificación: 0.3494+0.3431+0.3075 = <strong style="color:var(--ok)">1.0000 ✓</strong><br>
+Interpretación: A es la más económica (FO más alto), seguida de B y luego C.
+</div></div>
+`},
+
+/* 15 ─ EJEMPLO B&G P2 */
+{type:'content',badge:'EJEMPLO B&G — FACTORES SUBJETIVOS (PASO 2)',html:`
+<h2 class="section">🎯 Factores Subjetivos — Comparaciones Pareadas</h2>
+<p class="desc">Factores subjetivos identificados: <strong style="color:var(--a2)">Clima laboral</strong>, <strong style="color:var(--g)">Seguridad ciudadana</strong>, <strong style="color:var(--w)">Vivienda disponible</strong>.</p>
+<h3 class="sub">2.1 — Peso W_j de cada factor (comparaciones entre factores)</h3>
+<table class="table-std">
+<thead><tr><th>Par comparado</th><th>Clima lab.</th><th>Seguridad</th><th>Vivienda</th></tr></thead>
+<tbody>
+<tr><td>Clima vs Seguridad</td><td style="color:var(--no)">0 (pierde)</td><td style="color:var(--ok)">1 (gana)</td><td>—</td></tr>
+<tr><td>Clima vs Vivienda</td><td style="color:var(--ok)">1 (gana)</td><td>—</td><td style="color:var(--no)">0 (pierde)</td></tr>
+<tr><td>Seguridad vs Vivienda</td><td>—</td><td style="color:var(--ok)">1 (gana)</td><td style="color:var(--no)">0 (pierde)</td></tr>
+<tr style="background:rgba(108,92,231,.11)"><td><strong>Suma de 1s</strong></td><td><strong>1</strong></td><td><strong>2</strong></td><td><strong>0</strong></td></tr>
+<tr class="best"><td><strong>W_j = suma/3</strong></td><td><strong>0.333</strong></td><td><strong>0.667</strong></td><td><strong>0.000</strong></td></tr>
+</tbody></table>
+<p class="desc" style="font-size:.72rem">Verificación: 0.333+0.667+0.000 = 1.000 ✓ &nbsp;|&nbsp; Total pares = n(n-1)/2 = 3×2/2 = 3</p>
+<h3 class="sub">2.2 — Calificación R_ij de localizaciones en cada factor</h3>
+<div class="grid2">
+<div>
+<p class="desc" style="font-size:.78rem"><strong style="color:var(--a2)">Factor: Clima laboral</strong></p>
+<table class="table-std">
+<thead><tr><th>Par</th><th>A</th><th>B</th><th>C</th></tr></thead>
+<tbody>
+<tr><td>A vs B</td><td style="color:var(--ok)">1</td><td style="color:var(--no)">0</td><td>—</td></tr>
+<tr><td>A vs C</td><td style="color:var(--no)">0</td><td>—</td><td style="color:var(--ok)">1</td></tr>
+<tr><td>B vs C</td><td>—</td><td style="color:var(--no)">0</td><td style="color:var(--ok)">1</td></tr>
+<tr class="best"><td><strong>R_ij</strong></td><td><strong>0.333</strong></td><td><strong>0.000</strong></td><td><strong>0.667</strong></td></tr>
+</tbody></table>
+</div>
+<div>
+<p class="desc" style="font-size:.78rem"><strong style="color:var(--g)">Factor: Seguridad ciudadana</strong></p>
+<table class="table-std">
+<thead><tr><th>Par</th><th>A</th><th>B</th><th>C</th></tr></thead>
+<tbody>
+<tr><td>A vs B</td><td style="color:var(--no)">0</td><td style="color:var(--ok)">1</td><td>—</td></tr>
+<tr><td>A vs C</td><td style="color:var(--ok)">1</td><td>—</td><td style="color:var(--no)">0</td></tr>
+<tr><td>B vs C</td><td>—</td><td style="color:var(--ok)">1</td><td style="color:var(--no)">0</td></tr>
+<tr class="best"><td><strong>R_ij</strong></td><td><strong>0.333</strong></td><td><strong>0.667</strong></td><td><strong>0.000</strong></td></tr>
+</tbody></table>
 </div>
 </div>
+<p class="desc" style="font-size:.72rem;color:var(--m)">Vivienda tiene W_j=0, por lo que aunque se calcule R_ij, no influye en el FS final.</p>
+`},
+
+/* 16 ─ EJEMPLO B&G P3 */
+{type:'content',badge:'EJEMPLO B&G — FS, MPL Y RESULTADO FINAL',html:`
+<h2 class="section">🏆 Calcular FS_i y MPL Final</h2>
+<div class="step-box"><div class="step-n">FS_i = Σ (R_ij × W_j) — calcular para cada localización</div>
+<div class="step-c">
+<strong style="color:var(--a2)">FS_A</strong> = (R_clima×W_clima) + (R_seg×W_seg) + (R_viv×W_viv)<br>
+&nbsp;&nbsp;= (0.333×0.333) + (0.333×0.667) + (cualquier×0.000) = 0.111 + 0.222 = <strong>0.333</strong><br><br>
+<strong style="color:var(--g)">FS_B</strong> = (0.000×0.333) + (0.667×0.667) + (×0.000) = 0 + 0.445 = <strong>0.445</strong><br>
+<strong style="color:var(--w)">FS_C</strong> = (0.667×0.333) + (0.000×0.667) + (×0.000) = 0.222 + 0 = <strong>0.222</strong><br>
+Verificación: 0.333+0.445+0.222 = <strong style="color:var(--ok)">1.000 ✓</strong>
+</div></div>
+<h3 class="sub">MPL_i = 0.75 × FO_i + 0.25 × FS_i &nbsp;(con α=0.75)</h3>
+<table class="table-std">
+<thead><tr><th>Localización</th><th>FO_i</th><th>FS_i</th><th>0.75×FO</th><th>0.25×FS</th><th>MPL_i</th></tr></thead>
+<tbody>
+<tr><td><strong style="color:var(--a2)">A — Barrancabermeja</strong></td><td>0.3494</td><td>0.333</td><td>0.2621</td><td>0.0833</td><td><strong>0.3454</strong></td></tr>
+<tr class="best"><td><strong style="color:var(--g)">B — San Gil 🏆</strong></td><td>0.3431</td><td>0.445</td><td>0.2573</td><td>0.1113</td><td style="font-size:.92rem"><strong>0.3686</strong></td></tr>
+<tr><td><strong style="color:var(--w)">C — Bucaramanga</strong></td><td>0.3075</td><td>0.222</td><td>0.2306</td><td>0.0555</td><td><strong>0.2861</strong></td></tr>
+</tbody></table>
+<div class="highlight">
+  <p class="desc" style="margin:0">🏆 <strong style="color:var(--g)">San Gil gana con MPL=0.3686</strong>. Aunque Barrancabermeja es más económica (FO mayor), San Gil compensa con mejor desempeño en seguridad ciudadana (factor de mayor peso W=0.667). El balance con α=0.75 favorece a San Gil.</p>
+</div>
+<div class="step-box"><div class="step-n">Sensibilidad con α=0.90 (costos casi dominantes)</div>
+<div class="step-c">
+MPL_A = 0.90×0.3494+0.10×0.333 = 0.3145+0.0333 = <strong>0.3478</strong><br>
+MPL_B = 0.90×0.3431+0.10×0.445 = 0.3088+0.0445 = <strong>0.3533</strong><br>
+MPL_C = 0.90×0.3075+0.10×0.222 = 0.2768+0.0222 = <strong>0.2990</strong><br>
+<strong style="color:var(--ok)">B sigue ganando incluso con α=0.90 → Decisión robusta ✓</strong>
+</div></div>
+`},
+
+/* 17 ─ QUIZ B&G */
+{type:'quiz',badge:'🎮 EVALUEMOS: BROWN Y GIBSON',title:'¿Dominas Brown y Gibson?',questions:[
+  {q:'¿Por qué se usa el RECÍPROCO (1/C_i) para calcular los Factores Objetivos?',
+   o:['Porque los costos son siempre números negativos en finanzas','Para que menor costo = mayor preferencia, invirtiendo la relación','Porque la fórmula original lo exige sin fundamento matemático','Para convertir los costos a un porcentaje estándar del 100%'],
+   c:1,f:'El recíproco invierte la relación: C bajo → 1/C alto → FO alto → mayor preferencia. Sin el recíproco, la alternativa MÁS CARA obtendría el FO más alto, que es exactamente lo opuesto a lo que buscamos.'},
+  {q:'Si los costos son A=$200M, B=$250M, C=$400M, ¿cuál tendrá el FO_i más alto?',
+   o:['C, porque $400M es el número más grande','B, porque es el valor del medio','A, porque $200M es el menor costo','Los tres tendrán exactamente el mismo FO'],
+   c:2,f:'Menor costo = mayor FO. 1/200=0.005 &gt; 1/250=0.004 &gt; 1/400=0.0025. Entonces FO_A &gt; FO_B &gt; FO_C. La alternativa más económica obtiene la mayor preferencia objetiva.'},
+  {q:'Con 4 factores subjetivos, ¿cuántas comparaciones pareadas se necesitan?',
+   o:['4 comparaciones','6 comparaciones','8 comparaciones','16 comparaciones'],
+   c:1,f:'Fórmula: n×(n-1)/2 = 4×3/2 = 6 comparaciones (AB, AC, AD, BC, BD, CD). Con 3 factores son 3 pares, con 5 factores serían 10 pares.'},
+  {q:'Si α = 0.70, ¿cuánto pesan los factores SUBJETIVOS en la MPL?',
+   o:['70%','30% — el complemento de α','7%','No se puede saber sin conocer FS_i'],
+   c:1,f:'MPL = α×FO + (1-α)×FS. Con α=0.70 → (1-α)=0.30. Los factores subjetivos pesan exactamente el 30% en la decisión final. Los objetivos (costos) pesan 70%.'},
+  {q:'¿Qué indica cuando la suma de los FS_i de todas las localizaciones NO da 1.00?',
+   o:['Que el resultado es más preciso de lo normal','Que hay un error de cálculo en las comparaciones pareadas','Que falta incluir una localización candidata más','Que el valor de α elegido es demasiado alto'],
+   c:1,f:'Los FS_i son proporciones normalizadas: por construcción matemática siempre deben sumar 1.00. Si no suman 1.00, hay un error en las comparaciones pareadas o en los R_ij que debe identificarse y corregirse antes de calcular la MPL.'}
+]},
+
+/* 18 ─ COMPARACIÓN */
+{type:'content',badge:'COMPARACIÓN DE MÉTODOS',html:`
+<h2 class="section">⚖️ ¿Cuándo usar cada método?</h2>
+<div class="grid2">
+  <div class="gcard" style="border-top:4px solid var(--a)">
+    <div class="icon">📊</div><div class="title">Método por Puntos — Usar cuando:</div>
+    <div class="text" style="line-height:1.82">
+      <span class="tag tag-ok" style="margin-bottom:7px;display:inline-block">VENTAJAS</span><br>
+      ✔ Se necesita una evaluación rápida<br>
+      ✔ Factores principalmente cualitativos<br>
+      ✔ El equipo tiene consenso sobre pesos<br>
+      ✔ Pocas alternativas (2-4 candidatas)<br>
+      ✔ Primera etapa de filtrado rápido<br><br>
+      <span class="tag tag-no" style="margin-bottom:5px;display:inline-block">LIMITACIONES</span><br>
+      ✗ Pesos y calificaciones son subjetivos<br>
+      ✗ No distingue costos de percepciones<br>
+      ✗ Evaluadores distintos → resultados distintos
+    </div>
+  </div>
+  <div class="gcard" style="border-top:4px solid var(--g)">
+    <div class="icon">🧮</div><div class="title">Brown y Gibson — Usar cuando:</div>
+    <div class="text" style="line-height:1.82">
+      <span class="tag tag-ok" style="margin-bottom:7px;display:inline-block">VENTAJAS</span><br>
+      ✔ Se tienen datos reales de costos anuales<br>
+      ✔ Se requiere mayor rigor matemático<br>
+      ✔ Hay factores tanto objetivos como subjetivos<br>
+      ✔ Se necesita análisis de sensibilidad con α<br>
+      ✔ Proyecto con inversión significativa<br><br>
+      <span class="tag tag-no" style="margin-bottom:5px;display:inline-block">LIMITACIONES</span><br>
+      ✗ Más laborioso (doble nivel de comparaciones)<br>
+      ✗ Requiere datos de costos confiables<br>
+      ✗ Tedioso con muchos factores subjetivos
+    </div>
+  </div>
+</div>
+<div class="highlight">
+  <p class="desc" style="margin:0;text-align:center">💡 <strong>Recomendación profesional:</strong> Aplicar <strong>ambos métodos</strong> y comparar. Si coinciden → alta confianza en la decisión. Si difieren → la discrepancia revela una tensión real entre costos y calidad cualitativa que merece análisis adicional.</p>
+</div>
+<div class="flow" style="margin-top:11px">
+  <div class="flow-item"><div class="fi-icon">📋</div><div class="fi-text">Identificar factores</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-item"><div class="fi-icon">⚖️</div><div class="fi-text">Ponderar importancia</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-item"><div class="fi-icon">📊</div><div class="fi-text">Calificar alternativas</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-item"><div class="fi-icon">🧮</div><div class="fi-text">Calcular puntajes</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-item" style="border-color:var(--ok)"><div class="fi-icon">🏆</div><div class="fi-text">Decidir ubicación</div></div>
+</div>
+`},
+
+/* 19 ─ CALCULADORA B&G */
+{type:'calculator_bg',badge:'🧮 CALCULADORA INTERACTIVA — BROWN & GIBSON'},
+
+/* 20 ─ QUIZ FINAL */
+{type:'quiz',badge:'🎮 QUIZ FINAL INTEGRADOR',title:'Evaluación Final: Localización del Proyecto',questions:[
+  {q:'Método por puntos: A=8.2, B=7.9, C=8.1. ¿Cuál es la recomendación más adecuada?',
+   o:['Elegir A directamente (mayor puntaje)','Hacer análisis de sensibilidad: A y C están muy cerca con diferencia de 0.1 pts','Promediar A y C y elegir un punto intermedio','Descartar A porque puede ser un sesgo del evaluador'],
+   c:1,f:'Diferencia de 0.1 entre A (8.2) y C (8.1) es estadísticamente insignificante. Un pequeño ajuste en los pesos podría invertir el resultado. El análisis de sensibilidad (variar pesos ±0.03 en factores más importantes) determina si la decisión es robusta.'},
+  {q:'En Brown y Gibson: FO_A=0.40, FS_A=0.25, α=0.70. ¿Cuánto es MPL_A?',
+   o:['0.355','0.325','0.650','0.455'],
+   c:0,f:'MPL_A = α×FO + (1-α)×FS = 0.70×0.40 + 0.30×0.25 = 0.280 + 0.075 = 0.355. Recuerda: (1-α) = (1-0.70) = 0.30 para los factores subjetivos.'},
+  {q:'¿Es posible que los dos métodos recomienden localizaciones DIFERENTES?',
+   o:['No, si se aplican bien siempre deben coincidir','Sí, porque cada método pondera los factores de manera distinta','Solo si hay errores de cálculo en uno de ellos','Solo cuando hay más de 4 alternativas candidatas'],
+   c:1,f:'Perfectamente posible y frecuente. El método por puntos mezcla todo en una escala 1-10; Brown y Gibson separa costos exactos de subjetividad. Cuando divergen, es información valiosa que indica una tensión real entre costos y factores cualitativos.'},
+  {q:'Para un proyecto donde los COSTOS son el factor más crítico y se tienen datos financieros detallados, ¿qué método usar?',
+   o:['Método por puntos (más sencillo y rápido)','Brown y Gibson (trata costos con rigor matemático usando recíprocos)','Ambos dan exactamente el mismo resultado en este caso','Ninguno es apropiado para este caso'],
+   c:1,f:'Brown y Gibson es superior cuando hay datos de costos confiables porque los trata matemáticamente con recíprocos normalizados, eliminando la subjetividad en la parte cuantitativa. En el método por puntos, hasta el costo recibe una "nota" subjetiva (ej: 7/10) que depende del evaluador.'},
+  {q:'¿Qué refleja cuando dos evaluadores asignan calificaciones muy distintas al mismo factor en el método por puntos?',
+   o:['Que el método es matemáticamente inválido','La subjetividad inherente al método y la necesidad de criterios más claros','Que uno de los dos está trabajando con datos erróneos','Que ese factor no debería incluirse en el análisis'],
+   c:1,f:'Esta es la principal limitación del método por puntos: la calificación depende del criterio e información del evaluador. Se mitiga: (a) trabajando en equipo con varios evaluadores, (b) definiendo criterios claros y verificables para cada rango de la escala, (c) documentando la fuente de cada nota asignada.'}
+]},
+
+/* 21 ─ RESULTADOS */
+{type:'results'}
+
+];
+
+/* ================================================
+   ENGINE
+   ================================================ */
+let cur=0,playerName='',score=0,total=0,qIdx=0,answered=false;
+const $=id=>document.getElementById(id);
+const app=$('app');
+const pct=()=>Math.round((cur/(SLIDES.length-1))*100);
+
+function mkSlide(bodyClass,topHTML,bodyHTML,navHTML){
+  return`<div class="slide animate">
+    <div class="pbar-top"><div class="pfill-top" style="width:${pct()}%"></div></div>
+    <div class="topbar">${topHTML}</div>
+    <div class="slide-body ${bodyClass||''}">${bodyHTML}</div>
+    <div class="nav">${navHTML}</div>
+  </div>`;
+}
+const tb=badge=>`<span class="badge">${badge}</span><span class="counter">${cur} / ${SLIDES.length-1}</span>`;
+const navBtns=()=>`<button class="btn btn-ghost" onclick="go(-1)">← Anterior</button><button class="btn btn-primary" onclick="go(1)">Siguiente →</button>`;
+
+function render(){
+  const s=SLIDES[cur];
+  if(s.type==='register'){
+    app.innerHTML=mkSlide('center',
+      `<span class="badge">BIENVENIDA</span><span></span>`,
+      `<h1 class="main">📍 Localización del Proyecto</h1>
+       <p class="desc">Método por Puntos &amp; Brown y Gibson<br><strong style="color:var(--g)">Formulación y Evaluación de Proyectos — UNIPAZ 2026</strong></p>
+       <div style="max-width:370px;margin:18px auto">
+         <input class="input-field" id="nameIn" placeholder="Escribe tu nombre completo..." autofocus>
+         <p class="desc" style="font-size:.7rem;text-align:center;margin-top:5px">Tu nombre personalizará la experiencia de aprendizaje</p>
+       </div>`,
+      `<div></div><button class="btn btn-primary" onclick="startOVA()">Comenzar →</button>`);
+    const el=$('nameIn'); if(el) el.focus();
+  }
+  else if(s.type==='content'){
+    app.innerHTML=mkSlide('',tb(s.badge),s.html,navBtns());
+  }
+  else if(s.type==='quiz'){
+    qIdx=0; answered=false;
+    app.innerHTML=mkQuiz(s);
+  }
+  else if(s.type==='interactive_points'){
+    app.innerHTML=mkSlide('',tb(s.badge),interactivePointsHTML(),navBtns());
+  }
+  else if(s.type==='calculator_bg'){
+    app.innerHTML=mkSlide('',tb(s.badge),calculatorBGHTML(),navBtns());
+  }
+  else if(s.type==='results'){
+    app.innerHTML=mkResults();
+  }
+}
+
+function startOVA(){
+  const el=$('nameIn');
+  playerName=el?el.value.trim():'';
+  if(!playerName) playerName='Estudiante';
+  cur=1; render();
+}
+function go(d){ cur+=d; if(cur<0)cur=0; if(cur>=SLIDES.length)cur=SLIDES.length-1; render(); }
+
+/* ── QUIZ ── */
+function mkQuiz(s){
+  const q=s.questions[qIdx];
+  const ltrs=['A','B','C','D'];
+  const opts=q.o.map((o,i)=>`<div class="opt" id="opt${i}" onclick="checkQ(${i},${q.c})"><div class="opt-letter">${ltrs[i]}</div><div>${o}</div></div>`).join('');
+  return mkSlide('',tb(s.badge),
+    `<h2 class="section">${s.title}</h2>
+     <div class="game-area">
+       <div class="game-title">Pregunta ${qIdx+1} de ${s.questions.length} — ${playerName}</div>
+       <p class="desc" style="color:var(--t);font-weight:600;font-size:.9rem;margin-bottom:9px">${q.q}</p>
+       ${opts}
+       <div id="qfb"></div>
+     </div>`,
+    `<button class="btn btn-ghost" onclick="go(-1)">← Anterior</button>
+     <button class="btn btn-primary" id="qnxt" style="display:none" onclick="nextQ()">${qIdx+1<s.questions.length?'Siguiente →':'Continuar →'}</button>`);
+}
+
+function checkQ(sel,correct){
+  if(answered)return; answered=true; total++;
+  const s=SLIDES[cur]; const q=s.questions[qIdx];
+  document.querySelectorAll('.opt').forEach((el,i)=>{
+    el.classList.add('disabled');
+    if(i===correct) el.classList.add('correct');
+    if(i===sel&&i!==correct) el.classList.add('wrong');
+  });
+  const ok=sel===correct; if(ok) score++;
+  $('qfb').innerHTML=`<div class="feedback ${ok?'ok':'bad'}">${ok?'✅ ¡Correcto!':'❌ Incorrecto.'} ${q.f}</div>`;
+  const nxt=$('qnxt');
+  if(nxt){ nxt.style.display='block'; nxt.textContent=qIdx+1<s.questions.length?'Siguiente pregunta →':'Continuar →'; }
+}
+
+function nextQ(){
+  const s=SLIDES[cur]; qIdx++; answered=false;
+  if(qIdx>=s.questions.length){ go(1); return; }
+  app.innerHTML=mkQuiz(s);
+}
+
+/* ── INTERACTIVE POINTS ── */
+function interactivePointsHTML(){
+  return`
+<h2 class="section">📊 Practica: Localización de una Panadería Artesanal</h2>
+<p class="desc">${playerName}, ajusta las calificaciones (1–10) para cada ubicación y observa el resultado automáticamente.</p>
+<div class="game-area">
+  <div class="game-title">Modifica los valores y presiona "Calcular Puntajes"</div>
+  <table class="table-std" style="margin-bottom:11px">
+  <thead><tr><th>Factor</th><th>Peso (w)</th><th>Centro ciudad</th><th>Zona autopista</th></tr></thead>
+  <tbody>
+  <tr><td>Flujo peatonal</td><td>0.30</td><td><input class="int-input" type="number" min="1" max="10" value="8" id="pA1"></td><td><input class="int-input" type="number" min="1" max="10" value="4" id="pB1"></td></tr>
+  <tr><td>Costo arriendo</td><td>0.25</td><td><input class="int-input" type="number" min="1" max="10" value="4" id="pA2"></td><td><input class="int-input" type="number" min="1" max="10" value="8" id="pB2"></td></tr>
+  <tr><td>Parqueadero</td><td>0.20</td><td><input class="int-input" type="number" min="1" max="10" value="3" id="pA3"></td><td><input class="int-input" type="number" min="1" max="10" value="9" id="pB3"></td></tr>
+  <tr><td>Servicios públicos</td><td>0.15</td><td><input class="int-input" type="number" min="1" max="10" value="7" id="pA4"></td><td><input class="int-input" type="number" min="1" max="10" value="7" id="pB4"></td></tr>
+  <tr><td>Seguridad</td><td>0.10</td><td><input class="int-input" type="number" min="1" max="10" value="6" id="pA5"></td><td><input class="int-input" type="number" min="1" max="10" value="8" id="pB5"></td></tr>
+  </tbody></table>
+  <div style="text-align:center"><button class="calc-btn" onclick="calcPoints()">📊 Calcular Puntajes</button></div>
+  <div id="ptResult"></div>
+</div>`;
+}
+
+function calcPoints(){
+  const w=[.30,.25,.20,.15,.10];
+  const n=['Flujo peatonal','Costo arriendo','Parqueadero','Servicios públicos','Seguridad'];
+  let tA=0,tB=0,rows='';
+  for(let i=0;i<5;i++){
+    const a=Math.min(10,Math.max(1,parseInt($('pA'+(i+1)).value)||5));
+    const b=Math.min(10,Math.max(1,parseInt($('pB'+(i+1)).value)||5));
+    const pA=w[i]*a,pB=w[i]*b; tA+=pA; tB+=pB;
+    rows+=`<tr><td>${n[i]}</td><td>${w[i]}</td><td>${a}</td><td>${pA.toFixed(2)}</td><td>${b}</td><td>${pB.toFixed(2)}</td></tr>`;
+  }
+  const winner=tA>tB?'Centro ciudad':tA<tB?'Zona autopista':'Empate técnico';
+  const wc=tA>tB?'var(--a2)':tA<tB?'var(--g)':'var(--w)';
+  const diff=Math.abs(tA-tB);
+  $('ptResult').innerHTML=`<div class="calc-result">
+    <table class="table-std"><thead><tr><th>Factor</th><th>Peso</th><th>Centro</th><th>Pond.</th><th>Autopista</th><th>Pond.</th></tr></thead>
+    <tbody>${rows}
+    <tr style="background:rgba(108,92,231,.11)"><td><strong>TOTAL</strong></td><td>1.00</td><td></td>
+    <td style="font-weight:900;color:${tA>=tB?'var(--ok)':'var(--m)'}">${tA.toFixed(2)}</td><td></td>
+    <td style="font-weight:900;color:${tB>=tA?'var(--ok)':'var(--m)'}">${tB.toFixed(2)}</td></tr>
+    </tbody></table>
+    <div style="text-align:center;margin-top:9px;font-size:.88rem">
+    🏆 <strong style="color:${wc}">${winner}</strong> — Puntaje: ${Math.max(tA,tB).toFixed(2)}
+    ${diff<0.5?'<br><span style="color:var(--w);font-size:.74rem">⚠️ Diferencia &lt;0.5 → Se recomienda análisis de sensibilidad</span>':''}
+    </div>
+  </div>`;
+}
+
+/* ── CALCULATOR B&G ── */
+function calculatorBGHTML(){
+  return`
+<h2 class="section">🧮 Calculadora Brown &amp; Gibson</h2>
+<p class="desc">${playerName}, ingresa los datos y obtén la MPL automáticamente. Prueba distintos valores de α para el análisis de sensibilidad.</p>
+<div class="game-area">
+  <div class="game-title">① Costos anuales totales C_i (millones $/año)</div>
+  <div class="grid3" style="margin-bottom:6px;text-align:center">
+    <div><label style="color:var(--a2);font-size:.75rem;font-weight:700">Localización A</label><br>
+      <input class="calc-input" id="cA" type="number" value="220" style="width:85px;margin-top:4px"> M</div>
+    <div><label style="color:var(--g);font-size:.75rem;font-weight:700">Localización B</label><br>
+      <input class="calc-input" id="cB" type="number" value="224" style="width:85px;margin-top:4px"> M</div>
+    <div><label style="color:var(--w);font-size:.75rem;font-weight:700">Localización C</label><br>
+      <input class="calc-input" id="cC" type="number" value="250" style="width:85px;margin-top:4px"> M</div>
+  </div>
+  <div class="game-title" style="margin-top:12px">② Factor Subjetivo FS_i — resultado de comparaciones pareadas (0–1, suma debe ser ~1.00)</div>
+  <div class="grid3" style="margin-bottom:6px;text-align:center">
+    <div><label style="color:var(--a2);font-size:.75rem">FS_A</label><br>
+      <input class="calc-input" id="fsA" type="number" step="0.001" min="0" max="1" value="0.333" style="width:85px;margin-top:4px"></div>
+    <div><label style="color:var(--g);font-size:.75rem">FS_B</label><br>
+      <input class="calc-input" id="fsB" type="number" step="0.001" min="0" max="1" value="0.445" style="width:85px;margin-top:4px"></div>
+    <div><label style="color:var(--w);font-size:.75rem">FS_C</label><br>
+      <input class="calc-input" id="fsC" type="number" step="0.001" min="0" max="1" value="0.222" style="width:85px;margin-top:4px"></div>
+  </div>
+  <div style="text-align:center;margin:9px 0">
+    <label style="font-weight:700;font-size:.84rem">③ α = </label>
+    <input class="calc-input" id="alphaVal" type="number" step="0.05" min="0" max="1" value="0.75" style="width:75px">
+    <span style="font-size:.72rem;color:var(--m)"> (peso costos objetivos)</span>
+  </div>
+  <div style="text-align:center"><button class="calc-btn" onclick="calcBG()">🧮 Calcular MPL</button></div>
+  <div id="bgResult"></div>
+</div>`;
+}
+
+function calcBG(){
+  const cA=parseFloat($('cA').value)||220,cB=parseFloat($('cB').value)||224,cC=parseFloat($('cC').value)||250;
+  const fsA=parseFloat($('fsA').value)||0,fsB=parseFloat($('fsB').value)||0,fsC=parseFloat($('fsC').value)||0;
+  const al=parseFloat($('alphaVal').value)||0.75;
+  const rA=1/cA,rB=1/cB,rC=1/cC,sumR=rA+rB+rC;
+  const foA=rA/sumR,foB=rB/sumR,foC=rC/sumR;
+  const sumFS=fsA+fsB+fsC;
+  const mA=al*foA+(1-al)*fsA,mB=al*foB+(1-al)*fsB,mC=al*foC+(1-al)*fsC;
+  const best=mA>=mB&&mA>=mC?'A':mB>=mC?'B':'C';
+  const bc=best==='A'?'var(--a2)':best==='B'?'var(--g)':'var(--w)';
+  const fsOk=Math.abs(sumFS-1)<0.012;
+  $('bgResult').innerHTML=`<div class="calc-result">
+    ${!fsOk?`<div style="color:var(--no);font-size:.75rem;margin-bottom:7px">⚠️ Suma de FS = ${sumFS.toFixed(3)} (debe ser ~1.000). Revisa las comparaciones pareadas.</div>`:''}
+    <table class="table-std"><thead><tr><th></th><th style="color:var(--a2)">A</th><th style="color:var(--g)">B</th><th style="color:var(--w)">C</th></tr></thead>
+    <tbody>
+    <tr><td>C_i</td><td>$${cA}M</td><td>$${cB}M</td><td>$${cC}M</td></tr>
+    <tr><td>1/C_i</td><td>${rA.toFixed(6)}</td><td>${rB.toFixed(6)}</td><td>${rC.toFixed(6)}</td></tr>
+    <tr><td><strong>FO_i</strong> <span style="color:var(--m);font-size:.68rem">(Σ=${(foA+foB+foC).toFixed(4)} ${Math.abs(foA+foB+foC-1)<0.001?'✅':'⚠️'})</span></td>
+      <td><strong>${foA.toFixed(4)}</strong></td><td><strong>${foB.toFixed(4)}</strong></td><td><strong>${foC.toFixed(4)}</strong></td></tr>
+    <tr><td>FS_i <span style="color:var(--m);font-size:.68rem">(Σ=${sumFS.toFixed(3)} ${fsOk?'✅':'⚠️'})</span></td>
+      <td>${fsA.toFixed(3)}</td><td>${fsB.toFixed(3)}</td><td>${fsC.toFixed(3)}</td></tr>
+    <tr><td>α×FO_i</td><td>${(al*foA).toFixed(4)}</td><td>${(al*foB).toFixed(4)}</td><td>${(al*foC).toFixed(4)}</td></tr>
+    <tr><td>(1-α)×FS_i</td><td>${((1-al)*fsA).toFixed(4)}</td><td>${((1-al)*fsB).toFixed(4)}</td><td>${((1-al)*fsC).toFixed(4)}</td></tr>
+    <tr style="background:rgba(108,92,231,.13)"><td><strong>MPL_i</strong></td>
+      <td style="font-weight:900;color:${best==='A'?'var(--ok)':'var(--t)'}">${mA.toFixed(4)}${best==='A'?' 🏆':''}</td>
+      <td style="font-weight:900;color:${best==='B'?'var(--ok)':'var(--t)'}">${mB.toFixed(4)}${best==='B'?' 🏆':''}</td>
+      <td style="font-weight:900;color:${best==='C'?'var(--ok)':'var(--t)'}">${mC.toFixed(4)}${best==='C'?' 🏆':''}</td>
+    </tr></tbody></table>
+    <div style="text-align:center;margin-top:8px;font-size:.88rem">
+      🏆 <strong style="color:${bc}">Localización ${best}</strong> — MPL = ${Math.max(mA,mB,mC).toFixed(4)} (con α=${al})
+    </div>
+  </div>`;
+}
+
+/* ── RESULTS ── */
+function mkResults(){
+  const p=total>0?Math.round((score/total)*100):0;
+  const [msg,mc]=p>=80?['¡Excelente trabajo! Dominas los métodos de localización.','var(--ok)']
+    :p>=60?['Buen desempeño. Repasa los puntos donde fallaste.','var(--w)']
+    :['Te recomiendo repasar la presentación y los ejercicios nuevamente.','var(--no)'];
+  return mkSlide('center',tb('RESULTADOS FINALES'),
+    `<h2 class="section">📊 Resultados de ${playerName}</h2>
+     <div class="score-panel">
+       <div class="score-big">${score} / ${total}</div>
+       <div class="score-label">${p}% de respuestas correctas</div>
+     </div>
+     <p class="desc" style="color:${mc};font-weight:600;font-size:.93rem">${msg}</p>
+     <div class="grid2" style="margin-top:10px">
+       <div class="gcard" style="text-align:center"><div class="icon">📊</div><div class="title">Método por Puntos</div>
+         <div class="text">Puntaje = Σ (w_j × c_ij)<br>Mayor puntaje → Mejor ubicación<br>Diferencia &lt;0.5 → análisis sensibilidad</div></div>
+       <div class="gcard" style="text-align:center"><div class="icon">🧮</div><div class="title">Brown y Gibson</div>
+         <div class="text">FO = (1/C_i)/Σ(1/C_j)<br>FS = Σ(R_ij×W_j)<br>MPL = α×FO + (1-α)×FS → MAX</div></div>
+     </div>`,
+    `<button class="btn btn-ghost" onclick="cur=0;score=0;total=0;render()">🔄 Reiniciar</button>
+     <button class="btn btn-primary" onclick="go(-1)">← Revisar</button>`);
+}
+
+/* ── KEYBOARD ── */
+document.addEventListener('keydown',e=>{
+  const s=SLIDES[cur];
+  if((e.key==='ArrowRight'||(e.key===' '&&s.type==='content'))) go(1);
+  if(e.key==='ArrowLeft') go(-1);
+  if(e.key==='Enter'&&cur===0) startOVA();
+});
+
+render();
+</script>
 </body>
 </html>
