@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estudio Económico — Semana 8 | Formulación y Evaluación de Proyectos · UNIPAZ</title>
+<meta name="description" content="Guía completa del Estudio Económico: Inversión, Costos, Gastos, Punto de Equilibrio y Estado de Resultados. Ingeniería de Producción — UNIPAZ 2025-1">
+
+<!-- KaTeX para fórmulas matemáticas -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Roboto+Mono:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+<style>
+/* ══════════════════════════
+   VARIABLES Y RESET
+══════════════════════════ */
+:root {
+  --azul:    #1A3A5A;
+  --azul2:   #2563EB;
+  --verde:   #15803D;
+  --verde2:  #22C55E;
+  --ambar:   #B45309;
+  --rojo:    #991B1B;
+  --lila:    #6D28D9;
+  --gris:    #374151;
+  --claro:   #F1F5F9;
+  --linea:   #E2E8F0;
+  --sombra:  rgba(0,0,0,0.07);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 10.5pt;
+  color: #1E293B;
+  background: #CBD5E1;
+  line-height: 1.65;
+}
+
+/* ══════════════════════════
+   PÁGINAS A4
+══════════════════════════ */
+.page {
+  width: 21cm;
+  min-height: 29.7cm;
+  background: #fff;
+  margin: 1cm auto;
+  padding: 0;
+  box-shadow: 0 6px 40px rgba(0,0,0,.18);
+  page-break-after: always;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ══════════════════════════
+   PORTADA
+══════════════════════════ */
+.cover {
+  background: linear-gradient(145deg, #0a1628 0%, #1A3A5A 45%, #0e3d1a 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 29.7cm;
+  padding: 2cm 2.2cm;
+  text-align: center;
+  gap: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34,197,94,.12) 0%, transparent 70%);
+  top: -120px; right: -120px;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37,99,235,.1) 0%, transparent 70%);
+  bottom: -100px; left: -100px;
+}
+.cover-badge {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 100px;
+  padding: 6px 22px;
+  font-size: 8.5pt;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  position: relative; z-index: 1;
+}
+.cover-week {
+  font-size: 11pt;
+  font-weight: 600;
+  color: #86EFAC;
+  letter-spacing: 1px;
+  position: relative; z-index: 1;
+}
+.cover-icon { font-size: 52pt; position: relative; z-index: 1; }
+.cover h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 30pt;
+  font-weight: 700;
+  line-height: 1.15;
+  max-width: 14.5cm;
+  position: relative; z-index: 1;
+}
+.cover h1 span { color: #34D399; }
+.cover-sub {
+  font-size: 12pt;
+  font-weight: 300;
+  opacity: .88;
+  max-width: 13cm;
+  position: relative; z-index: 1;
+}
+.cover-divider {
+  width: 7cm; height: 3px;
+  background: linear-gradient(90deg, transparent, #34D399, transparent);
+  border-radius: 2px;
+  position: relative; z-index: 1;
+}
+.cover-modules {
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+  max-width: 14cm;
+  position: relative; z-index: 1;
+}
+.cover-mod {
+  background: rgba(255,255,255,.09);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 8px;
+  padding: 7px 13px;
+  font-size: 8.5pt;
+  font-weight: 500;
+  transition: background .2s;
+}
+.cover-pillars {
+  display: flex; gap: 16px;
+  position: relative; z-index: 1;
+}
+.cover-pillar {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 10px;
+  padding: 12px 14px;
+  text-align: center;
+  font-size: 8.5pt;
+}
+.cover-pillar .p-icon { font-size: 18pt; display: block; margin-bottom: 4px; }
+.cover-ref {
+  font-size: 8.5pt; opacity: .65; max-width: 13cm;
+  border-top: 1px solid rgba(255,255,255,.18);
+  padding-top: 14px;
+  position: relative; z-index: 1;
+}
+.cover-footer {
+  font-size: 8pt; opacity: .5; text-align: center;
+  position: absolute; bottom: 1cm;
+  position: relative; z-index: 1;
+}
+
+/* ══════════════════════════
+   CABECERA DE PÁGINA
+══════════════════════════ */
+.page-header {
+  background: var(--azul);
+  color: #fff;
+  padding: 7px 1.8cm;
+  font-size: 8pt;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+}
+.page-header.v  { background: var(--verde); }
+.page-header.l  { background: var(--lila); }
+.page-header.r  { background: var(--rojo); }
+.page-header.a  { background: var(--ambar); }
+.page-header.ej { background: #0F4C75; }
+.page-header.act { background: #312e81; }
+
+/* ══════════════════════════
+   CONTENIDO INTERIOR
+══════════════════════════ */
+.content { padding: 1.4cm 1.8cm; }
+
+/* ══════════════════════════
+   CABECERA DE MÓDULO
+══════════════════════════ */
+.mod-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  color: #fff;
+}
+.mod-header .icon { font-size: 22pt; }
+.mod-header h2 { font-size: 14pt; font-weight: 700; margin-bottom: 2px; }
+.mod-header p { font-size: 8.5pt; opacity: .88; }
+.mod-header .num {
+  margin-left: auto;
+  font-size: 40pt;
+  font-weight: 800;
+  opacity: .18;
+  line-height: 1;
+  font-family: 'Playfair Display', serif;
+}
+.bg1 { background: linear-gradient(135deg, #1A3A5A, #2563EB); }
+.bg2 { background: linear-gradient(135deg, #14532D, #15803D); }
+.bg3 { background: linear-gradient(135deg, #4C1D95, #6D28D9); }
+.bg4 { background: linear-gradient(135deg, #7F1D1D, #991B1B); }
+.bg5 { background: linear-gradient(135deg, #78350F, #B45309); }
+.bg-ej  { background: linear-gradient(135deg, #0F4C75, #1a6a9a); }
+.bg-act { background: linear-gradient(135deg, #312e81, #4338ca); }
+
+/* ══════════════════════════
+   DEFINICIÓN / CAJA CONCEPTO
+══════════════════════════ */
+.definicion {
+  background: #EFF6FF;
+  border-left: 4px solid var(--azul2);
+  border-radius: 0 8px 8px 0;
+  padding: 13px 16px;
+  margin-bottom: 16px;
+  font-size: 10pt;
+  line-height: 1.7;
+}
+.definicion.verde { background: #F0FDF4; border-color: var(--verde); }
+.definicion.lila  { background: #F5F3FF; border-color: var(--lila); }
+.definicion.rojo  { background: #FEF2F2; border-color: var(--rojo); }
+.definicion.ambar { background: #FFFBEB; border-color: var(--ambar); }
+.definicion.ej    { background: #E0F2FE; border-color: #0369A1; }
+.definicion.act   { background: #EDE9FE; border-color: #4338CA; }
+
+/* ══════════════════════════
+   TÍTULOS DE SECCIÓN
+══════════════════════════ */
+.sec-title {
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: var(--azul);
+  border-bottom: 2px solid var(--azul);
+  padding-bottom: 4px;
+  margin: 18px 0 10px;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+}
+.sec-title.v   { color: var(--verde); border-color: var(--verde); }
+.sec-title.l   { color: var(--lila);  border-color: var(--lila); }
+.sec-title.r   { color: var(--rojo);  border-color: var(--rojo); }
+.sec-title.a   { color: var(--ambar); border-color: var(--ambar); }
+.sec-title.ej  { color: #0369A1; border-color: #0369A1; }
+.sec-title.act { color: #4338CA; border-color: #4338CA; }
+
+/* ══════════════════════════
+   TABLAS
+══════════════════════════ */
+table { width: 100%; border-collapse: collapse; margin-bottom: 13px; font-size: 9.5pt; }
+th { padding: 7px 10px; text-align: center; font-weight: 600; font-size: 8.5pt; color: #fff; }
+td { padding: 6px 10px; border: 1px solid var(--linea); vertical-align: middle; }
+td.lbl { font-weight: 600; background: #F8FAFC; }
+td.num { text-align: right; font-family: 'Roboto Mono', monospace; font-size: 9pt; }
+td.cen { text-align: center; }
+tr.sub td { background: #F1F5F9; font-weight: 600; font-style: italic; }
+tr.tot    td { background: #DBEAFE; font-weight: 700; border-top: 2px solid var(--azul); }
+tr.tot.v  td { background: #DCFCE7; border-top-color: var(--verde); }
+tr.tot.p  td { background: #EDE9FE; border-top-color: var(--lila); }
+tr.tot.r  td { background: #FEE2E2; border-top-color: var(--rojo); }
+tr.tot.a  td { background: #FEF3C7; border-top-color: var(--ambar); }
+tr.tot.ej td { background: #E0F2FE; border-top-color: #0369A1; }
+tr.pos td   { color: #15803D; font-weight: 700; }
+tr.neg td   { color: #991B1B; font-weight: 700; }
+
+th.h1 { background: var(--azul); }
+th.h2 { background: var(--verde); }
+th.h3 { background: var(--lila); }
+th.h4 { background: var(--rojo); }
+th.h5 { background: var(--ambar); }
+th.hej { background: #0F4C75; }
+th.hact { background: #312e81; }
+
+/* ══════════════════════════
+   CAJA FÓRMULA (KaTeX)
+══════════════════════════ */
+.formula-card {
+  background: #0F172A;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 12px 0;
+  border-left: 4px solid #38BDF8;
+}
+.formula-card .f-label {
+  font-size: 8pt;
+  color: #7DD3FC;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.formula-card .katex-block {
+  color: #F1F5F9;
+  overflow-x: auto;
+  padding: 4px 0;
+}
+.formula-card .f-note {
+  font-size: 8pt;
+  color: #94A3B8;
+  margin-top: 8px;
+  border-top: 1px solid rgba(255,255,255,.07);
+  padding-top: 6px;
+  font-style: italic;
+}
+.formula-card .f-example {
+  font-size: 8.5pt;
+  color: #86EFAC;
+  margin-top: 6px;
+  font-family: 'Roboto Mono', monospace;
+}
+
+/* Fórmulas con fondo claro integradas en texto */
+.f-inline {
+  background: #F0F9FF;
+  border: 1px solid #BAE6FD;
+  border-radius: 6px;
+  padding: 4px 10px;
+  display: inline-block;
+  font-size: 9.5pt;
+}
+
+/* ══════════════════════════
+   TARJETAS CONCEPTOS
+══════════════════════════ */
+.cards { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.card {
+  flex: 1 1 130px;
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #FAFAFA;
+}
+.card .card-title { font-weight: 700; font-size: 9pt; color: var(--azul); margin-bottom: 4px; }
+.card .card-title.v { color: var(--verde); }
+.card .card-title.l { color: var(--lila); }
+.card .card-title.r { color: var(--rojo); }
+.card .card-title.a { color: var(--ambar); }
+.card p { font-size: 8.5pt; color: #4B5563; line-height: 1.5; }
+
+/* ══════════════════════════
+   ALERTAS / NOTAS
+══════════════════════════ */
+.alerta {
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 9pt;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 1.55;
+}
+.alerta.info { background: #EFF6FF; border: 1px solid #BFDBFE; color: #1E40AF; }
+.alerta.warn { background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; }
+.alerta.ok   { background: #F0FDF4; border: 1px solid #BBF7D0; color: #14532D; }
+.alerta.tip  { background: #F5F3FF; border: 1px solid #DDD6FE; color: #4C1D95; }
+.alerta-icon { font-size: 12pt; flex-shrink: 0; }
+
+/* ══════════════════════════
+   BLOQUE EJEMPLO INTEGRADO
+══════════════════════════ */
+.ejemplo-band {
+  background: linear-gradient(90deg, #0F4C75, #1a6a9a);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 9pt;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ══════════════════════════
+   BLOQUE ACTIVIDAD
+══════════════════════════ */
+.actividad-box {
+  background: linear-gradient(135deg, #EDE9FE, #DDD6FE);
+  border: 2px solid #8B5CF6;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 12px 0;
+}
+.actividad-box .act-header {
+  font-weight: 700;
+  font-size: 10pt;
+  color: #4C1D95;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.actividad-steps {
+  counter-reset: step;
+  list-style: none;
+}
+.actividad-steps li {
+  counter-increment: step;
+  padding: 6px 0 6px 30px;
+  position: relative;
+  font-size: 9.5pt;
+  border-bottom: 1px dashed #C4B5FD;
+}
+.actividad-steps li:last-child { border-bottom: none; }
+.actividad-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  background: #6D28D9;
+  color: #fff;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  font-size: 8pt;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 7px;
+}
+.dato-campo {
+  background: #fff;
+  border: 1px dashed #8B5CF6;
+  border-radius: 4px;
+  padding: 2px 8px;
+  display: inline-block;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 8.5pt;
+  color: #4C1D95;
+  min-width: 120px;
+}
+
+/* ══════════════════════════
+   GRÁFICO PE (SVG inline)
+══════════════════════════ */
+.pe-chart-container {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+/* ══════════════════════════
+   MAPA DE INTEGRACIÓN
+══════════════════════════ */
+.flujo-integracion {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  margin: 12px 0;
+}
+.flujo-item {
+  flex: 1;
+  text-align: center;
+  padding: 10px 6px;
+  border-radius: 8px;
+  font-size: 8.5pt;
+  font-weight: 600;
+}
+.flujo-arrow {
+  display: flex;
+  align-items: center;
+  font-size: 14pt;
+  color: #94A3B8;
+  padding: 0 4px;
+}
+.fi1 { background: #DBEAFE; color: #1E40AF; }
+.fi2 { background: #DCFCE7; color: #166534; }
+.fi3 { background: #EDE9FE; color: #4C1D95; }
+.fi4 { background: #FEE2E2; color: #991B1B; }
+.fi5 { background: #FEF3C7; color: #92400E; }
+
+/* ══════════════════════════
+   PRINT
+══════════════════════════ */
+@media print {
+  body { background: #fff; }
+  .page { margin: 0; box-shadow: none; width: 100%; }
+  .btn-print { display: none !important; }
+}
+.btn-print {
+  position: fixed; bottom: 28px; right: 28px;
+  background: var(--azul); color: #fff;
+  border: none; border-radius: 50px;
+  padding: 12px 26px; font-size: 10.5pt; font-weight: 600;
+  cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,.25);
+  font-family: 'Inter', sans-serif;
+  z-index: 99;
+  transition: transform .15s, box-shadow .15s;
+}
+.btn-print:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.3); }
+</style>
+</head>
+<body>
+
+<button class="btn-print" onclick="window.print()">🖨️ Exportar PDF</button>
+
+<!-- ══════════════════════════════════════════
+     PORTADA
+══════════════════════════════════════════ -->
+<div class="page">
+<div class="cover">
+  <div class="cover-badge">Ingeniería de Producción · UNIPAZ · 2025-1</div>
+  <div class="cover-week">📅 Semana 8 — Guía de Estudio</div>
+  <div class="cover-icon">💰</div>
+  <h1>Estudio <span>Económico</span><br>del Proyecto</h1>
+  <p class="cover-sub">Inversión Inicial · Costos de Producción · Gastos de Operación · Punto de Equilibrio · Estado de Resultados Proforma</p>
+  <div class="cover-divider"></div>
+
+  <div class="cover-modules">
+    <div class="cover-mod">💰 Módulo 1 · Inversión Inicial</div>
+    <div class="cover-mod">🏭 Módulo 2 · Costos de Producción</div>
+    <div class="cover-mod">📋 Módulo 3 · Gastos de Operación</div>
+    <div class="cover-mod">⚖️ Módulo 4 · Punto de Equilibrio</div>
+    <div class="cover-mod">📊 Módulo 5 · Estado de Resultados</div>
+    <div class="cover-mod">☕ Ejemplo · Café Artesanal Barichara</div>
+    <div class="cover-mod">✏️ Actividad Formativa</div>
+  </div>
+
+  <div class="cover-pillars">
+    <div class="cover-pillar">
+      <span class="p-icon">📐</span>
+      Fórmulas<br>Matemáticas
+    </div>
+    <div class="cover-pillar">
+      <span class="p-icon">☕</span>
+      Ejemplo<br>Integrado
+    </div>
+    <div class="cover-pillar">
+      <span class="p-icon">✏️</span>
+      Actividad<br>Formativa
+    </div>
+    <div class="cover-pillar">
+      <span class="p-icon">📊</span>
+      Tablas &amp;<br>Análisis
+    </div>
+  </div>
+
+  <p class="cover-ref">Referencias: Baca Urbina, G. — <em>Evaluación de Proyectos</em>, 8.ª ed., McGraw-Hill, 2016 · Nassir Sapag Chain — <em>Preparación y Evaluación de Proyectos</em>, 6.ª ed., McGraw-Hill.</p>
+  <div class="cover-footer">Formulación y Evaluación de Proyectos · UNIPAZ · Periodo 2025-1</div>
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     MÓDULO 1 — INVERSIÓN INICIAL
+══════════════════════════════════════════ -->
+<div class="page">
+<div class="page-header">
+  <span>Estudio Económico del Proyecto — UNIPAZ 2025-1</span>
+  <span>Módulo 1: Inversión Inicial</span>
+</div>
+<div class="content">
+
+  <div class="mod-header bg1">
+    <div class="icon">💰</div>
+    <div>
+      <h2>Módulo 1 — Inversión Inicial</h2>
+      <p>Activos fijos, activos diferidos y capital de trabajo · Baca Urbina, Cap. 4</p>
+    </div>
+    <div class="num">1</div>
+  </div>
+
+  <div class="definicion">
+    La <strong>inversión inicial</strong> es el conjunto total de desembolsos que debe realizar el inversionista <em>antes</em> de que el proyecto entre en operación. Representa la "fotografía financiera del arranque". Según Baca Urbina (2016), se clasifica en tres grandes componentes: <strong>Activos Fijos</strong>, <strong>Activos Diferidos</strong> y <strong>Capital de Trabajo</strong>. La suma de estos tres determina el monto total que se necesita conseguir (mediante capital propio, crédito o ambos).
+  </div>
+
+  <div class="sec-title">A · Activos Fijos Tangibles</div>
+  <p style="margin-bottom:9px;font-size:9.5pt;">Son todos los bienes físicos que el proyecto adquiere y que <strong>participan en el proceso productivo sin transformarse</strong> en el producto. Su valor disminuye con el tiempo a través de la <strong>depreciación</strong>, que es el reconocimiento contable de ese desgaste. El único activo fijo que <em>no</em> se deprecia es el terreno.</p>
+
+  <table>
+    <thead><tr>
+      <th class="h1" style="width:32%">Tipo de Activo Fijo</th>
+      <th class="h1">Ejemplos típicos</th>
+      <th class="h1" style="width:13%">Vida útil</th>
+      <th class="h1" style="width:18%">Método</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">Maquinaria y equipo</td><td>Tornos, prensas, mezcladoras, bandas transportadoras</td><td class="cen">10 años</td><td class="cen">Línea recta</td></tr>
+      <tr><td class="lbl">Equipo de cómputo</td><td>Computadores, servidores, impresoras, POS</td><td class="cen">5 años</td><td class="cen">Línea recta</td></tr>
+      <tr><td class="lbl">Muebles y enseres</td><td>Escritorios, sillas, estantes, mostradores</td><td class="cen">10 años</td><td class="cen">Línea recta</td></tr>
+      <tr><td class="lbl">Vehículos</td><td>Camiones de reparto, motos, montacargas</td><td class="cen">5 años</td><td class="cen">Línea recta</td></tr>
+      <tr><td class="lbl">Edificios y obras civiles</td><td>Planta de producción, bodegas, locales comerciales</td><td class="cen">20 años</td><td class="cen">Línea recta</td></tr>
+      <tr><td class="lbl">Terreno</td><td>Lote o predio donde se ubica el proyecto</td><td class="cen">∞</td><td class="cen" style="color:#991B1B;font-weight:600">No deprecia</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ── VIDA ÚTIL ── -->
+  <div class="sec-title" style="color:#6D28D9;border-color:#6D28D9;">¿Cómo se determina la Vida Útil de un activo?</div>
+  <p style="margin-bottom:8px;font-size:9.5pt;">La <strong>vida útil</strong> es el período estimado durante el cual un activo generará beneficios económicos para el proyecto. <em>No es un número inventado</em>: se determina combinando tres criterios, en orden de prioridad:</p>
+
+  <div class="cards" style="margin-bottom:10px;">
+    <div class="card" style="border-color:#6D28D9;background:#F5F3FF;">
+      <div class="card-title l">① Norma tributaria (DIAN)</div>
+      <p>El Estatuto Tributario colombiano (Art. 137 ET) fija <strong>tasas máximas de depreciación fiscal</strong> por categoría de activo. Son los valores que la DIAN acepta como deducción. Son el punto de partida en proyectos de aula.</p>
+    </div>
+    <div class="card" style="border-color:#0369A1;background:#E0F2FE;">
+      <div class="card-title" style="color:#0369A1;">② Estándares técnicos / NIIF</div>
+      <p>Las <strong>NIIF (NIC 16)</strong> exigen estimar la vida útil según el <em>desgaste real esperado</em>: intensidad de uso, condiciones ambientales, mantenimiento. Puede diferir de la norma tributaria.</p>
+    </div>
+    <div class="card" style="border-color:#15803D;background:#F0FDF4;">
+      <div class="card-title v">③ Criterio del proyectista</div>
+      <p>Si el <strong>horizonte del proyecto</strong> es menor que la vida útil contable (ej. proyecto a 5 años pero el edificio dura 20), se usa el horizonte del proyecto y se calcula el <strong>Valor Residual en libros</strong>.</p>
+    </div>
+  </div>
+
+  <table style="font-size:8.5pt;">
+    <thead><tr>
+      <th class="h3" style="width:26%">Tipo de activo</th>
+      <th class="h3" style="width:16%">Vida útil DIAN<br><small style="font-weight:400">(Art. 137 ET)</small></th>
+      <th class="h3" style="width:16%">Vida útil NIIF<br><small style="font-weight:400">(NIC 16 ref.)</small></th>
+      <th class="h3">Ejemplos concretos</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">Equipo de cómputo y software</td><td class="cen" style="color:#6D28D9;font-weight:700">5 años</td><td class="cen">3 – 5 años</td><td>Computadores, tablets, POS, impresoras, servidores</td></tr>
+      <tr><td class="lbl">Vehículos y equipo de transporte</td><td class="cen" style="color:#6D28D9;font-weight:700">5 años</td><td class="cen">4 – 8 años</td><td>Camiones, motos, montacargas, volquetas</td></tr>
+      <tr><td class="lbl">Maquinaria y equipo industrial</td><td class="cen" style="color:#6D28D9;font-weight:700">10 años</td><td class="cen">8 – 15 años</td><td>Tornos, prensas, cafeteras ind., compresoras, mezcladoras</td></tr>
+      <tr><td class="lbl">Muebles y enseres</td><td class="cen" style="color:#6D28D9;font-weight:700">10 años</td><td class="cen">8 – 12 años</td><td>Escritorios, sillas, estantes, mostradores, vitrinas</td></tr>
+      <tr><td class="lbl">Equipos de comunicación</td><td class="cen" style="color:#6D28D9;font-weight:700">5 años</td><td class="cen">3 – 6 años</td><td>Centrales telefónicas, cámaras IP, sistemas de vigilancia</td></tr>
+      <tr><td class="lbl">Herramientas y accesorios</td><td class="cen" style="color:#6D28D9;font-weight:700">5 años</td><td class="cen">3 – 7 años</td><td>Taladros, herramientas manuales especializadas</td></tr>
+      <tr><td class="lbl">Construcciones y edificios</td><td class="cen" style="color:#6D28D9;font-weight:700">20 años</td><td class="cen">20 – 50 años</td><td>Plantas, bodegas, locales, oficinas propias</td></tr>
+      <tr><td class="lbl">Terrenos</td><td class="cen" style="color:#991B1B;font-weight:700">No deprecia</td><td class="cen">—</td><td>Lotes, predios (se revaloriza, nunca se agota)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alerta tip" style="margin-bottom:12px;">
+    <div class="alerta-icon">🎓</div>
+    <div><strong>Regla práctica para proyectos de formulación (UNIPAZ):</strong> Usen los años del <strong>Art. 137 ET (DIAN)</strong> de la tabla anterior. Son los valores fiscalmente aceptados, son fáciles de justificar y son el estándar en proyectos de aula. Solo se cambia si existe una razón técnica documentada (ficha del fabricante, condiciones de uso extremas, etc.).</div>
+  </div>
+
+  <!-- Fórmula depreciación -->
+  <div class="formula-card">
+    <div class="f-label">📐 Fórmula — Depreciación Anual (Método Línea Recta)</div>
+    <div class="katex-block">
+      $$D_{\text{anual}} = \frac{C_{\text{total}} - V_R}{n}$$
+    </div>
+    <div class="f-note">
+      Donde: <strong>C<sub>total</sub></strong> = Costo de adquisición del activo &nbsp;|&nbsp; <strong>V<sub>R</sub></strong> = Valor residual o salvamento al final de su vida útil (frecuentemente = 0 en proyectos de aula) &nbsp;|&nbsp; <strong>n</strong> = Vida útil en años
+    </div>
+    <div class="f-example">
+      ☕ Ejemplo: Cafetera industrial $28.000.000 · V<sub>R</sub> = 0 · vida útil = 10 años
+      → D<sub>anual</sub> = 28.000.000 / 10 = <strong>$2.800.000/año</strong>
+    </div>
+  </div>
+
+  <!-- ── VALOR RESIDUAL ── -->
+  <div class="sec-title" style="color:#0369A1;border-color:#0369A1;">¿Cómo calcular el V<sub>R</sub>? — Valor Residual o de Salvamento</div>
+  <p style="margin-bottom:9px;font-size:9.5pt;">El <strong>Valor Residual (V<sub>R</sub>)</strong> es el precio que se estima se puede obtener por la venta del activo al <em>terminar su vida útil</em>. Representa lo que "queda" del activo después de haberlo usado durante los años del proyecto. Afecta directamente la depreciación anual: <strong>a mayor V<sub>R</sub>, menor depreciación</strong>.</p>
+
+  <table>
+    <thead><tr>
+      <th class="hej" style="width:22%">Método</th>
+      <th class="hej" style="width:28%">Cuándo usarlo</th>
+      <th class="hej">Fórmula</th>
+      <th class="hej" style="width:24%">Ejemplo ($28.000.000 cafetera)</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="lbl" style="color:#0369A1">1. VR = 0<br><small style="font-weight:400;color:#64748B">Más conservador</small></td>
+        <td>Proyectos de aula, activos que se agotan completamente, equipos de alta tecnología</td>
+        <td class="cen" style="font-family:'Roboto Mono',monospace;font-size:9pt">VR = 0</td>
+        <td class="num">VR = $0<br><small>D = 28.000.000 / 10 = <strong>$2.800.000</strong></small></td>
+      </tr>
+      <tr>
+        <td class="lbl" style="color:#15803D">2. % del costo<br><small style="font-weight:400;color:#64748B">Más usado en clase</small></td>
+        <td>Cuando no hay mercado claro. Se estima entre el 10% y 20% del costo original</td>
+        <td class="cen" style="font-family:'Roboto Mono',monospace;font-size:9pt">VR = C × %</td>
+        <td class="num">VR = 28M × 10% = $2.800.000<br><small>D = (28M − 2.8M) / 10 = <strong>$2.520.000</strong></small></td>
+      </tr>
+      <tr>
+        <td class="lbl" style="color:#92400E">3. Valor en libros</td>
+        <td>Cuando el activo se usa solo una parte de su vida contable (horizonte del proyecto &lt; vida útil)</td>
+        <td class="cen" style="font-family:'Roboto Mono',monospace;font-size:9pt">VR = C − (D × n<sub>proy</sub>)</td>
+        <td class="num">Proyecto 5 años: VR = 28M − (2.8M × 5) = <strong>$14.000.000</strong></td>
+      </tr>
+      <tr>
+        <td class="lbl" style="color:#6D28D9">4. Precio de mercado</td>
+        <td>Cuando existe un mercado real de segunda mano (vehículos, maquinaria estándar)</td>
+        <td class="cen" style="font-family:'Roboto Mono',monospace;font-size:9pt">Cotización real</td>
+        <td class="num">Precio real máquina usada = <strong>$5.000.000</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alerta info">
+    <div class="alerta-icon">📌</div>
+    <div>
+      <strong>Recomendación para proyectos de formulación (UNIPAZ):</strong> Usen <strong>VR = 0</strong> para todos los activos, a menos que tengan una justificación técnica real (cotización de segunda mano, política del sector). Esto simplifica el cálculo y es la práctica más conservadora — si el proyecto es viable con VR = 0, lo será aún más si el activo tiene valor de venta al final.
+    </div>
+  </div>
+
+  <div class="sec-title">B · Activos Diferidos (Intangibles / Preoperativos)</div>
+  <p style="margin-bottom:8px;font-size:9.5pt;">Son los gastos realizados <em>antes</em> de iniciar operaciones que <strong>no tienen sustancia física</strong> pero son legalmente necesarios. Se <strong>amortizan</strong> (no se deprecian) en un plazo de 5 años, y esa amortización anual es un gasto deducible de impuestos.</p>
+
+  <div class="cards">
+    <div class="card"><div class="card-title">📑 Legalización</div><p>Constitución, notaría, registro mercantil, escrituración, matrícula DIAN.</p></div>
+    <div class="card"><div class="card-title">🔬 Estudios técnicos</div><p>Estudio de mercado, ingeniería, suelos, diseño arquitectónico.</p></div>
+    <div class="card"><div class="card-title">🏗️ Adecuaciones</div><p>Instalaciones eléctricas, hidráulicas, pintura inicial, señalización.</p></div>
+    <div class="card"><div class="card-title">📋 Permisos</div><p>Licencias ambientales, sanitarias (INVIMA), de funcionamiento, bomberos.</p></div>
+    <div class="card"><div class="card-title">⚡ Capacitación</div><p>Entrenamiento inicial del personal operativo antes de abrir.</p></div>
+  </div>
+
+  <!-- Fórmula amortización -->
+  <div class="formula-card">
+    <div class="f-label">📐 Fórmula — Amortización Anual de Activos Diferidos</div>
+    <div class="katex-block">
+      $$\text{Amort.}_{\text{anual}} = \frac{\text{Total Activos Diferidos}}{5 \text{ años}}$$
+    </div>
+    <div class="f-note">La amortización se distribuye en exactamente 5 años, independientemente de cuándo se realicen los desembolsos preoperativos.</div>
+    <div class="f-example">☕ Ejemplo: AD = $12.500.000 → Amort. anual = 12.500.000 / 5 = <strong>$2.500.000/año</strong></div>
+  </div>
+
+  <div class="sec-title">C · Capital de Trabajo — Método del Período de Desfase</div>
+  <p style="margin-bottom:8px;font-size:9.5pt;">El capital de trabajo es el <strong>dinero líquido</strong> que necesita el proyecto para cubrir sus gastos operativos en los primeros días o semanas, <em>mientras empieza a recibir ingresos de sus primeras ventas</em>. No es maquinaria ni estudios: es efectivo circulante.</p>
+
+  <div class="alerta warn">
+    <div class="alerta-icon">💡</div>
+    <div><strong>¿Qué es el "desfase"?</strong> Es el tiempo (en días) que transcurre desde que el proyecto incurre en un gasto hasta que recibe el pago de sus clientes. Un café de barrio puede cobrar de inmediato (15 días de desfase); una constructora puede tardar 90 días o más para cobrar su primera factura.</div>
+  </div>
+
+  <!-- Fórmula capital de trabajo -->
+  <div class="formula-card">
+    <div class="f-label">📐 Fórmula — Capital de Trabajo (Método del Desfase)</div>
+    <div class="katex-block">
+      $$CT = \frac{\text{Costo Anual de Operación}}{365} \times \text{Días de Desfase}$$
+    </div>
+    <div class="f-note">El Costo Anual de Operación incluye: Total Costos de Producción + Total Gastos de Operación. Los días de desfase se estiman según el ciclo comercial del negocio.</div>
+    <div class="f-example">☕ Ejemplo: Costo anual = $214.200.000 · Desfase = 30 días → CT = (214.200.000 / 365) × 30 = <strong>$17.606.849</strong></div>
+  </div>
+
+  <div class="sec-title">D · Inversión Total del Proyecto</div>
+  <!-- Fórmula inversión total -->
+  <div class="formula-card">
+    <div class="f-label">📐 Fórmula — Inversión Total</div>
+    <div class="katex-block">
+      $$I_{\text{total}} = AF + AD + CT$$
+    </div>
+    <div class="f-note">AF = Activos Fijos Tangibles &nbsp;|&nbsp; AD = Activos Diferidos &nbsp;|&nbsp; CT = Capital de Trabajo</div>
+  </div>
+
+  <table>
+    <thead><tr>
+      <th class="h1" style="width:42%">Componente</th>
+      <th class="h1">Referencia contable</th>
+      <th class="h1">Ejemplo Café Barichara</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">Activos Fijos Tangibles (AF)</td><td class="cen">Activo no corriente</td><td class="num">$118.000.000</td></tr>
+      <tr><td class="lbl">Activos Diferidos (AD)</td><td class="cen">Activo no corriente</td><td class="num">$12.500.000</td></tr>
+      <tr><td class="lbl">Capital de Trabajo (CT)</td><td class="cen">Activo corriente</td><td class="num">$17.606.849</td></tr>
+      <tr class="tot"><td><strong>INVERSIÓN TOTAL = AF + AD + CT</strong></td><td></td><td class="num"><strong>$148.106.849</strong></td></tr>
+    </tbody>
+  </table>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     MÓDULO 2 — COSTOS DE PRODUCCIÓN
+══════════════════════════════════════════ -->
+<div class="page">
+<div class="page-header v">
+  <span>Estudio Económico del Proyecto — UNIPAZ 2025-1</span>
+  <span>Módulo 2: Costos de Producción</span>
+</div>
+<div class="content">
+
+  <div class="mod-header bg2">
+    <div class="icon">🏭</div>
+    <div>
+      <h2>Módulo 2 — Costos de Producción</h2>
+      <p>Materiales directos · Mano de obra directa · Costos indirectos de fabricación — Baca Urbina, Cap. 4</p>
+    </div>
+    <div class="num">2</div>
+  </div>
+
+  <div class="definicion verde">
+    Los <strong>costos de producción</strong> son todos los desembolsos anuales que se generan <em>directamente</em> por fabricar el producto o prestar el servicio. A diferencia de los gastos de operación, se <strong>incorporan al producto</strong> y se recuperan cuando este se vende. Se agrupan en tres categorías clásicas de la contabilidad de costos.
+  </div>
+
+  <div class="alerta info">
+    <div class="alerta-icon">🔑</div>
+    <div><strong>Regla de oro — Costo vs. Gasto:</strong> Un <em>costo</em> forma parte del producto (se recupera al vender). Un <em>gasto</em> no está en el producto (se recupera con la utilidad operacional). Clasificarlos correctamente es fundamental para que el Estado de Resultados sea válido.</div>
+  </div>
+
+  <div class="sec-title v">A · Materiales / Insumos Directos (MD)</div>
+  <p style="margin-bottom:8px;font-size:9.5pt;">Son los materiales que <strong>se pueden identificar y medir directamente</strong> en cada unidad de producto terminado. El cálculo se basa en el <strong>plan de producción anual</strong> definido en el Estudio Técnico.</p>
+
+  <!-- Fórmula MD -->
+  <div class="formula-card">
+    <div class="f-label">📐 Fórmula — Costo Anual de Materiales Directos</div>
+    <div class="katex-block">
+      $$MD_{\text{anual}} = \sum_{i=1}^{n} \left( Q_i \times P_i \right)$$
+    </div>
+    <div class="f-note">Donde: <strong>Q<sub>i</sub></strong> = Cantidad anual del insumo <em>i</em> &nbsp;|&nbsp; <strong>P<sub>i</sub></strong> = Precio unitario del insumo <em>i</em></div>
+    <div class="f-example">☕ Se suman los costos de cada insumo: café, leche, azúcar, vasos, empaques — ver tabla abajo</div>
+  </div>
+
+  <table>
+    <thead><tr>
+      <th class="h2">Insumo / Material</th>
+      <th class="h2">Unidad</th>
+      <th class="h2">Cant. Anual</th>
+      <th class="h2">Costo Unit. ($)</th>
+      <th class="h2">Costo Anual ($)</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">Café molido especial</td><td class="cen">Kg</td><td class="num">1.800</td><td class="num">28.000</td><td class="num">50.400.000</td></tr>
+      <tr><td class="lbl">Leche entera</td><td class="cen">Lt</td><td class="num">3.600</td><td class="num">3.200</td><td class="num">11.520.000</td></tr>
+      <tr><td class="lbl">Azúcar</td><td class="cen">Kg</td><td class="num">720</td><td class="num">3.000</td><td class="num">2.160.000</td></tr>
+      <tr><td class="lbl">Vasos y tapas desechables</td><td class="cen">Und</td><td class="num">30.000</td><td class="num">550</td><td class="num">16.500.000</td></tr>
+      <tr><td class="lbl">Ingredientes adicionales</td><td class="cen">Global</td><td class="num">—</td><td class="num">—</td><td class="num">4.800.000</td></tr>
+      <tr class="tot v"><td colspan="4">TOTAL MATERIALES DIRECTOS</td><td class="num">85.380.000</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-title v">B · Mano de Obra Directa (MOD)</div>
+  <p style="margin-bottom:8px;font-size:9.5pt;">Es el costo del personal que trabaja <em>directamente</em> en la elaboración del bien o servicio. En Colombia el costo real del trabajador <strong>supera el salario</strong>, pues incluye <strong>prestaciones sociales y aportes parafiscales</strong> obligatorios. El <strong>SMLMV 2026 es $1.750.905</strong> (Decreto transitorio 0159/2026 — vigente mientras el Consejo de Estado resuelve la tutela sobre los Decretos 1469 y 1470 de 2025). El valor para 2027 se fijará en diciembre de 2026.</p>
+
+  <!-- Tabla desglose prestaciones -->
+  <table style="font-size:8.5pt;margin-bottom:10px">
+    <thead><tr>
+      <th class="h2" style="width:38%">Concepto (empleador)</th>
+      <th class="h2" style="width:14%">% sobre salario</th>
+      <th class="h2">Aplica a</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">Cesantías</td><td class="cen">8,33%</td><td>Todos los trabaj.</td></tr>
+      <tr><td class="lbl">Intereses sobre cesantías</td><td class="cen">~1,00%</td><td>Todos los trabaj.</td></tr>
+      <tr><td class="lbl">Prima de servicios</td><td class="cen">8,33%</td><td>Todos los trabaj.</td></tr>
+      <tr><td class="lbl">Vacaciones</td><td class="cen">4,17%</td><td>Todos los trabaj.</td></tr>
+      <tr><td class="lbl">Pensión (aporte empleador)</td><td class="cen">12,00%</td><td>Todos los trabaj.</td></tr>
+      <tr><td class="lbl">ARL — Riesgo I (mínimo)</td><td class="cen">0,52%</td><td>Según actividad</td></tr>
+      <tr><td class="lbl">Caja de Compensación Familiar</td><td class="cen">4,00%</td><td>Todos los patron.</td></tr>
+      <tr><td class="lbl">Salud (empleador) ⚠</td><td class="cen">8,50%</td><td>Solo pers. natural / < 10 SM</td></tr>
+      <tr><td class="lbl">SENA ⚠</td><td class="cen">2,00%</td><td>Solo pers. natural / < 10 SM</td></tr>
+      <tr><td class="lbl">ICBF ⚠</td><td class="cen">3,00%</td><td>Solo pers. natural / < 10 SM</td></tr>
+      <tr class="tot v"><td><strong>TOTAL — Persona natural / microempresa</strong></td><td class="cen"><strong>≈ 51,85%</strong></td><td>Sin exoneración</td></tr>
+      <tr class="tot" style="background:#DCFCE7"><td><strong>TOTAL — S.A.S. / persona jurídica (Art. 114-1 ET)</strong></td><td class="cen"><strong>≈ 38,35%</strong></td><td>Con exoneración salud+SENA+ICBF</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alerta warn" style="margin-bottom:10px">
+    <div class="alerta-icon">⚠️</div>
+    <div><strong>Exoneración (Art. 114-1 Estatuto Tributario):</strong> Las personas jurídicas (S.A.S., S.A., Ltda.) que tributan renta están <em>exoneradas</em> de pagar salud (8,5%), SENA (2%) e ICBF (3%) por trabajadores que devenguen <10 SMLMV. La Caja de Compensación (4%) <strong>siempre</strong> se paga. Para proyectos de aula se usa conservadoramente <strong>52%</strong> (persona natural), a menos que el tipo empresarial sea una sociedad formal.</div>
+  </div>
+
+  <!-- Fórmula MOD -->
+  <div class="formula-card">
+    <div class="f-label">📐 Fórmula — Costo Anual Real de la Mano de Obra (Colombia)</div>
+    <div class="katex-block">
+      $$MOD_{\text{anual}} = N \times S_{\text{mensual}} \times 12 \times (1 + \%\text{Prest.})$$
+    </div>
+    <div class="f-note">
+      Donde: <strong>N</strong> = Número de personas &nbsp;|&nbsp; <strong>S<sub>mensual</sub></strong> = Salario mensual básico &nbsp;|&nbsp; <strong>% Prest.</strong> ≈ <strong>52%</strong> (persona natural/microempresa) o <strong>≈ 39%</strong> (persona jurídica con exoneración). Componentes: cesantías + intereses + prima + vacaciones + pensión + ARL + Caja + salud* + SENA* + ICBF*
+    </div>
+    <div class="f-example">☕ Ejemplo: 2 baristas · SMLMV 2026 $1.750.905/mes → 2 × 1.750.905 × 12 × 1,52 = <strong>$63.873.010/año</strong></div>
+  </div>
+
+  <table>
+    <thead><tr>
+      <th class="h2">Cargo</th>
+      <th class="h2"># Personas</th>
+      <th class="h2">Salario Mensual ($) — SMLMV 2026</th>
+      <th class="h2">% Prestaciones</th>
+      <th class="h2">Costo Anual Total ($)</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">Barista operario</td><td class="cen">2</td><td class="num">1.750.905</td><td class="cen">52%</td><td class="num">63.873.010</td></tr>
+      <tr><td class="lbl">Auxiliar de cocina</td><td class="cen">1</td><td class="num">1.750.905</td><td class="cen">52%</td><td class="num">31.936.505</td></tr>
+      <tr class="tot v"><td colspan="4">TOTAL MANO DE OBRA DIRECTA</td><td class="num">95.809.514</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-title v">C · Costos Indirectos de Fabricación (CIF)</div>
+  <p style="margin-bottom:8px;font-size:9.5pt;">Son costos necesarios para producir, pero que <strong>no pueden asignarse directamente a una unidad de producto</strong>. Incluyen los servicios públicos de la planta, el arrendamiento del local productivo, el mantenimiento preventivo, seguros industriales y la depreciación de los equipos de producción.</p>
+
+  <table>
+    <thead><tr>
+      <th class="h2" style="width:35%">Concepto CIF</th>
+      <th class="h2">Descripción / Justificación</th>
+      <th class="h2">Valor Mensual ($)</th>
+      <th class="h2">Valor Anual ($)</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">Arrendamiento local</td><td>Local comercial zona turística</td><td class="num">3.500.000</td><td class="num">42.000.000</td></tr>
+      <tr><td class="lbl">Servicios públicos (local)</td><td>Energía, agua, gas</td><td class="num">480.000</td><td class="num">5.760.000</td></tr>
+      <tr><td class="lbl">Mantenimiento equipos</td><td>Mantenimiento preventivo equipos café</td><td class="num">300.000</td><td class="num">3.600.000</td></tr>
+      <tr><td class="lbl">Depreciación equipos</td><td>Maquinaria café — ver Módulo 1</td><td class="num">233.333</td><td class="num">2.800.000</td></tr>
+      <tr class="tot v"><td colspan="3">TOTAL COSTOS INDIRECTOS DE FABRICACIÓN</td><td class="num">54.160.000</td></tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead><tr>
+      <th class="h2" style="width:55%">Resumen — Costo Total de Producción Anual</th>
+      <th class="h2">Valor ($)</th>
+      <th class="h2">% del total</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">A) Materiales Directos</td><td class="num">85.380.000</td><td class="cen">39,2%</td></tr>
+      <tr><td class="lbl">B) Mano de Obra Directa</td><td class="num">77.893.920</td><td class="cen">35,7%</td></tr>
+      <tr><td class="lbl">C) CIF</td><td class="num">54.160.000</td><td class="cen">24,8%</td></tr>
+      <tr class="tot v"><td><strong>COSTO TOTAL DE PRODUCCIÓN</strong></td><td class="num"><strong>217.433.920</strong></td><td class="cen">100%</td></tr>
+    </tbody>
+  </table>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     MÓDULO 3 — GASTOS DE OPERACIÓN
+══════════════════════════════════════════ -->
+<div class="page">
+<div class="page-header l">
+  <span>Estudio Económico del Proyecto — UNIPAZ 2025-1</span>
+  <span>Módulo 3: Gastos de Operación</span>
+</div>
+<div class="content">
+
+  <div class="mod-header bg3">
+    <div class="icon">📋</div>
+    <div>
+      <h2>Módulo 3 — Gastos de Operación</h2>
+      <p>Gastos administrativos y de ventas · No forman parte del costo del producto — Baca Urbina, Cap. 4</p>
+    </div>
+    <div class="num">3</div>
+  </div>
+
+  <div class="definicion lila">
+    Los <strong>gastos de operación</strong> son los desembolsos periódicos que sostienen la <em>gestión administrativa y comercial</em> del proyecto, pero que <strong>no forman parte del producto</strong>. Se dividen en dos grandes grupos: Gastos de Administración (GA) y Gastos de Ventas (GV). Aparecen en el Estado de Resultados <em>después</em> de la Utilidad Bruta, reduciendo la rentabilidad operacional.
+  </div>
+
+  <div class="sec-title l">Diferencia clave: Costos de Producción vs. Gastos de Operación</div>
+  <table>
+    <thead><tr>
+      <th class="h3" style="width:28%">Criterio</th>
+      <th class="h3">✅ Costo de Producción</th>
+      <th class="h3">❌ Gasto de Operación</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">¿Qué es?</td><td>Desembolso ligado a fabricar o producir</td><td>Desembolso de apoyo administrativo o comercial</td></tr>
+      <tr><td class="lbl">¿Se incorpora al producto?</td><td class="cen" style="color:#15803D;font-weight:700">Sí</td><td class="cen" style="color:#991B1B;font-weight:700">No</td></tr>
+      <tr><td class="lbl">¿Varía con la producción?</td><td>Parcialmente (MD y MOD sí)</td><td>Generalmente no (son fijos)</td></tr>
+      <tr><td class="lbl">Ejemplo típico</td><td>Materia prima, operarios planta</td><td>Salario gerente, publicidad, contador</td></tr>
+      <tr><td class="lbl">En el Estado de Resultados</td><td>(-) Costo de ventas → Ut. Bruta</td><td>(-) Gastos operativos → EBIT</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-title l">A · Gastos de Administración</div>
+  <p style="margin-bottom:8px;font-size:9.5pt;">Comprende todos los gastos del área directiva y de soporte que no están vinculados ni a producción ni a ventas. Son necesarios para que la organización funcione legalmente y con orden interno.</p>
+
+  <table>
+    <thead><tr>
+      <th class="h3">Concepto</th>
+      <th class="h3">Observación</th>
+      <th class="h3">Valor Mensual ($)</th>
+      <th class="h3">Valor Anual ($)</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">Administrador / Gerente</td><td>Salario + 52% prestaciones sociales</td><td class="num">3.000.000</td><td class="num">54.720.000</td></tr>
+      <tr><td class="lbl">Honorarios contador</td><td>Outsourcing contable mensual</td><td class="num">600.000</td><td class="num">7.200.000</td></tr>
+      <tr><td class="lbl">Servicios públicos (oficina)</td><td>Internet, teléfono</td><td class="num">180.000</td><td class="num">2.160.000</td></tr>
+      <tr><td class="lbl">Papelería y útiles</td><td>Estimado mensual operativo</td><td class="num">120.000</td><td class="num">1.440.000</td></tr>
+      <tr><td class="lbl">Software / aplicaciones</td><td>POS, facturación electrónica, DIAN</td><td class="num">200.000</td><td class="num">2.400.000</td></tr>
+      <tr><td class="lbl">Amortización activos diferidos</td><td>$12.500.000 / 5 años</td><td class="num">208.333</td><td class="num">2.500.000</td></tr>
+      <tr class="tot p"><td colspan="3">TOTAL GASTOS DE ADMINISTRACIÓN</td><td class="num">70.420.000</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-title l">B · Gastos de Ventas y Distribución</div>
+  <p style="margin-bottom:8px;font-size:9.5pt;">Son los gastos asociados a <strong>comercializar el producto o servicio</strong>: acercar el bien al cliente, publicitar la marca y ejecutar la estrategia comercial. No producen el bien, pero son indispensables para generar ingresos.</p>
+
+  <table>
+    <thead><tr>
+      <th class="h3">Concepto</th>
+      <th class="h3">Canal / Descripción</th>
+      <th class="h3">Valor Mensual ($)</th>
+      <th class="h3">Valor Anual ($)</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">Publicidad digital</td><td>Instagram, Facebook Ads, Google Maps</td><td class="num">400.000</td><td class="num">4.800.000</td></tr>
+      <tr><td class="lbl">Material POP / degustaciones</td><td>Muestras, impresiones, menús</td><td class="num">200.000</td><td class="num">2.400.000</td></tr>
+      <tr><td class="lbl">Domicilios y plataformas</td><td>Comisión Rappi / iFood ≈ 18%</td><td class="num">350.000</td><td class="num">4.200.000</td></tr>
+      <tr class="tot p"><td colspan="3">TOTAL GASTOS DE VENTAS</td><td class="num">11.400.000</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alerta ok">
+    <div class="alerta-icon">📌</div>
+    <div><strong>Conexión con el Estado de Resultados:</strong> Los Gastos de Administración + Gastos de Ventas + Depreciación activos fijos se restan de la Utilidad Bruta para obtener la <strong>Utilidad Operacional (EBIT)</strong>. Optimizarlos es clave para mejorar la rentabilidad del proyecto.</div>
+  </div>
+
+  <table>
+    <thead><tr>
+      <th class="h3" style="width:60%">Resumen — Total Gastos de Operación</th>
+      <th class="h3">Valor Anual ($)</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">A) Gastos de Administración</td><td class="num">70.420.000</td></tr>
+      <tr><td class="lbl">B) Gastos de Ventas</td><td class="num">11.400.000</td></tr>
+      <tr class="tot p"><td><strong>TOTAL GASTOS DE OPERACIÓN</strong></td><td class="num"><strong>81.820.000</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-title l">C · Proyección de Ingresos (para el Estado de Resultados)</div>
+  <p style="margin-bottom:8px;font-size:9.5pt;">Los ingresos provienen del Estudio de Mercado. Para el Café Barichara se proyectan 30.000 bebidas/año con precio promedio de $12.000, con crecimiento del 8% anual.</p>
+
+  <!-- Fórmula de ingresos -->
+  <div class="formula-card">
+    <div class="f-label">📐 Fórmula — Ingresos por Ventas</div>
+    <div class="katex-block">
+      $$I_{\text{ventas}} = Q_{\text{anual}} \times P_{\text{unitario}}$$
+    </div>
+    <div class="f-note">Para proyecciones anuales se aplica una tasa de crecimiento: \(I_{\text{año n}} = I_{\text{año 1}} \times (1 + g)^{n-1}\) donde <strong>g</strong> es la tasa de crecimiento en ventas.</div>
+    <div class="f-example">☕ Año 1: 30.000 × $12.000 = <strong>$360.000.000</strong> · Año 2: $360.000.000 × 1,08 = <strong>$388.800.000</strong></div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     MÓDULO 4 — PUNTO DE EQUILIBRIO
+══════════════════════════════════════════ -->
+<div class="page">
+<div class="page-header r">
+  <span>Estudio Económico del Proyecto — UNIPAZ 2025-1</span>
+  <span>Módulo 4: Punto de Equilibrio</span>
+</div>
+<div class="content">
+
+  <div class="mod-header bg4">
+    <div class="icon">⚖️</div>
+    <div>
+      <h2>Módulo 4 — Punto de Equilibrio (PE)</h2>
+      <p>Nivel mínimo de ventas para no perder ni ganar · Costos Fijos y Variables — Baca Urbina, Cap. 5</p>
+    </div>
+    <div class="num">4</div>
+  </div>
+
+  <div class="definicion rojo">
+    El <strong>Punto de Equilibrio</strong> es el volumen de ventas en el que los <em>ingresos totales son exactamente iguales a los costos totales</em>, por lo tanto la utilidad es <strong>cero</strong>. Por encima del PE el proyecto genera utilidades; por debajo, genera pérdidas. Es la herramienta fundamental de <strong>análisis de riesgo y viabilidad operativa</strong> de cualquier proyecto.
+  </div>
+
+  <div class="sec-title r">Clasificación de Costos: Fijos vs. Variables</div>
+  <table>
+    <thead><tr>
+      <th class="h4" style="width:22%">Tipo</th>
+      <th class="h4" style="width:40%">Definición</th>
+      <th class="h4">Ejemplos</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="lbl" style="color:#991B1B">🔒 Costos FIJOS (CF)</td>
+        <td>No cambian con el nivel de producción. Se pagan aunque no se produzca nada.</td>
+        <td>Arrendamiento, salarios administrativos, seguros, depreciación, amortización</td>
+      </tr>
+      <tr>
+        <td class="lbl" style="color:#15803D">📈 Costos VARIABLES (CV)</td>
+        <td>Varían proporcionalmente con la cantidad producida o vendida. Si producción = 0 entonces CV = 0.</td>
+        <td>Materias primas, empaque, comisiones de ventas, energía de producción</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="sec-title r">Fórmulas del Punto de Equilibrio</div>
+
+  <!-- Fórmulas PE -->
+  <div class="formula-card">
+    <div class="f-label">📐 Fórmulas — Punto de Equilibrio en Unidades y en Pesos</div>
+    <div class="katex-block">
+      $$MC = P - CVu \qquad \text{(Margen de Contribución unitario)}$$
+    </div>
+    <div class="katex-block" style="margin-top:8px">
+      $$PE_{\text{unidades}} = \frac{CF}{P - CVu} = \frac{CF}{MC}$$
+    </div>
+    <div class="katex-block" style="margin-top:8px">
+      $$PE_{\$} = PE_{\text{unidades}} \times P$$
+    </div>
+    <div class="f-note">
+      <strong>P</strong> = Precio de venta unitario &nbsp;|&nbsp;
+      <strong>CVu</strong> = Costo Variable unitario &nbsp;|&nbsp;
+      <strong>CF</strong> = Total Costos Fijos Anuales &nbsp;|&nbsp;
+      <strong>MC</strong> = Margen de Contribución
+    </div>
+    <div class="f-example">
+      ☕ Café Barichara: P = $12.000 · CVu = $5.726 · CF = $124.120.000<br>
+      MC = $12.000 − $5.726 = $6.274<br>
+      PE<sub>und</sub> = $124.120.000 / $6.274 = <strong>19.782 bebidas/año ≈ 1.649 bebidas/mes</strong><br>
+      PE<sub>$</sub> = 19.782 × $12.000 = <strong>$237.384.000/año</strong>
+    </div>
+  </div>
+
+  <div class="sec-title r">Identificación CF y CV del Café Barichara</div>
+  <table>
+    <thead><tr>
+      <th class="h4" style="width:38%">Concepto</th>
+      <th class="h4">Tipo</th>
+      <th class="h4">Valor Anual ($)</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">Arrendamiento local</td><td class="cen">🔒 Fijo</td><td class="num">42.000.000</td></tr>
+      <tr><td class="lbl">Salarios administrativos (Gerente)</td><td class="cen">🔒 Fijo</td><td class="num">54.720.000</td></tr>
+      <tr><td class="lbl">Depreciación equipos</td><td class="cen">🔒 Fijo</td><td class="num">2.800.000</td></tr>
+      <tr><td class="lbl">Amortización activos diferidos</td><td class="cen">🔒 Fijo</td><td class="num">2.500.000</td></tr>
+      <tr><td class="lbl">Gastos de ventas fijos</td><td class="cen">🔒 Fijo</td><td class="num">7.200.000</td></tr>
+      <tr><td class="lbl">Otros gastos fijos (contador, software, etc.)</td><td class="cen">🔒 Fijo</td><td class="num">14.900.000</td></tr>
+      <tr class="tot r"><td colspan="2"><strong>TOTAL COSTOS FIJOS (CF)</strong></td><td class="num"><strong>124.120.000</strong></td></tr>
+      <tr><td class="lbl">Materiales directos por bebida</td><td class="cen" style="color:#15803D;font-weight:600">📈 Variable</td><td class="num">85.380.000 ÷ 30.000 = $2.846/und</td></tr>
+      <tr><td class="lbl">MOD por bebida</td><td class="cen" style="color:#15803D;font-weight:600">📈 Variable</td><td class="num">77.893.920 ÷ 30.000 = $2.596/und</td></tr>
+      <tr><td class="lbl">Servicios variables por bebida</td><td class="cen" style="color:#15803D;font-weight:600">📈 Variable</td><td class="num">$284/und</td></tr>
+      <tr class="tot v"><td colspan="2"><strong>CVu TOTAL por bebida</strong></td><td class="num"><strong>$5.726/bebida</strong></td></tr>
+    </tbody>
+  </table>
+
+  <!-- Gráfico del PE en SVG -->
+  <div class="sec-title r">Representación Gráfica — Punto de Equilibrio</div>
+  <div class="pe-chart-container">
+    <svg width="580" height="220" viewBox="0 0 580 220" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial">
+      <!-- Ejes -->
+      <line x1="60" y1="20" x2="60" y2="190" stroke="#374151" stroke-width="2"/>
+      <line x1="60" y1="190" x2="570" y2="190" stroke="#374151" stroke-width="2"/>
+      <!-- Labels ejes -->
+      <text x="28" y="15" font-size="9" fill="#374151" text-anchor="middle">Pesos ($)</text>
+      <text x="315" y="210" font-size="9" fill="#374151" text-anchor="middle">Unidades vendidas</text>
+
+      <!-- Zona pérdida -->
+      <rect x="60" y="20" width="260" height="170" fill="#FEE2E2" opacity="0.5"/>
+      <!-- Zona ganancia -->
+      <rect x="320" y="20" width="250" height="170" fill="#DCFCE7" opacity="0.5"/>
+
+      <!-- Línea Costos Fijos (horizontal) -->
+      <line x1="60" y1="135" x2="570" y2="135" stroke="#6D28D9" stroke-width="1.8" stroke-dasharray="6,4"/>
+      <text x="565" y="131" font-size="8" fill="#6D28D9" text-anchor="end">CF = $124M</text>
+
+      <!-- Línea Costos Totales (sube desde CF) -->
+      <line x1="60" y1="135" x2="570" y2="60" stroke="#991B1B" stroke-width="2.2"/>
+      <text x="430" y="72" font-size="8.5" fill="#991B1B" font-weight="bold">Costo Total</text>
+
+      <!-- Línea Ingresos (sube desde 0) -->
+      <line x1="60" y1="190" x2="570" y2="30" stroke="#15803D" stroke-width="2.2"/>
+      <text x="500" y="35" font-size="8.5" fill="#15803D" font-weight="bold">Ingresos</text>
+
+      <!-- Punto de equilibrio -->
+      <circle cx="320" cy="110" r="6" fill="#F59E0B" stroke="#fff" stroke-width="2"/>
+      <line x1="320" y1="110" x2="320" y2="190" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <text x="320" y="203" font-size="9" fill="#92400E" text-anchor="middle" font-weight="bold">PE ≈ 19.782 und</text>
+      <text x="340" y="106" font-size="9" fill="#92400E" font-weight="bold">PE = $237M</text>
+
+      <!-- Etiquetas zonas -->
+      <text x="190" y="60" font-size="10" fill="#991B1B" text-anchor="middle" font-weight="600">📉 ZONA PÉRDIDA</text>
+      <text x="450" y="60" font-size="10" fill="#15803D" text-anchor="middle" font-weight="600">📈 ZONA GANANCIA</text>
+
+      <!-- Flecha etiqueta CF -->
+      <text x="65" y="130" font-size="8" fill="#6D28D9">CF</text>
+      <text x="65" y="185" font-size="8" fill="#374151">0</text>
+    </svg>
+  </div>
+
+  <div class="alerta warn">
+    <div class="alerta-icon">📐</div>
+    <div><strong>Regla práctica (Baca Urbina, 8.ª ed.):</strong> Los <em>Costos Fijos Totales</em> del PE se calculan sumando: <strong>Gastos de Administración + Gastos de Ventas + Depreciación + Amortización + Parte fija del CIF</strong> (arrendamiento, seguros, MOI si es fija). Los materiales directos y MOD productiva son los principales costos variables.</div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     MÓDULO 5 — ESTADO DE RESULTADOS
+══════════════════════════════════════════ -->
+<div class="page">
+<div class="page-header a">
+  <span>Estudio Económico del Proyecto — UNIPAZ 2025-1</span>
+  <span>Módulo 5: Estado de Resultados Proforma</span>
+</div>
+<div class="content">
+
+  <div class="mod-header bg5">
+    <div class="icon">📊</div>
+    <div>
+      <h2>Módulo 5 — Estado de Resultados Proforma</h2>
+      <p>Proyección de ingresos, costos y utilidades a 5 años · Integración de todos los módulos — Baca Urbina, Cap. 5</p>
+    </div>
+    <div class="num">5</div>
+  </div>
+
+  <div class="definicion ambar">
+    El <strong>Estado de Resultados Proforma</strong> (o proyectado) es el informe financiero que muestra cuánto ganará o perderá el proyecto en cada año del horizonte de evaluación (generalmente <strong>5 años</strong>). <em>Integra todos los módulos anteriores</em> en una sola tabla para obtener la <strong>Utilidad Neta</strong>, que es la base para calcular el Flujo de Caja y posteriormente el VPN y la TIR.
+  </div>
+
+  <!-- Fórmula estructura ER -->
+  <div class="formula-card">
+    <div class="f-label">📐 Estructura del Estado de Resultados — Fórmulas de cada línea</div>
+    <div class="katex-block">
+      $$\text{Utilidad Bruta} = \text{Ingresos Ventas} - \text{Costo de Ventas}$$
+    </div>
+    <div class="katex-block" style="margin-top:6px">
+      $$\text{EBIT} = \text{Ut. Bruta} - \text{G. Admón.} - \text{G. Ventas} - \text{Dep.} - \text{Amort.}$$
+    </div>
+    <div class="katex-block" style="margin-top:6px">
+      $$\text{Utilidad Neta} = \text{EBIT} \times (1 - t) \qquad t = 33\%$$
+    </div>
+    <div class="f-note">El impuesto de renta (33%) solo aplica cuando el EBIT sea positivo. Si hay pérdida operacional, el impuesto es $0.</div>
+  </div>
+
+  <div class="sec-title a">Estado de Resultados Proforma — Café Artesanal Barichara (COP $)</div>
+  <table>
+    <thead><tr>
+      <th class="h5" style="width:32%">Concepto</th>
+      <th class="h5">Año 1</th>
+      <th class="h5">Año 2</th>
+      <th class="h5">Año 3</th>
+      <th class="h5">Año 4</th>
+      <th class="h5">Año 5</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">(+) Ingresos por ventas</td><td class="num">360.000.000</td><td class="num">388.800.000</td><td class="num">419.904.000</td><td class="num">453.496.320</td><td class="num">489.776.026</td></tr>
+      <tr><td class="lbl">(-) Costo de ventas (Mód. 2)</td><td class="num">217.433.920</td><td class="num">228.305.616</td><td class="num">239.720.897</td><td class="num">251.706.942</td><td class="num">264.292.289</td></tr>
+      <tr class="tot a"><td><strong>= UTILIDAD BRUTA</strong></td><td class="num">142.566.080</td><td class="num">160.494.384</td><td class="num">180.183.103</td><td class="num">201.789.378</td><td class="num">225.483.737</td></tr>
+      <tr><td class="lbl">(-) Gastos de Admón. (Mód. 3A)</td><td class="num">70.420.000</td><td class="num">73.941.000</td><td class="num">77.638.050</td><td class="num">81.519.953</td><td class="num">85.595.950</td></tr>
+      <tr><td class="lbl">(-) Gastos de Ventas (Mód. 3B)</td><td class="num">11.400.000</td><td class="num">11.970.000</td><td class="num">12.568.500</td><td class="num">13.196.925</td><td class="num">13.856.771</td></tr>
+      <tr><td class="lbl">(-) Depreciación activos fijos</td><td class="num">11.800.000</td><td class="num">11.800.000</td><td class="num">11.800.000</td><td class="num">11.800.000</td><td class="num">11.800.000</td></tr>
+      <tr class="tot a"><td><strong>= UTILIDAD OPERACIONAL (EBIT)</strong></td><td class="num pos" style="color:#15803D">48.946.080</td><td class="num pos" style="color:#15803D">62.783.384</td><td class="num pos" style="color:#15803D">78.176.553</td><td class="num pos" style="color:#15803D">95.272.500</td><td class="num pos" style="color:#15803D">114.230.016</td></tr>
+      <tr><td class="lbl">(-) Impuesto de Renta (33%)</td><td class="num">16.152.206</td><td class="num">20.718.517</td><td class="num">25.798.262</td><td class="num">31.439.925</td><td class="num">37.695.905</td></tr>
+      <tr class="tot a pos"><td><strong>= UTILIDAD NETA</strong></td><td class="num" style="color:#15803D;font-weight:800">32.793.874</td><td class="num" style="color:#15803D;font-weight:800">42.064.867</td><td class="num" style="color:#15803D;font-weight:800">52.378.291</td><td class="num" style="color:#15803D;font-weight:800">63.832.575</td><td class="num" style="color:#15803D;font-weight:800">76.534.111</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec-title a">Explicación — ¿Cómo se construye cada línea?</div>
+  <table>
+    <thead><tr>
+      <th class="h5" style="width:30%">Línea</th>
+      <th class="h5">Fuente del dato</th>
+      <th class="h5">Cómo se calcula</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">(+) Ingresos por ventas</td><td>Estudio de Mercado</td><td>Q<sub>anual</sub> × P<sub>unitario</sub> → crecer 8% cada año</td></tr>
+      <tr><td class="lbl">(-) Costo de ventas</td><td>Módulo 2</td><td>MD + MOD + CIF → crecer ~5% anual por inflación</td></tr>
+      <tr class="sub"><td>= UTILIDAD BRUTA</td><td></td><td>Ingresos − Costo de ventas</td></tr>
+      <tr><td class="lbl">(-) Gastos Admón.</td><td>Módulo 3A</td><td>Suma anual gastos administrativos → crecer ~5%</td></tr>
+      <tr><td class="lbl">(-) Gastos Ventas</td><td>Módulo 3B</td><td>Suma anual gastos de ventas → crecer ~5%</td></tr>
+      <tr><td class="lbl">(-) Depreciación</td><td>Módulo 1</td><td>Suma D<sub>anual</sub> de cada activo fijo (constante)</td></tr>
+      <tr class="sub"><td>= UTILIDAD OPERACIONAL (EBIT)</td><td></td><td>Ut. Bruta − G. Admón. − G. Ventas − Depreciación</td></tr>
+      <tr><td class="lbl">(-) Impuesto de Renta</td><td>DIAN Colombia</td><td>33% × EBIT (solo si EBIT &gt; 0)</td></tr>
+      <tr class="sub"><td>= UTILIDAD NETA</td><td></td><td>EBIT − Impuesto → base para Flujo de Caja, VPN y TIR</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Integración de módulos -->
+  <div class="sec-title a">Integración de los 5 Módulos del Estudio Económico</div>
+  <div class="flujo-integracion">
+    <div class="flujo-item fi1">💰 Mód. 1<br><small>Inversión Inicial</small><br>→ Depreciación</div>
+    <div class="flujo-arrow">→</div>
+    <div class="flujo-item fi2">🏭 Mód. 2<br><small>Costos Producción</small><br>→ Costo de Ventas</div>
+    <div class="flujo-arrow">→</div>
+    <div class="flujo-item fi3">📋 Mód. 3<br><small>Gastos Operación</small><br>→ EBIT</div>
+    <div class="flujo-arrow">→</div>
+    <div class="flujo-item fi4">⚖️ Mód. 4<br><small>P. Equilibrio</small><br>→ Riesgo CF/CV</div>
+    <div class="flujo-arrow">→</div>
+    <div class="flujo-item fi5">📊 Mód. 5<br><small>E. Resultados</small><br>→ Utilidad Neta</div>
+  </div>
+
+  <div class="alerta info">
+    <div class="alerta-icon">📈</div>
+    <div><strong>Siguiente paso — Evaluación Financiera (Semana 9):</strong> La Utilidad Neta proyectada es la base para construir el <strong>Flujo de Caja Neto del Proyecto</strong>, a partir del cual se calcula el <strong>VPN (Valor Presente Neto)</strong> y la <strong>TIR (Tasa Interna de Retorno)</strong> — los indicadores definitivos de rentabilidad que permiten tomar la decisión de invertir o no.</div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     EJEMPLO INTEGRADO — CAFÉ BARICHARA
+══════════════════════════════════════════ -->
+<div class="page">
+<div class="page-header ej">
+  <span>Estudio Económico del Proyecto — UNIPAZ 2025-1</span>
+  <span>☕ Ejemplo Integrado: Café Artesanal Barichara</span>
+</div>
+<div class="content">
+
+  <div class="mod-header bg-ej">
+    <div class="icon">☕</div>
+    <div>
+      <h2>Ejemplo Integrado — Café Artesanal Barichara S.A.S.</h2>
+      <p>Proyecto completo de estudio económico aplicado · Los datos de un proyecto real conectados en los 5 módulos</p>
+    </div>
+    <div class="num">EJ</div>
+  </div>
+
+  <div class="definicion ej">
+    <strong>Descripción del proyecto:</strong> Apertura de una cafetería artesanal en el municipio de Barichara (Santander), especializada en café de origen colombiano, con capacidad de 30.000 bebidas/año. El emprendimiento requiere una inversión inicial mixta (maquinaria, muebles, adecuaciones) y se proyecta a 5 años con una tasa de crecimiento en ventas del 8% anual. A continuación se presenta el consolidado del Estudio Económico.
+  </div>
+
+  <div class="sec-title ej">📦 Módulo 1 — Resumen de Inversión Inicial</div>
+  <table>
+    <thead><tr>
+      <th class="hej" style="width:40%">Activo / Concepto</th>
+      <th class="hej">Und</th>
+      <th class="hej">Costo Unitario ($)</th>
+      <th class="hej">Total ($)</th>
+      <th class="hej">Vida / Amort.</th>
+      <th class="hej">Dep./Amort. Anual ($)</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl" colspan="6" style="background:#E0F2FE;color:#0369A1;font-size:8.5pt">ACTIVOS FIJOS TANGIBLES</td></tr>
+      <tr><td class="lbl">Máquina espresso profesional</td><td class="cen">1</td><td class="num">28.000.000</td><td class="num">28.000.000</td><td class="cen">10 años</td><td class="num">2.800.000</td></tr>
+      <tr><td class="lbl">Molino de café industrial</td><td class="cen">1</td><td class="num">8.500.000</td><td class="num">8.500.000</td><td class="cen">10 años</td><td class="num">850.000</td></tr>
+      <tr><td class="lbl">Refrigerador y neveras</td><td class="cen">2</td><td class="num">3.200.000</td><td class="num">6.400.000</td><td class="cen">10 años</td><td class="num">640.000</td></tr>
+      <tr><td class="lbl">Muebles y mobiliario (mesas, sillas)</td><td class="cen">Global</td><td class="num">—</td><td class="num">28.000.000</td><td class="cen">10 años</td><td class="num">2.800.000</td></tr>
+      <tr><td class="lbl">Equipo de cómputo (POS + PC)</td><td class="cen">2</td><td class="num">2.800.000</td><td class="num">5.600.000</td><td class="cen">5 años</td><td class="num">1.120.000</td></tr>
+      <tr><td class="lbl">Adecuación local (pintura, cocina)</td><td class="cen">Global</td><td class="num">—</td><td class="num">41.500.000</td><td class="cen">20 años</td><td class="num">2.075.000</td></tr>
+      <tr class="tot ej"><td colspan="3"><strong>Subtotal Activos Fijos (AF)</strong></td><td class="num"><strong>118.000.000</strong></td><td></td><td class="num"><strong>10.285.000</strong></td></tr>
+      <tr><td class="lbl" colspan="6" style="background:#E0F2FE;color:#0369A1;font-size:8.5pt">ACTIVOS DIFERIDOS</td></tr>
+      <tr><td class="lbl">Legalización y constitución SAS</td><td class="cen">—</td><td class="num">—</td><td class="num">3.500.000</td><td class="cen">5 años</td><td class="num">700.000</td></tr>
+      <tr><td class="lbl">Licencias INVIMA + Bomberos</td><td class="cen">—</td><td class="num">—</td><td class="num">2.800.000</td><td class="cen">5 años</td><td class="num">560.000</td></tr>
+      <tr><td class="lbl">Estudio de mercado y diseño</td><td class="cen">—</td><td class="num">—</td><td class="num">4.200.000</td><td class="cen">5 años</td><td class="num">840.000</td></tr>
+      <tr><td class="lbl">Capacitación inicial baristas</td><td class="cen">—</td><td class="num">—</td><td class="num">2.000.000</td><td class="cen">5 años</td><td class="num">400.000</td></tr>
+      <tr class="tot ej"><td colspan="3"><strong>Subtotal Activos Diferidos (AD)</strong></td><td class="num"><strong>12.500.000</strong></td><td></td><td class="num"><strong>2.500.000</strong></td></tr>
+      <tr><td class="lbl" colspan="6" style="background:#E0F2FE;color:#0369A1;font-size:8.5pt">CAPITAL DE TRABAJO</td></tr>
+      <tr><td class="lbl">CT = ($299.253.920 / 365) × 30 días</td><td colspan="4" style="font-size:9pt;color:#475569;font-style:italic">Cubre los primeros 30 días de operación antes de recibir ingresos</td><td class="num">—</td></tr>
+      <tr class="tot ej"><td><strong>Capital de Trabajo (CT)</strong></td><td colspan="3"></td><td></td><td class="num"><strong>17.606.849</strong></td></tr>
+      <tr class="tot" style="background:#0F4C75"><td colspan="5" style="color:#fff;font-weight:700">INVERSIÓN TOTAL DEL PROYECTO (AF + AD + CT)</td><td class="num" style="color:#FDE68A;font-weight:800;font-size:11pt">$148.106.849</td></tr>
+    </tbody>
+  </table>
+
+  <div class="example-band ejemplo-band">☕ Síntesis del ejemplo: con $148.1 millones de inversión inicial, el Café Barichara genera una utilidad neta de <strong>$32.8 millones en el año 1</strong>, creciendo hasta <strong>$76.5 millones en el año 5</strong>. El PE se alcanza produciendo y vendiendo el <strong>65.9% de la capacidad planificada</strong> (19.782 / 30.000).</div>
+
+  <div class="sec-title ej">📊 Consolidado Económico — Resumen de los 5 Módulos</div>
+  <table>
+    <thead><tr>
+      <th class="hej" style="width:30%">Módulo</th>
+      <th class="hej">Concepto principal</th>
+      <th class="hej">Resultado ($)</th>
+      <th class="hej">Notas clave</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">Módulo 1 · Inversión</td><td>Inversión Total del Proyecto</td><td class="num">148.106.849</td><td>AF + AD + CT</td></tr>
+      <tr><td class="lbl">Módulo 2 · Costos</td><td>Costo Total de Producción / año</td><td class="num">217.433.920</td><td>MD + MOD + CIF</td></tr>
+      <tr><td class="lbl">Módulo 3 · Gastos</td><td>Total Gastos de Operación / año</td><td class="num">81.820.000</td><td>G. Admón. + G. Ventas</td></tr>
+      <tr><td class="lbl">Módulo 4 · PE</td><td>Punto de Equilibrio</td><td class="num">19.782 bebidas</td><td>PE<sub>$</sub> = $237.384.000</td></tr>
+      <tr class="tot ej"><td><strong>Módulo 5 · E. Resultados</strong></td><td><strong>Utilidad Neta Año 1</strong></td><td class="num"><strong>32.793.874</strong></td><td><strong>Margen neto: 9,1%</strong></td></tr>
+    </tbody>
+  </table>
+
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     ACTIVIDAD FORMATIVA
+══════════════════════════════════════════ -->
+<div class="page">
+<div class="page-header act">
+  <span>Estudio Económico del Proyecto — UNIPAZ 2025-1</span>
+  <span>✏️ Actividad Formativa — Semana 8</span>
+</div>
+<div class="content">
+
+  <div class="mod-header bg-act">
+    <div class="icon">✏️</div>
+    <div>
+      <h2>Actividad Formativa — Semana 8</h2>
+      <p>Construcción del Estudio Económico para su proyecto de formulación y evaluación</p>
+    </div>
+    <div class="num">AF</div>
+  </div>
+
+  <div class="definicion act">
+    <strong>Propósito de la actividad:</strong> Aplicar los conceptos de los 5 módulos del Estudio Económico al proyecto que cada grupo viene desarrollando durante el semestre. Al finalizar, cada equipo tendrá construido su Estudio Económico completo, listo para los cálculos de VPN y TIR de la Semana 9.
+  </div>
+
+  <div class="alerta tip">
+    <div class="alerta-icon">👥</div>
+    <div><strong>Modalidad:</strong> Trabajo en grupos de 2–3 personas · Duración estimada: 90–110 minutos en clase + avance en casa · Entregar en formato Excel (plantilla Moodle) con hoja de cálculo por módulo.</div>
+  </div>
+
+  <!-- Actividad 1 -->
+  <div class="sec-title act">🔹 Paso 1 — Módulo de Inversión Inicial (25 min)</div>
+  <div class="actividad-box">
+    <div class="act-header">📋 Construyan la tabla de inversión inicial de su proyecto</div>
+    <ol class="actividad-steps">
+      <li>Identifiquen y listen todos los <strong>activos fijos tangibles</strong> necesarios para arrancar su proyecto (mínimo 4 activos). Para cada uno, registren cantidad, costo unitario, vida útil y calculen la depreciación anual con la fórmula: <span class="dato-campo">D = (Costo − VR) ÷ Vida útil</span></li>
+      <li>Listan al menos 3 <strong>activos diferidos</strong> propios de su proyecto (legalización, permisos, estudios). Calculen la amortización anual: <span class="dato-campo">Amort. = Total AD ÷ 5</span></li>
+      <li>Estimen el <strong>número de días de desfase</strong> de su negocio (¿cuántos días pasan desde que incurren en gasto hasta que cobran?). Justifiquen el valor elegido en 2–3 líneas.</li>
+      <li>Calculen el Capital de Trabajo usando la fórmula: <span class="dato-campo">CT = (Costo Anual Oper. ÷ 365) × días</span>. Nota: el Costo Anual de Operación lo tomarán de los Pasos 2 y 3.</li>
+      <li>Sumen las tres componentes y calculen la <strong>Inversión Total</strong>. Preséntenla en tabla resumida igual al modelo de la guía.</li>
+    </ol>
+  </div>
+
+  <!-- Actividad 2 -->
+  <div class="sec-title act">🔹 Paso 2 — Costos de Producción (20 min)</div>
+  <div class="actividad-box">
+    <div class="act-header">🏭 Construyan la tabla de costos anuales de producción</div>
+    <ol class="actividad-steps">
+      <li>Identifiquen todos los <strong>materiales / insumos directos</strong> de su proyecto. Obtengan precios reales (cotizaciones, páginas de proveedores, Merqueo, Rappi B2B). Calculen cantidad anual × precio y sumen el Total MD.</li>
+      <li>Definan las personas de producción: cargo, salario mensual y apliquen el factor 1,52 para calcular el <strong>costo real anual</strong>: <span class="dato-campo">Costo = N × Sal × 12 × 1,52</span></li>
+      <li>Identifiquen los <strong>CIF</strong>: arrendamiento del local / planta, servicios públicos de producción, mantenimiento preventivo, seguros. En caso de no arrendar, incluyan la depreciación del inmueble. Sumen el Total CIF.</li>
+      <li>Presenten la tabla <strong>MD + MOD + CIF = Costo Total de Producción</strong> con participación porcentual de cada rubro.</li>
+    </ol>
+  </div>
+
+  <!-- Actividad 3 -->
+  <div class="sec-title act">🔹 Paso 3 — Gastos de Operación y Punto de Equilibrio (25 min)</div>
+  <div class="actividad-box">
+    <div class="act-header">📋⚖️ Gastos de operación y análisis de equilibrio</div>
+    <ol class="actividad-steps">
+      <li>Listan todos los <strong>Gastos de Administración</strong> (gerencia, contador, papelería, software). Recuerden incluir la amortización anual de los diferidos aquí.</li>
+      <li>Listan los <strong>Gastos de Ventas</strong> (publicidad, distribución, plataformas digitales, material POP).</li>
+      <li>Clasifiquen cada concepto de costo/gasto como <strong>Fijo (CF)</strong> o <strong>Variable (CV)</strong> y justifiquen cada decisión en la tabla. Sumen el Total CF anual.</li>
+      <li>Calculen el <strong>Costo Variable Unitario (CVu)</strong>: dividan el Total CV anual entre las unidades/servicios proyectados por año.</li>
+      <li>Apliquen las fórmulas del PE: <span class="dato-campo">PE<sub>und</sub> = CF ÷ (P − CVu)</span> y <span class="dato-campo">PE<sub>$</sub> = PE<sub>und</sub> × P</span>. Interpreten el resultado: ¿qué porcentaje de su capacidad deben cubrir para no perder?</li>
+    </ol>
+  </div>
+
+  <!-- Actividad 4 -->
+  <div class="sec-title act">🔹 Paso 4 — Estado de Resultados Proforma (20 min)</div>
+  <div class="actividad-box">
+    <div class="act-header">📊 Construyan el Estado de Resultados a 5 años</div>
+    <ol class="actividad-steps">
+      <li>Proyecten los <strong>ingresos por ventas</strong> para 5 años con la tasa de crecimiento definida en su Estudio de Mercado. Usen: <span class="dato-campo">I<sub>n</sub> = I<sub>1</sub> × (1 + g)<sup>n − 1</sup></span></li>
+      <li>Proyecten los costos y gastos aplicando una tasa de inflación del 5% anual para los costos variables. Los costos fijos permanecen constantes (con ajuste gradual al final).</li>
+      <li>Construyan la tabla del Estado de Resultados con las líneas: Ingresos → Costo de Ventas → <strong>Utilidad Bruta</strong> → Gastos Admón. → Gastos Ventas → Depreciación → <strong>EBIT</strong> → Impuesto 33% → <strong>Utilidad Neta</strong>.</li>
+      <li>Analicen: ¿en qué año el proyecto empieza a generar utilidad positiva? ¿El margen neto mejora con los años? ¿Por qué?</li>
+    </ol>
+  </div>
+
+  <!-- Preguntas de reflexión -->
+  <div class="sec-title act">💬 Preguntas de Reflexión (para discusión en clase)</div>
+  <table>
+    <thead><tr>
+      <th class="hact" style="width:8%">#</th>
+      <th class="hact">Pregunta de análisis</th>
+      <th class="hact" style="width:30%">Tema relacionado</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="cen">1</td><td>Si el precio de su producto aumenta en un 10%, ¿cómo se desplaza el Punto de Equilibrio? ¿Sube o baja? Explique.</td><td class="cen">Módulo 4 — PE</td></tr>
+      <tr><td class="cen">2</td><td>¿Qué consecuencias tiene para su proyecto tener días de desfase muy altos? ¿Cómo afecta la Inversión Total?</td><td class="cen">Módulo 1 — Capital de Trabajo</td></tr>
+      <tr><td class="cen">3</td><td>Si se descubre que un costo clasificado como variable es en realidad fijo, ¿cómo cambia el PE? ¿Aumenta o disminuye?</td><td class="cen">Módulo 4 — Clasificación CF/CV</td></tr>
+      <tr><td class="cen">4</td><td>¿Por qué la Utilidad Neta del año 1 suele ser menor que la de los años siguientes en un proyecto bien formulado?</td><td class="cen">Módulo 5 — E. Resultados</td></tr>
+      <tr><td class="cen">5</td><td>Un proyecto tiene EBIT positivo en el año 3 pero necesita $300 millones de inversión inicial. ¿Eso garantiza que sea rentable? ¿Qué indicador falta calcular?</td><td class="cen">Módulos 1 y 5 — VPN / TIR</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alerta ok">
+    <div class="alerta-icon">✅</div>
+    <div><strong>Criterios de evaluación:</strong> 1) Coherencia entre módulos (los datos deben fluir correctamente de un módulo al siguiente) · 2) Uso correcto de fórmulas · 3) Justificación de supuestos clave (precio, tasa de crecimiento, días de desfase, clasificación CF/CV) · 4) Presentación organizada en Excel con una hoja por módulo · 5) Análisis de interpretación del Punto de Equilibrio.</div>
+  </div>
+
+  <div style="text-align:center; margin-top:18px; padding:12px; border-top:1px solid var(--linea); font-size:8.5pt; color:#6B7280;">
+    Formulación y Evaluación de Proyectos · Ingeniería de Producción · UNIPAZ 2025-1<br>
+    Guía Semana 8 — Estudio Económico · Basado en Baca Urbina, 8.ª ed. · Nassir Sapag Chain, 6.ª ed.
+  </div>
+
+</div>
+</div>
+
+</body>
+</html>
