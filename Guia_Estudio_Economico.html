@@ -522,7 +522,7 @@ th.hact { background: #312e81; }
 ══════════════════════════════════════════ -->
 <div class="page">
 <div class="cover">
-  <div class="cover-badge">Ingeniería de Producción · UNIPAZ · 2025-1</div>
+  <div class="cover-badge">Ingeniería de Producción · UNIPAZ · 2026-1</div>
   <div class="cover-week">📅 Semana 8 — Guía de Estudio</div>
   <div class="cover-icon">💰</div>
   <h1>Estudio <span>Económico</span><br>del Proyecto</h1>
@@ -559,7 +559,7 @@ th.hact { background: #312e81; }
   </div>
 
   <p class="cover-ref">Referencias: Baca Urbina, G. — <em>Evaluación de Proyectos</em>, 8.ª ed., McGraw-Hill, 2016 · Nassir Sapag Chain — <em>Preparación y Evaluación de Proyectos</em>, 6.ª ed., McGraw-Hill.</p>
-  <div class="cover-footer">Formulación y Evaluación de Proyectos · UNIPAZ · Periodo 2025-1</div>
+  <div class="cover-footer">Formulación y Evaluación de Proyectos · UNIPAZ · Periodo 2026-1</div>
 </div>
 </div>
 
@@ -569,7 +569,7 @@ th.hact { background: #312e81; }
 ══════════════════════════════════════════ -->
 <div class="page">
 <div class="page-header">
-  <span>Estudio Económico del Proyecto — UNIPAZ 2025-1</span>
+  <span>Estudio Económico del Proyecto — UNIPAZ 2026-1</span>
   <span>Módulo 1: Inversión Inicial</span>
 </div>
 <div class="content">
@@ -711,43 +711,106 @@ th.hact { background: #312e81; }
     </div>
   </div>
 
-  <div class="sec-title">B · Activos Diferidos (Intangibles / Preoperativos)</div>
-  <p style="margin-bottom:8px;font-size:9.5pt;">Son los gastos realizados <em>antes</em> de iniciar operaciones que <strong>no tienen sustancia física</strong> pero son legalmente necesarios. Se <strong>amortizan</strong> (no se deprecian) en un plazo de 5 años, y esa amortización anual es un gasto deducible de impuestos.</p>
+  <div class="sec-title">B · Activos Diferidos (Intangibles / Preoperativos) y su Amortización</div>
+  <p style="margin-bottom:8px;font-size:9.5pt;">Son todos los desembolsos realizados <em>antes de que el proyecto entre en operación</em> que <strong>no tienen sustancia física</strong> — no se pueden tocar, pesar ni medir — pero son condición legal o técnica para que el negocio funcione. Al no ser activos físicos, <strong>no se deprecian</strong>; en cambio se <strong>amortizan</strong>.</p>
 
   <div class="cards">
     <div class="card"><div class="card-title">📑 Legalización</div><p>Constitución, notaría, registro mercantil, escrituración, matrícula DIAN.</p></div>
-    <div class="card"><div class="card-title">🔬 Estudios técnicos</div><p>Estudio de mercado, ingeniería, suelos, diseño arquitectónico.</p></div>
+    <div class="card"><div class="card-title">🔬 Estudios técnicos</div><p>Estudio de mercado, ingeniería del proyecto, suelos, diseño arquitectónico.</p></div>
     <div class="card"><div class="card-title">🏗️ Adecuaciones</div><p>Instalaciones eléctricas, hidráulicas, pintura inicial, señalización.</p></div>
     <div class="card"><div class="card-title">📋 Permisos</div><p>Licencias ambientales, sanitarias (INVIMA), de funcionamiento, bomberos.</p></div>
     <div class="card"><div class="card-title">⚡ Capacitación</div><p>Entrenamiento inicial del personal operativo antes de abrir.</p></div>
   </div>
 
+  <!-- Explicación amortización -->
+  <div class="sec-title" style="color:#0369A1;border-color:#0369A1;font-size:8.5pt;">¿Qué es amortizar y por qué se hace en 5 años?</div>
+
+  <table style="font-size:8.5pt;margin-bottom:10px;">
+    <thead><tr>
+      <th class="hej" style="width:22%">Concepto</th>
+      <th class="hej">Depreciación <small style="font-weight:400">(Activos Fijos)</small></th>
+      <th class="hej">Amortización <small style="font-weight:400">(Activos Diferidos)</small></th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">¿Qué reconoce?</td><td>El desgaste físico de un bien tangible</td><td>La recuperación contable de un gasto intangible</td></tr>
+      <tr><td class="lbl">Se aplica a...</td><td>Maquinaria, vehículos, edificios, equipos</td><td>Estudios, permisos, adecuaciones, legalización</td></tr>
+      <tr><td class="lbl">¿Por qué se "prolonga"?</td><td>El bien físicamente dura varios años</td><td>El gasto ya se pagó, pero el beneficio dura todo el proyecto</td></tr>
+      <tr><td class="lbl">Plazo legal (Colombia ET)</td><td>Según tipo de activo (5, 10 o 20 años)</td><td><strong>5 años fijos</strong> (Art. 142 Estatuto Tributario)</td></tr>
+      <tr><td class="lbl">Efecto en el Estado de Resultados</td><td>Reduce la Utilidad Bruta como CIF</td><td>Reduce la Utilidad Operacional como gasto de administración</td></tr>
+      <tr><td class="lbl">¿Implica salida de efectivo?</td><td colspan="2" class="cen">❌ No — es un gasto <em>contable</em>, no una transferencia real de dinero. El dinero ya salió cuando se pagó.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alerta info" style="margin-bottom:10px;">
+    <div class="alerta-icon">🧠</div>
+    <div><strong>La lógica detrás:</strong> Imagina que pagaste $10.000.000 por el estudio de viabilidad del proyecto. Ese gasto te servirá durante <em>todo el horizonte del proyecto</em> (5 años). Si lo registras completo en el año 1, el primer año muestra una pérdida enorme y los siguientes años se ven artificialmente rentables. <strong>Amortizarlo en 5 cuotas iguales distribuye ese costo de forma justa en cada año</strong>, dando una imagen fiel de la rentabilidad real del proyecto en cada período.</div>
+  </div>
+
+  <div class="alerta ok" style="margin-bottom:12px;">
+    <div class="alerta-icon">💡</div>
+    <div><strong>Beneficio fiscal:</strong> La amortización anual ($2.500.000 en el ejemplo) es un <strong>gasto deducible de impuestos</strong>, lo que significa que reduce la base sobre la que se calcula el impuesto de renta cada año. Es una ventaja financiera que el Estado otorga para incentivar la inversión en nuevos proyectos.</div>
+  </div>
+
   <!-- Fórmula amortización -->
   <div class="formula-card">
-    <div class="f-label">📐 Fórmula — Amortización Anual de Activos Diferidos</div>
+    <div class="f-label">📐 Fórmula — Amortización Anual de Activos Diferidos (Art. 142 ET)</div>
     <div class="katex-block">
       $$\text{Amort.}_{\text{anual}} = \frac{\text{Total Activos Diferidos}}{5 \text{ años}}$$
     </div>
-    <div class="f-note">La amortización se distribuye en exactamente 5 años, independientemente de cuándo se realicen los desembolsos preoperativos.</div>
-    <div class="f-example">☕ Ejemplo: AD = $12.500.000 → Amort. anual = 12.500.000 / 5 = <strong>$2.500.000/año</strong></div>
+    <div class="f-note">La amortización es idéntica en cada uno de los 5 años (método de línea recta). Aparece en el Estado de Resultados como un gasto, pero <strong>no sale dinero</strong> de caja en esos años — el efectivo ya salió al principio. Esta diferencia entre gasto contable y flujo real es clave en la evaluación financiera.</div>
+    <div class="f-example">☕ Ejemplo: AD = $12.500.000 → Amort. anual = 12.500.000 / 5 = <strong>$2.500.000/año</strong> durante 5 años → Total amortizado = $12.500.000 ✓</div>
   </div>
 
   <div class="sec-title">C · Capital de Trabajo — Método del Período de Desfase</div>
-  <p style="margin-bottom:8px;font-size:9.5pt;">El capital de trabajo es el <strong>dinero líquido</strong> que necesita el proyecto para cubrir sus gastos operativos en los primeros días o semanas, <em>mientras empieza a recibir ingresos de sus primeras ventas</em>. No es maquinaria ni estudios: es efectivo circulante.</p>
 
-  <div class="alerta warn">
-    <div class="alerta-icon">💡</div>
-    <div><strong>¿Qué es el "desfase"?</strong> Es el tiempo (en días) que transcurre desde que el proyecto incurre en un gasto hasta que recibe el pago de sus clientes. Un café de barrio puede cobrar de inmediato (15 días de desfase); una constructora puede tardar 90 días o más para cobrar su primera factura.</div>
+  <div class="definicion" style="margin-bottom:10px;">
+    El <strong>capital de trabajo</strong> es el <em>colchón de efectivo</em> que el proyecto necesita tener disponible desde antes de abrir para poder pagar sus primeros gastos operativos (insumos, sueldos, servicios) <strong>mientras espera recibir el dinero de sus primeras ventas</strong>. Piénselo así: la empresa ya está produciendo y vendiendo, pero todavía no le han pagado. ¿Con qué dinero sigue operando? Con el capital de trabajo.
+  </div>
+
+  <div class="sec-title" style="color:#B45309;border-color:#B45309;font-size:8.5pt;">¿Qué es exactamente el "período de desfase"?</div>
+  <p style="margin-bottom:8px;font-size:9.5pt;">El <strong>período de desfase</strong> es la brecha temporal (medida en días) entre el momento en que el proyecto paga sus costos de operación y el momento en que <em>recibe</em> el pago de sus clientes. Durante esa brecha, el proyecto necesita recursos propios para financiarse.</p>
+
+  <div class="alerta warn" style="margin-bottom:8px;">
+    <div class="alerta-icon">🔍</div>
+    <div>
+      <strong>Desglosando el desfase día a día:</strong><br>
+      <strong>Día 0:</strong> Se compran materias primas (sale dinero) → <strong>Día 15:</strong> Se pagan nóminas y servicios → <strong>Día 20:</strong> Se termina el producto o servicio → <strong>Día 30:</strong> Se factura al cliente → <strong>Día 45:</strong> El cliente paga (entra dinero).<br>
+      En este caso el desfase es <strong>45 días</strong>: ese es el tiempo que el proyecto debe autofinanciarse sin recibir ingresos.
+    </div>
+  </div>
+
+  <table style="font-size:8.5pt;margin-bottom:10px;">
+    <thead><tr>
+      <th class="h5" style="width:30%">Tipo de negocio</th>
+      <th class="h5" style="width:20%">Desfase típico</th>
+      <th class="h5">Razón</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="lbl">☕ Café / restaurante / tienda al detal</td><td class="cen">15 – 30 días</td><td>Cobro inmediato al cliente en efectivo o con datáfono</td></tr>
+      <tr><td class="lbl">🏭 Manufactura / producción</td><td class="cen">30 – 60 días</td><td>Produce, entrega y espera factura a 30 días plazo</td></tr>
+      <tr><td class="lbl">📦 Distribución / logística</td><td class="cen">30 – 45 días</td><td>Entrega mercancía, cobra a 30-45 días por política comercial</td></tr>
+      <tr><td class="lbl">🏗️ Construcción / proyectos</td><td class="cen">60 – 120 días</td><td>Obra larga, cobro por avance de obra con retrasos frecuentes</td></tr>
+      <tr><td class="lbl">🏥 Salud / servicios especializados</td><td class="cen">30 – 60 días</td><td>Facturación a EPS o empresas con trámites administrativos</td></tr>
+      <tr><td class="lbl">🛒 Comercio electrónico</td><td class="cen">1 – 15 días</td><td>Plataforma acredita al vendedor en pocos días</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alerta tip" style="margin-bottom:10px;">
+    <div class="alerta-icon">⚠️</div>
+    <div><strong>Error común:</strong> Los estudiantes confunden el capital de trabajo con los gastos del primer mes. <em>No es lo mismo.</em> El capital de trabajo se calcula sobre el costo diario promedio multiplicado por los días de desfase. Si el negocio opera 365 días al año, el costo diario = Costo anual ÷ 365. Además, el capital de trabajo <strong>no se pierde</strong>: al final del proyecto se recupera (entra como ingreso en el último año del flujo de caja).</div>
   </div>
 
   <!-- Fórmula capital de trabajo -->
   <div class="formula-card">
-    <div class="f-label">📐 Fórmula — Capital de Trabajo (Método del Desfase)</div>
+    <div class="f-label">📐 Fórmula — Capital de Trabajo (Método del Período de Desfase)</div>
     <div class="katex-block">
       $$CT = \frac{\text{Costo Anual de Operación}}{365} \times \text{Días de Desfase}$$
     </div>
-    <div class="f-note">El Costo Anual de Operación incluye: Total Costos de Producción + Total Gastos de Operación. Los días de desfase se estiman según el ciclo comercial del negocio.</div>
-    <div class="f-example">☕ Ejemplo: Costo anual = $214.200.000 · Desfase = 30 días → CT = (214.200.000 / 365) × 30 = <strong>$17.606.849</strong></div>
+    <div class="f-note">
+      <strong>Costo Anual de Operación</strong> = Costos de Producción + Gastos de Operación (todo lo que sale de caja anualmente para operar, <em>excepto depreciación y amortización</em> que no son salidas de efectivo reales).<br>
+      <strong>Días de desfase</strong> = tiempo estimado entre que el proyecto paga y cobra. Se justifica con el ciclo comercial del sector.
+    </div>
+    <div class="f-example">☕ Ejemplo: Costo anual = $214.200.000 · Desfase = 30 días → CT = (214.200.000 / 365) × 30 = <strong>$17.606.849</strong> → Este es el dinero que debe estar disponible en caja antes de facturar la primera venta.</div>
   </div>
 
   <div class="sec-title">D · Inversión Total del Proyecto</div>
@@ -783,7 +846,7 @@ th.hact { background: #312e81; }
 ══════════════════════════════════════════ -->
 <div class="page">
 <div class="page-header v">
-  <span>Estudio Económico del Proyecto — UNIPAZ 2025-1</span>
+  <span>Estudio Económico del Proyecto — UNIPAZ 2026-1</span>
   <span>Módulo 2: Costos de Producción</span>
 </div>
 <div class="content">
@@ -937,9 +1000,8 @@ th.hact { background: #312e81; }
 ══════════════════════════════════════════ -->
 <div class="page">
 <div class="page-header l">
-  <span>Estudio Económico del Proyecto — UNIPAZ 2025-1</span>
+  <span>Estudio Económico del Proyecto — UNIPAZ 2026-1</span>
   <span>Módulo 3: Gastos de Operación</span>
-</div>
 <div class="content">
 
   <div class="mod-header bg3">
@@ -1049,7 +1111,7 @@ th.hact { background: #312e81; }
 ══════════════════════════════════════════ -->
 <div class="page">
 <div class="page-header r">
-  <span>Estudio Económico del Proyecto — UNIPAZ 2025-1</span>
+  <span>Estudio Económico del Proyecto — UNIPAZ 2026-1</span>
   <span>Módulo 4: Punto de Equilibrio</span>
 </div>
 <div class="content">
@@ -1196,7 +1258,7 @@ th.hact { background: #312e81; }
 ══════════════════════════════════════════ -->
 <div class="page">
 <div class="page-header a">
-  <span>Estudio Económico del Proyecto — UNIPAZ 2025-1</span>
+  <span>Estudio Económico del Proyecto — UNIPAZ 2026-1</span>
   <span>Módulo 5: Estado de Resultados Proforma</span>
 </div>
 <div class="content">
@@ -1300,7 +1362,7 @@ th.hact { background: #312e81; }
 ══════════════════════════════════════════ -->
 <div class="page">
 <div class="page-header ej">
-  <span>Estudio Económico del Proyecto — UNIPAZ 2025-1</span>
+  <span>Estudio Económico del Proyecto — UNIPAZ 2026-1</span>
   <span>☕ Ejemplo Integrado: Café Artesanal Barichara</span>
 </div>
 <div class="content">
@@ -1378,7 +1440,7 @@ th.hact { background: #312e81; }
 ══════════════════════════════════════════ -->
 <div class="page">
 <div class="page-header act">
-  <span>Estudio Económico del Proyecto — UNIPAZ 2025-1</span>
+  <span>Estudio Económico del Proyecto — UNIPAZ 2026-1</span>
   <span>✏️ Actividad Formativa — Semana 8</span>
 </div>
 <div class="content">
