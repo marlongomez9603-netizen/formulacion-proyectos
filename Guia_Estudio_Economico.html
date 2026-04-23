@@ -27,7 +27,7 @@
   --verde2:  #22C55E;
   --ambar:   #B45309;
   --rojo:    #991B1B;
-  --lila:    #6D28D9;
+  --lila:    #115E59;
   --gris:    #374151;
   --claro:   #F1F5F9;
   --linea:   #E2E8F0;
@@ -190,7 +190,7 @@ body {
 .page-header.r  { background: var(--rojo); }
 .page-header.a  { background: var(--ambar); }
 .page-header.ej { background: #0F4C75; }
-.page-header.act { background: #312e81; }
+.page-header.act { background: #134E4A; }
 
 /* ══════════════════════════
    CONTENIDO INTERIOR
@@ -222,11 +222,11 @@ body {
 }
 .bg1 { background: linear-gradient(135deg, #1A3A5A, #2563EB); }
 .bg2 { background: linear-gradient(135deg, #14532D, #15803D); }
-.bg3 { background: linear-gradient(135deg, #4C1D95, #6D28D9); }
+.bg3 { background: linear-gradient(135deg, #134E4A, #0F766E); }
 .bg4 { background: linear-gradient(135deg, #7F1D1D, #991B1B); }
 .bg5 { background: linear-gradient(135deg, #78350F, #B45309); }
 .bg-ej  { background: linear-gradient(135deg, #0F4C75, #1a6a9a); }
-.bg-act { background: linear-gradient(135deg, #312e81, #4338ca); }
+.bg-act { background: linear-gradient(135deg, #134E4A, #0D9488); }
 
 /* ══════════════════════════
    DEFINICIÓN / CAJA CONCEPTO
@@ -241,11 +241,11 @@ body {
   line-height: 1.7;
 }
 .definicion.verde { background: #F0FDF4; border-color: var(--verde); }
-.definicion.lila  { background: #F5F3FF; border-color: var(--lila); }
+.definicion.lila  { background: #F0FDFA; border-color: var(--lila); }
 .definicion.rojo  { background: #FEF2F2; border-color: var(--rojo); }
 .definicion.ambar { background: #FFFBEB; border-color: var(--ambar); }
 .definicion.ej    { background: #E0F2FE; border-color: #0369A1; }
-.definicion.act   { background: #EDE9FE; border-color: #4338CA; }
+.definicion.act   { background: #F0FDFA; border-color: #0D9488; }
 
 /* ══════════════════════════
    TÍTULOS DE SECCIÓN
@@ -265,7 +265,7 @@ body {
 .sec-title.r   { color: var(--rojo);  border-color: var(--rojo); }
 .sec-title.a   { color: var(--ambar); border-color: var(--ambar); }
 .sec-title.ej  { color: #0369A1; border-color: #0369A1; }
-.sec-title.act { color: #4338CA; border-color: #4338CA; }
+.sec-title.act { color: #0F766E; border-color: #0F766E; }
 
 /* ══════════════════════════
    TABLAS
@@ -279,7 +279,7 @@ td.cen { text-align: center; }
 tr.sub td { background: #F1F5F9; font-weight: 600; font-style: italic; }
 tr.tot    td { background: #DBEAFE; font-weight: 700; border-top: 2px solid var(--azul); }
 tr.tot.v  td { background: #DCFCE7; border-top-color: var(--verde); }
-tr.tot.p  td { background: #EDE9FE; border-top-color: var(--lila); }
+tr.tot.p  td { background: #CCFBF1; border-top-color: var(--lila); }
 tr.tot.r  td { background: #FEE2E2; border-top-color: var(--rojo); }
 tr.tot.a  td { background: #FEF3C7; border-top-color: var(--ambar); }
 tr.tot.ej td { background: #E0F2FE; border-top-color: #0369A1; }
@@ -292,7 +292,7 @@ th.h3 { background: var(--lila); }
 th.h4 { background: var(--rojo); }
 th.h5 { background: var(--ambar); }
 th.hej { background: #0F4C75; }
-th.hact { background: #312e81; }
+th.hact { background: #134E4A; }
 
 /* ══════════════════════════
    CAJA FÓRMULA (KaTeX)
@@ -376,7 +376,7 @@ th.hact { background: #312e81; }
 .alerta.info { background: #EFF6FF; border: 1px solid #BFDBFE; color: #1E40AF; }
 .alerta.warn { background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; }
 .alerta.ok   { background: #F0FDF4; border: 1px solid #BBF7D0; color: #14532D; }
-.alerta.tip  { background: #F5F3FF; border: 1px solid #DDD6FE; color: #4C1D95; }
+.alerta.tip  { background: #F0FDFA; border: 1px solid #99F6E4; color: #134E4A; }
 .alerta-icon { font-size: 12pt; flex-shrink: 0; }
 
 /* ══════════════════════════
@@ -399,8 +399,8 @@ th.hact { background: #312e81; }
    BLOQUE ACTIVIDAD
 ══════════════════════════ */
 .actividad-box {
-  background: linear-gradient(135deg, #EDE9FE, #DDD6FE);
-  border: 2px solid #8B5CF6;
+  background: linear-gradient(135deg, #F0FDFA, #CCFBF1);
+  border: 2px solid #0D9488;
   border-radius: 10px;
   padding: 14px 16px;
   margin: 12px 0;
@@ -408,7 +408,7 @@ th.hact { background: #312e81; }
 .actividad-box .act-header {
   font-weight: 700;
   font-size: 10pt;
-  color: #4C1D95;
+  color: #134E4A;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -423,14 +423,14 @@ th.hact { background: #312e81; }
   padding: 6px 0 6px 30px;
   position: relative;
   font-size: 9.5pt;
-  border-bottom: 1px dashed #C4B5FD;
+  border-bottom: 1px dashed #99F6E4;
 }
 .actividad-steps li:last-child { border-bottom: none; }
 .actividad-steps li::before {
   content: counter(step);
   position: absolute;
   left: 0;
-  background: #6D28D9;
+  background: #0F766E;
   color: #fff;
   width: 20px; height: 20px;
   border-radius: 50%;
@@ -443,13 +443,13 @@ th.hact { background: #312e81; }
 }
 .dato-campo {
   background: #fff;
-  border: 1px dashed #8B5CF6;
+  border: 1px dashed #0D9488;
   border-radius: 4px;
   padding: 2px 8px;
   display: inline-block;
   font-family: 'Roboto Mono', monospace;
   font-size: 8.5pt;
-  color: #4C1D95;
+  color: #134E4A;
   min-width: 120px;
 }
 
@@ -488,7 +488,7 @@ th.hact { background: #312e81; }
 }
 .fi1 { background: #DBEAFE; color: #1E40AF; }
 .fi2 { background: #DCFCE7; color: #166534; }
-.fi3 { background: #EDE9FE; color: #4C1D95; }
+.fi3 { background: #CCFBF1; color: #134E4A; }
 .fi4 { background: #FEE2E2; color: #991B1B; }
 .fi5 { background: #FEF3C7; color: #92400E; }
 
@@ -1002,6 +1002,7 @@ th.hact { background: #312e81; }
 <div class="page-header l">
   <span>Estudio Económico del Proyecto — UNIPAZ 2026-1</span>
   <span>Módulo 3: Gastos de Operación</span>
+</div>
 <div class="content">
 
   <div class="mod-header bg3">
@@ -1150,6 +1151,71 @@ th.hact { background: #312e81; }
     </tbody>
   </table>
 
+  <!-- ═══ PASO A PASO: ¿De dónde sale cada dato? ═══ -->
+  <div class="sec-title r">Paso a Paso — ¿Cómo se calcula el Punto de Equilibrio?</div>
+
+  <div class="alerta tip">
+    <div class="alerta-icon">🎯</div>
+    <div>Para calcular el PE necesitas <strong>3 datos clave</strong>: el <strong>Precio de Venta (P)</strong>, el <strong>Costo Variable Unitario (CVu)</strong> y los <strong>Costos Fijos Totales (CF)</strong>. A continuación se explica de dónde sale cada uno y cómo obtenerlo de los módulos anteriores.</div>
+  </div>
+
+  <table>
+    <thead><tr>
+      <th class="h4" style="width:14%">Variable</th>
+      <th class="h4" style="width:22%">¿Qué es?</th>
+      <th class="h4" style="width:28%">¿De dónde sale?</th>
+      <th class="h4">¿Cómo se calcula? — Ejemplo Café Barichara</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="lbl" style="color:#991B1B;font-size:10pt">P<br><small>(Precio unitario)</small></td>
+        <td>Es el precio al que vendes <strong>una unidad</strong> de tu producto o servicio al consumidor final.</td>
+        <td>Se obtiene del <strong>Estudio de Mercado</strong>: análisis de precios de la competencia, disposición a pagar del consumidor y estrategia de pricing.</td>
+        <td class="num" style="text-align:left">Precio promedio por bebida artesanal:<br><strong>P = $12.000/bebida</strong></td>
+      </tr>
+      <tr>
+        <td class="lbl" style="color:#15803D;font-size:10pt">CVu<br><small>(Costo Variable unitario)</small></td>
+        <td>Es el costo que se genera <strong>por cada unidad producida</strong>. Si no produces, este costo es <strong>$0</strong>.</td>
+        <td>Se calcula dividiendo el <strong>total de costos variables anuales</strong> (Módulo 2: MD + MOD + CIF variables) entre la <strong>producción anual</strong> (Q).</td>
+        <td style="font-size:8.5pt">
+          MD = $85.380.000 ÷ 30.000 = <strong>$2.846</strong>/und<br>
+          MOD = $77.893.920 ÷ 30.000 = <strong>$2.596</strong>/und<br>
+          CIF var. = $8.520.000 ÷ 30.000 = <strong>$284</strong>/und<br>
+          <strong>CVu = $2.846 + $2.596 + $284 = $5.726/und</strong>
+        </td>
+      </tr>
+      <tr>
+        <td class="lbl" style="color:#991B1B;font-size:10pt">CF<br><small>(Costos Fijos Totales)</small></td>
+        <td>Son los costos que <strong>no cambian</strong> sin importar cuánto produzcas. Se pagan aunque la producción sea cero.</td>
+        <td>Se suman de varios módulos:<br>
+          • <strong>Mód. 3A</strong>: G. Administración (parcial)<br>
+          • <strong>Mód. 3B</strong>: G. Ventas fijos<br>
+          • <strong>Mód. 1</strong>: Depreciación + Amortización<br>
+          • <strong>Mód. 2</strong>: CIF fijos (arrendamiento)
+        </td>
+        <td style="font-size:8.5pt">
+          Arriendo = $42.000.000<br>
+          Salario Admón. = $54.720.000<br>
+          Depreciación = $2.800.000<br>
+          Amortización = $2.500.000<br>
+          G. Ventas fijos = $7.200.000<br>
+          Otros fijos = $14.900.000<br>
+          <strong>CF = $124.120.000/año</strong>
+        </td>
+      </tr>
+      <tr>
+        <td class="lbl" style="color:#B45309;font-size:10pt">MC<br><small>(Margen de Contribución)</small></td>
+        <td>Es <strong>lo que queda de cada venta</strong> después de cubrir el costo variable. Esa "contribución" se usa para pagar los costos fijos.</td>
+        <td>Se calcula con la fórmula:<br><strong>MC = P − CVu</strong><br>Mientras mayor sea el MC, menos unidades necesitas vender para cubrir los CF.</td>
+        <td class="num" style="text-align:left">
+          MC = $12.000 − $5.726<br>
+          <strong>MC = $6.274/bebida</strong><br>
+          <em style="font-size:8pt;color:#64748B">→ De cada bebida vendida, $6.274 van a cubrir costos fijos y generar ganancia</em>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
   <div class="sec-title r">Fórmulas del Punto de Equilibrio</div>
 
   <!-- Fórmulas PE -->
@@ -1165,17 +1231,26 @@ th.hact { background: #312e81; }
       $$PE_{\$} = PE_{\text{unidades}} \times P$$
     </div>
     <div class="f-note">
-      <strong>P</strong> = Precio de venta unitario &nbsp;|&nbsp;
-      <strong>CVu</strong> = Costo Variable unitario &nbsp;|&nbsp;
-      <strong>CF</strong> = Total Costos Fijos Anuales &nbsp;|&nbsp;
-      <strong>MC</strong> = Margen de Contribución
+      <strong>P</strong> = Precio de venta unitario (del Estudio de Mercado) &nbsp;|&nbsp;
+      <strong>CVu</strong> = Costo Variable unitario (Mód. 2: MD+MOD+CIF var. ÷ Q) &nbsp;|&nbsp;
+      <strong>CF</strong> = Total Costos Fijos Anuales (Mód. 1+2+3) &nbsp;|&nbsp;
+      <strong>MC</strong> = Margen de Contribución (P − CVu)
     </div>
     <div class="f-example">
       ☕ Café Barichara: P = $12.000 · CVu = $5.726 · CF = $124.120.000<br>
-      MC = $12.000 − $5.726 = $6.274<br>
-      PE<sub>und</sub> = $124.120.000 / $6.274 = <strong>19.782 bebidas/año ≈ 1.649 bebidas/mes</strong><br>
-      PE<sub>$</sub> = 19.782 × $12.000 = <strong>$237.384.000/año</strong>
+      <strong>Paso 1:</strong> MC = $12.000 − $5.726 = <strong>$6.274</strong> (cada bebida contribuye $6.274 a cubrir costos fijos)<br>
+      <strong>Paso 2:</strong> PE<sub>und</sub> = $124.120.000 ÷ $6.274 = <strong>19.782 bebidas/año ≈ 1.649 bebidas/mes ≈ 55 bebidas/día</strong><br>
+      <strong>Paso 3:</strong> PE<sub>$</sub> = 19.782 × $12.000 = <strong>$237.384.000/año</strong> (ventas mínimas anuales para no perder)
     </div>
+  </div>
+
+  <!-- Interpretación del resultado -->
+  <div class="alerta ok">
+    <div class="alerta-icon">✅</div>
+    <div><strong>¿Cómo interpretar el resultado?</strong> Compara el PE con tu capacidad de producción:<br>
+    • Si PE (19.782 und) <strong>&lt;</strong> Producción proyectada (30.000 und) → <strong>El proyecto es viable.</strong> Tienes un margen de seguridad del 34%.<br>
+    • Si PE <strong>&gt;</strong> Producción proyectada → <strong>⚠️ El proyecto tiene riesgo alto.</strong> No alcanzas a cubrir costos fijos.<br>
+    • <strong>Margen de Seguridad</strong> = (Producción − PE) ÷ Producción × 100 = (30.000 − 19.782) ÷ 30.000 = <strong>34,1%</strong></div>
   </div>
 
   <div class="sec-title r">Identificación CF y CV del Café Barichara</div>
@@ -1195,7 +1270,7 @@ th.hact { background: #312e81; }
       <tr class="tot r"><td colspan="2"><strong>TOTAL COSTOS FIJOS (CF)</strong></td><td class="num"><strong>124.120.000</strong></td></tr>
       <tr><td class="lbl">Materiales directos por bebida</td><td class="cen" style="color:#15803D;font-weight:600">📈 Variable</td><td class="num">85.380.000 ÷ 30.000 = $2.846/und</td></tr>
       <tr><td class="lbl">MOD por bebida</td><td class="cen" style="color:#15803D;font-weight:600">📈 Variable</td><td class="num">77.893.920 ÷ 30.000 = $2.596/und</td></tr>
-      <tr><td class="lbl">Servicios variables por bebida</td><td class="cen" style="color:#15803D;font-weight:600">📈 Variable</td><td class="num">$284/und</td></tr>
+      <tr><td class="lbl">Servicios variables por bebida</td><td class="cen" style="color:#15803D;font-weight:600">📈 Variable</td><td class="num">8.520.000 ÷ 30.000 = $284/und</td></tr>
       <tr class="tot v"><td colspan="2"><strong>CVu TOTAL por bebida</strong></td><td class="num"><strong>$5.726/bebida</strong></td></tr>
     </tbody>
   </table>
@@ -1217,8 +1292,8 @@ th.hact { background: #312e81; }
       <rect x="320" y="20" width="250" height="170" fill="#DCFCE7" opacity="0.5"/>
 
       <!-- Línea Costos Fijos (horizontal) -->
-      <line x1="60" y1="135" x2="570" y2="135" stroke="#6D28D9" stroke-width="1.8" stroke-dasharray="6,4"/>
-      <text x="565" y="131" font-size="8" fill="#6D28D9" text-anchor="end">CF = $124M</text>
+      <line x1="60" y1="135" x2="570" y2="135" stroke="#115E59" stroke-width="1.8" stroke-dasharray="6,4"/>
+      <text x="565" y="131" font-size="8" fill="#115E59" text-anchor="end">CF = $124M</text>
 
       <!-- Línea Costos Totales (sube desde CF) -->
       <line x1="60" y1="135" x2="570" y2="60" stroke="#991B1B" stroke-width="2.2"/>
@@ -1239,7 +1314,7 @@ th.hact { background: #312e81; }
       <text x="450" y="60" font-size="10" fill="#15803D" text-anchor="middle" font-weight="600">📈 ZONA GANANCIA</text>
 
       <!-- Flecha etiqueta CF -->
-      <text x="65" y="130" font-size="8" fill="#6D28D9">CF</text>
+      <text x="65" y="130" font-size="8" fill="#115E59">CF</text>
       <text x="65" y="185" font-size="8" fill="#374151">0</text>
     </svg>
   </div>
@@ -1276,6 +1351,77 @@ th.hact { background: #312e81; }
     El <strong>Estado de Resultados Proforma</strong> (o proyectado) es el informe financiero que muestra cuánto ganará o perderá el proyecto en cada año del horizonte de evaluación (generalmente <strong>5 años</strong>). <em>Integra todos los módulos anteriores</em> en una sola tabla para obtener la <strong>Utilidad Neta</strong>, que es la base para calcular el Flujo de Caja y posteriormente el VPN y la TIR.
   </div>
 
+  <!-- ═══ LOS TRES NIVELES DE UTILIDAD ═══ -->
+  <div class="sec-title a">Los 3 Niveles de Utilidad — ¿Qué mide cada uno?</div>
+
+  <div class="alerta tip">
+    <div class="alerta-icon">💡</div>
+    <div><strong>Analogía:</strong> Imagina que vendes limonada. La <strong>Utilidad Bruta</strong> es lo que ganas después de pagar los limones, el azúcar y el trabajo de preparar las limonadas. La <strong>Utilidad Operacional</strong> es lo que queda después de pagar también el arriendo del local, la publicidad y la depreciación de la licuadora. La <strong>Utilidad Neta</strong> es lo que te queda <em>de verdad</em> después de pagarle impuestos al Estado.</div>
+  </div>
+
+  <table>
+    <thead><tr>
+      <th class="h5" style="width:18%">Nivel de Utilidad</th>
+      <th class="h5" style="width:30%">¿Qué mide?</th>
+      <th class="h5" style="width:30%">¿Cómo se calcula?</th>
+      <th class="h5">Ejemplo Café Barichara (Año 1)</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="lbl" style="color:#2563EB;font-size:9.5pt">📦 UTILIDAD BRUTA</td>
+        <td>Mide la <strong>eficiencia productiva</strong>: ¿cuánto ganas solo por fabricar y vender el producto? Solo descuenta lo que cuesta <em>producir</em> (materiales, mano de obra directa, costos indirectos de fabricación).</td>
+        <td style="font-size:8.5pt">
+          <strong>= Ingresos por Ventas − Costo de Ventas</strong><br><br>
+          <em>Ingresos</em> = Q × P (Estudio de Mercado)<br>
+          <em>Costo de Ventas</em> = MD + MOD + CIF (Módulo 2)
+        </td>
+        <td style="font-size:8.5pt">
+          $360.000.000 − $217.433.920<br>
+          <strong>= $142.566.080</strong><br>
+          <em style="color:#64748B">→ Margen bruto = 39,6% de las ventas</em>
+        </td>
+      </tr>
+      <tr>
+        <td class="lbl" style="color:#B45309;font-size:9.5pt">🏢 UTILIDAD OPERACIONAL<br>(EBIT)</td>
+        <td>Mide la <strong>rentabilidad del negocio</strong> como operación: ¿cuánto gana el proyecto después de pagar <em>todo</em> lo necesario para funcionar? Incluye gastos administrativos, de ventas, depreciación y amortización. <strong>No</strong> incluye impuestos ni intereses financieros.</td>
+        <td style="font-size:8.5pt">
+          <strong>= Ut. Bruta − G. Admón. − G. Ventas − Depreciación</strong><br><br>
+          <em>G. Admón.</em> = Módulo 3A<br>
+          <em>G. Ventas</em> = Módulo 3B<br>
+          <em>Depreciación</em> = Módulo 1 (amortización incluida en G. Admón.)
+        </td>
+        <td style="font-size:8.5pt">
+          $142.566.080 − $70.420.000 − $11.400.000 − $11.800.000<br>
+          <strong>= $48.946.080</strong><br>
+          <em style="color:#64748B">→ Margen operacional = 13,6%</em>
+        </td>
+      </tr>
+      <tr>
+        <td class="lbl" style="color:#15803D;font-size:9.5pt">💵 UTILIDAD NETA</td>
+        <td>Es la <strong>ganancia real</strong> que queda después de pagar <strong>impuesto de renta</strong> (33% en Colombia). Es el dato final que alimenta el <strong>Flujo de Caja</strong> para calcular VPN y TIR.</td>
+        <td style="font-size:8.5pt">
+          <strong>= EBIT × (1 − t)</strong><br>
+          <em>t</em> = tasa de impuesto de renta = 33%<br><br>
+          <em>Si EBIT ≤ 0, no se paga impuesto (Impuesto = $0)</em>
+        </td>
+        <td style="font-size:8.5pt">
+          $48.946.080 × (1 − 0,33)<br>
+          $48.946.080 × 0,67<br>
+          <strong>= $32.793.874</strong><br>
+          <em style="color:#64748B">→ Margen neto = 9,1%</em>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alerta warn">
+    <div class="alerta-icon">⚠️</div>
+    <div><strong>¿Por qué importa diferenciar estos 3 niveles?</strong><br>
+    • Una <strong>Ut. Bruta alta</strong> pero <strong>Ut. Operacional baja</strong> significa que el producto es rentable, pero los gastos de administración y ventas son excesivos → <em>hay que reducir gastos fijos</em>.<br>
+    • Una <strong>Ut. Operacional alta</strong> pero <strong>Ut. Neta baja</strong> es normal — refleja la carga tributaria.<br>
+    • Si la <strong>Ut. Bruta es negativa</strong>, el proyecto no es viable en absoluto — el producto cuesta más de lo que se vende.</div>
+  </div>
+
   <!-- Fórmula estructura ER -->
   <div class="formula-card">
     <div class="f-label">📐 Estructura del Estado de Resultados — Fórmulas de cada línea</div>
@@ -1288,7 +1434,7 @@ th.hact { background: #312e81; }
     <div class="katex-block" style="margin-top:6px">
       $$\text{Utilidad Neta} = \text{EBIT} \times (1 - t) \qquad t = 33\%$$
     </div>
-    <div class="f-note">El impuesto de renta (33%) solo aplica cuando el EBIT sea positivo. Si hay pérdida operacional, el impuesto es $0.</div>
+    <div class="f-note">El impuesto de renta (33%) solo aplica cuando el EBIT sea positivo. Si hay pérdida operacional, el impuesto es $0. <strong>Nota:</strong> La Amortización de activos diferidos ($2.500.000/año) ya está incluida dentro de los Gastos de Administración (Mód. 3A), por lo que no aparece como línea separada en la tabla.</div>
   </div>
 
   <div class="sec-title a">Estado de Resultados Proforma — Café Artesanal Barichara (COP $)</div>
