@@ -1091,16 +1091,119 @@ th.hact { background: #134E4A; }
   </table>
 
   <div class="sec-title l">C · Proyección de Ingresos (para el Estado de Resultados)</div>
-  <p style="margin-bottom:8px;font-size:9.5pt;">Los ingresos provienen del Estudio de Mercado. Para el Café Barichara se proyectan 30.000 bebidas/año con precio promedio de $12.000, con crecimiento del 8% anual.</p>
+
+  <div class="definicion lila">
+    Los <strong>ingresos por ventas</strong> son el punto de partida de todo el Estado de Resultados. Representan el <strong>dinero total que entra al proyecto por la venta del producto o servicio</strong>. Se obtienen del <strong>Estudio de Mercado</strong> (demanda, precio, participación de mercado). Sin una proyección realista de ingresos, todo el análisis financiero carece de fundamento.
+  </div>
+
+  <!-- Tabla: ¿De dónde salen los datos? -->
+  <div class="sec-title l">¿Qué datos necesitas para proyectar ingresos?</div>
+  <table>
+    <thead><tr>
+      <th class="h3" style="width:18%">Variable</th>
+      <th class="h3" style="width:30%">¿Qué es?</th>
+      <th class="h3" style="width:26%">¿De dónde se obtiene?</th>
+      <th class="h3">Ejemplo Café Barichara</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="lbl" style="color:#115E59">Q<sub>anual</sub><br><small>(Cantidad)</small></td>
+        <td>Número de unidades que esperas vender en un año. Debe ser <strong>realista</strong> y coherente con tu capacidad instalada.</td>
+        <td>Estudio de Mercado → Demanda proyectada × % participación. También limitado por el <strong>Estudio Técnico</strong> (capacidad de producción).</td>
+        <td class="num" style="text-align:left"><strong>Q = 30.000 bebidas/año</strong><br><small style="color:#64748B">≈ 2.500/mes ≈ 83/día</small></td>
+      </tr>
+      <tr>
+        <td class="lbl" style="color:#115E59">P<sub>unitario</sub><br><small>(Precio)</small></td>
+        <td>Precio de venta al consumidor final por cada unidad, <strong>incluyendo IVA si aplica</strong>.</td>
+        <td>Estudio de Mercado → Análisis de precios de competencia + disposición a pagar + margen deseado.</td>
+        <td class="num" style="text-align:left"><strong>P = $12.000/bebida</strong></td>
+      </tr>
+      <tr>
+        <td class="lbl" style="color:#115E59">g<br><small>(Tasa crecimiento)</small></td>
+        <td>Porcentaje anual al que crecerán las ventas en los años siguientes. Refleja <strong>inflación + crecimiento real</strong> del negocio.</td>
+        <td>Se estima con: inflación esperada (IPC) + crecimiento del sector + estrategia comercial. Usualmente entre <strong>3% y 12%</strong>.</td>
+        <td class="num" style="text-align:left"><strong>g = 8% anual</strong><br><small style="color:#64748B">4% inflación + 4% crecimiento real</small></td>
+      </tr>
+    </tbody>
+  </table>
 
   <!-- Fórmula de ingresos -->
   <div class="formula-card">
-    <div class="f-label">📐 Fórmula — Ingresos por Ventas</div>
+    <div class="f-label">📐 Fórmulas — Ingresos por Ventas y Proyección Anual</div>
     <div class="katex-block">
       $$I_{\text{ventas}} = Q_{\text{anual}} \times P_{\text{unitario}}$$
     </div>
-    <div class="f-note">Para proyecciones anuales se aplica una tasa de crecimiento: \(I_{\text{año n}} = I_{\text{año 1}} \times (1 + g)^{n-1}\) donde <strong>g</strong> es la tasa de crecimiento en ventas.</div>
-    <div class="f-example">☕ Año 1: 30.000 × $12.000 = <strong>$360.000.000</strong> · Año 2: $360.000.000 × 1,08 = <strong>$388.800.000</strong></div>
+    <div class="katex-block" style="margin-top:8px">
+      $$I_{\text{año n}} = I_{\text{año 1}} \times (1 + g)^{n-1}$$
+    </div>
+    <div class="f-note">
+      <strong>Q</strong> = Cantidad anual de unidades vendidas &nbsp;|&nbsp;
+      <strong>P</strong> = Precio de venta unitario &nbsp;|&nbsp;
+      <strong>g</strong> = Tasa de crecimiento anual de ventas &nbsp;|&nbsp;
+      <strong>n</strong> = Número del año (1, 2, 3...)
+    </div>
+    <div class="f-example">
+      ☕ Café Barichara:<br>
+      <strong>Año 1:</strong> 30.000 × $12.000 = <strong>$360.000.000</strong><br>
+      <strong>Año 2:</strong> $360.000.000 × (1 + 0,08)<sup>1</sup> = $360M × 1,08 = <strong>$388.800.000</strong><br>
+      <strong>Año 3:</strong> $360.000.000 × (1,08)<sup>2</sup> = $360M × 1,1664 = <strong>$419.904.000</strong><br>
+      <strong>Año 4:</strong> $360.000.000 × (1,08)<sup>3</sup> = <strong>$453.496.320</strong><br>
+      <strong>Año 5:</strong> $360.000.000 × (1,08)<sup>4</sup> = <strong>$489.776.026</strong>
+    </div>
+  </div>
+
+  <!-- Métodos de proyección -->
+  <div class="sec-title l">Métodos de Proyección de Ingresos</div>
+
+  <div class="alerta tip">
+    <div class="alerta-icon">📊</div>
+    <div><strong>Existen diferentes formas de proyectar los ingresos.</strong> La elección del método depende del tipo de proyecto, la información disponible y el nivel de incertidumbre del mercado. A continuación se presentan los 3 métodos más usados en formulación de proyectos:</div>
+  </div>
+
+  <table>
+    <thead><tr>
+      <th class="h3" style="width:22%">Método</th>
+      <th class="h3" style="width:35%">¿Cómo funciona?</th>
+      <th class="h3" style="width:20%">¿Cuándo usarlo?</th>
+      <th class="h3">Ventaja / Limitación</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="lbl" style="color:#115E59">📈 Crecimiento constante</td>
+        <td>Se aplica una tasa fija <strong>g</strong> cada año: I<sub>n</sub> = I<sub>1</sub> × (1+g)<sup>n−1</sup>. Es el método más usado en proyectos académicos y el que utilizamos en el ejemplo.</td>
+        <td>Proyectos nuevos sin datos históricos. Cuando no hay estacionalidad marcada.</td>
+        <td>✅ Simple y claro<br>⚠️ Asume crecimiento uniforme — no refleja estacionalidad ni crisis</td>
+      </tr>
+      <tr>
+        <td class="lbl" style="color:#115E59">🎯 Por escenarios<br>(Pesimista / Base / Optimista)</td>
+        <td>Se calculan 3 proyecciones con diferentes supuestos:<br>
+          • <strong>Pesimista:</strong> g = 2%, Q = 70% capacidad<br>
+          • <strong>Base:</strong> g = 8%, Q = 85%<br>
+          • <strong>Optimista:</strong> g = 12%, Q = 100%</td>
+        <td>Proyectos con alta incertidumbre. Presentaciones ante inversionistas o bancos.</td>
+        <td>✅ Muestra rango de riesgo<br>⚠️ Requiere justificar cada escenario</td>
+      </tr>
+      <tr>
+        <td class="lbl" style="color:#115E59">🏭 Por capacidad instalada</td>
+        <td>Se proyecta usando el <strong>porcentaje de utilización</strong> de la capacidad:<br>
+          Año 1: 60%, Año 2: 75%, Año 3: 85%, Año 4-5: 95%</td>
+        <td>Proyectos industriales o de manufactura donde la planta arranca con capacidad subutilizada.</td>
+        <td>✅ Más realista para industria<br>⚠️ Requiere definir capacidad máxima técnica</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Proyección de gastos -->
+  <div class="sec-title l">¿Y los gastos también se proyectan?</div>
+
+  <div class="alerta warn">
+    <div class="alerta-icon">⚠️</div>
+    <div><strong>Sí.</strong> Los gastos de operación y los costos de producción también deben proyectarse a 5 años. Generalmente se usa una tasa menor que la de ingresos (porque los costos crecen por <strong>inflación</strong>, no por expansión comercial):<br>
+    • <strong>Costos de producción</strong> (Mód. 2): crecen ~5% anual (inflación de insumos)<br>
+    • <strong>Gastos de Admón.</strong> (Mód. 3A): crecen ~5% (ajuste salarial + IPC)<br>
+    • <strong>Gastos de Ventas</strong> (Mód. 3B): crecen ~5% (tarifas publicitarias)<br>
+    • <strong>Depreciación y Amortización</strong>: <strong>NO crecen</strong> — son constantes todo el horizonte<br><br>
+    💡 <em>La diferencia entre el crecimiento de ingresos (8%) y el crecimiento de costos (5%) es lo que hace que la utilidad mejore cada año.</em></div>
   </div>
 
 </div>
